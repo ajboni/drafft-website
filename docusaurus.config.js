@@ -47,7 +47,8 @@ const config = {
           return postcssOptions;
         }
       };
-    }
+    },
+    require.resolve("docusaurus-lunr-search")
   ],
   presets: [
     [
@@ -94,11 +95,6 @@ const config = {
         },
         items: [
           {
-            position: "left",
-            label: "Download",
-            to: "/download"
-          },
-          {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
@@ -106,9 +102,10 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/facebook/docusaurus",
-            label: "GitHub",
-            position: "right"
+            position: "right",
+            label: "Download",
+            to: "/download",
+            className: "btn-primary"
           }
         ]
       },

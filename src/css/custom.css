@@ -73,3 +73,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar__search-input {
+  border-radius: 0.25rem;
+}
+
+.btn-primary {
+  @apply rounded bg-primary-color px-4  text-base font-semibold text-white shadow-sm hover:bg-primary-color-darkest hover:text-white hover:no-underline;
+}

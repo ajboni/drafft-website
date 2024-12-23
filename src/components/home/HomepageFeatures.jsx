@@ -14,36 +14,6 @@ import {
   WrenchScrewdriverIcon
 } from "@heroicons/react/20/solid";
 
-const FeatureList = [
-  {
-    title: "Easy to Use",
-    Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
-    description: (
-      <>Docusaurus was designed from the ground up to be easily installed and used to get your website up and running quickly.</>
-    )
-  },
-  {
-    title: "Focus on What Matters",
-    Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into the{" "}
-        <code>docs</code> directory.
-      </>
-    )
-  },
-  {
-    title: "Powered by React",
-    Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same header and
-        footer.
-      </>
-    )
-  }
-];
-
 const features = [
   {
     name: "Non-linear Dialogue Editor",
@@ -111,7 +81,7 @@ const features = [
 
 export default function HomepageFeatures() {
   return (
-    <div className="bg-dark-background-darker-3 ">
+    <div className="bg-dark-background-darker-3 scroll-m-32" id="features">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base/7 font-semibold text-primary-color-lightest">Streamline Game Development</h2>
@@ -146,6 +116,11 @@ export default function HomepageFeatures() {
               </div>
             ))}
           </dl>
+        </div>
+        <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none text-center">
+          <a className="btn-primary py-2" href="/features">
+            Explore All Features
+          </a>
         </div>
       </div>
     </div>

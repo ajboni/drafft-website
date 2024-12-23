@@ -103,13 +103,13 @@ export default function Example() {
               </div>
 
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="#"
-                  className="rounded-md bg-primary-color px-4 py-2 text-base font-semibold text-white shadow-sm hover:bg-primary-color-darkest sm:px-6 sm:py-3 sm:text-lg"
-                >
+                <a href="/download" className="btn-primary py-2">
                   Get Started for Free
                 </a>
-                <a href="#" className="text-sm sm:text-base font-semibold text-white hover:text-primary-color hover:no-underline">
+                <a
+                  href="#features"
+                  className="text-sm sm:text-base font-semibold text-white hover:text-primary-color hover:no-underline"
+                >
                   Learn More <span aria-hidden="true">→</span>
                 </a>
               </div>
