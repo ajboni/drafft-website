@@ -1,0 +1,153 @@
+import {
+  ArrowPathIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+  CheckCircleIcon,
+  CloudArrowUpIcon,
+  CloudIcon,
+  CodeBracketIcon,
+  Cog6ToothIcon,
+  DocumentChartBarIcon,
+  DocumentTextIcon,
+  LockClosedIcon,
+  ServerIcon,
+  UsersIcon,
+  WrenchScrewdriverIcon
+} from "@heroicons/react/20/solid";
+
+const FeatureList = [
+  {
+    title: "Easy to Use",
+    Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
+    description: (
+      <>Docusaurus was designed from the ground up to be easily installed and used to get your website up and running quickly.</>
+    )
+  },
+  {
+    title: "Focus on What Matters",
+    Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
+    description: (
+      <>
+        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into the{" "}
+        <code>docs</code> directory.
+      </>
+    )
+  },
+  {
+    title: "Powered by React",
+    Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
+    description: (
+      <>
+        Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same header and
+        footer.
+      </>
+    )
+  }
+];
+
+const features = [
+  {
+    name: "Non-linear Dialogue Editor",
+    description:
+      "Seamlessly combine branching dialogue trees with linked scripts to craft intricate, non-linear narratives and flow-based logic.",
+    href: "#",
+    icon: ChatBubbleOvalLeftEllipsisIcon
+  },
+
+  {
+    name: "Scripting Editor",
+    description:
+      "Write scripts for immersive dialogue, scenes or even game logic. Automatically generate standard screenplay documents and add voiceover tags tailored for VO actors.",
+    href: "#",
+    icon: CodeBracketIcon
+  },
+  {
+    name: "GDD Editor",
+    description:
+      "Create, organize, and share comprehensive Game Design Documents (GDDs) with your team. Write in plain markdown, embed media, link to other documents, export to PDF.",
+    href: "#",
+    icon: DocumentTextIcon
+  },
+
+  {
+    name: "Private Data, No Cloud",
+    description:
+      "Own your data and keep it secure. Use Drafft locally or with your own CouchDB setup — no cloud dependency, no compromises.",
+    href: "#",
+    icon: LockClosedIcon
+  },
+
+  {
+    name: "Engine Agnostic",
+    description:
+      "Export your data in standard JSON format for use with any game engine. Tailor your data exports to any target language or format.",
+    href: "#",
+    icon: Cog6ToothIcon
+  },
+  {
+    name: "Multi-User Collaboration",
+    description: "Collaborate in real-time with your team. Sync changes instantly using your own CouchDB server instance.",
+    href: "#",
+    icon: UsersIcon
+  },
+  {
+    name: "Central Repository",
+    description: "Store and manage all your game development assets in one place. Sync locally or remotely with ease.",
+    href: "#",
+    icon: ServerIcon
+  },
+  {
+    name: "API Access",
+    description: "Leverage Drafft's API to automate tasks, integrate with other tools, and streamline workflows.",
+    href: "#",
+    icon: CloudIcon
+  },
+  {
+    name: "Evaluation Mode",
+    description: "Use all features indefinitely in evaluation mode — no restrictions, no missing options.",
+    href: "#",
+    icon: CheckCircleIcon
+  }
+];
+
+export default function HomepageFeatures() {
+  return (
+    <div className="bg-dark-background-darker-3 ">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:text-center">
+          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Streamline Game Development</h2>
+          <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-balance">
+            Everything you need to bring your game to{" "}
+            <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
+              life
+            </span>
+          </p>
+          <p className="mt-6 text-lg/8 text-gray-300">
+            Drafft is your all-in-one multiplatform app for game development. From scripting and dialogue design to item databases
+            and GDDs, our tools integrate seamlessly with your workflow. Collaborate in real-time, export in standard JSON, and
+            customize your projects to fit any engine.
+          </p>
+        </div>
+        <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            {features.map((feature) => (
+              <div key={feature.name} className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-white">
+                  <feature.icon aria-hidden="true" className="size-5 flex-none text-primary-color-lightest" />
+                  {feature.name}
+                </dt>
+                <dd className="mt-2 mx-0 flex flex-auto flex-col text-base/7 text-gray-300">
+                  <div className="flex-auto">{feature.description}</div>
+                  <div className="mt-4">
+                    <a href={feature.href} className="text-sm/6 font-semibold text-primary-color-lightest">
+                      Learn more <span aria-hidden="true">→</span>
+                    </a>
+                  </div>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  );
+}

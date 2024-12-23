@@ -1,0 +1,75 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+
+:root {
+  --ifm-color-primary: #ab87a4;
+  --ifm-color-primary-dark: #9e7596;
+  --ifm-color-primary-darker: #986c90;
+  --ifm-color-primary-darkest: #7e5877;
+  --ifm-color-primary-light: #b899b2;
+  --ifm-color-primary-lighter: #bea2b8;
+  --ifm-color-primary-lightest: #d1bdcd;
+  --ifm-background-color: #212426;
+  --ifm-font-size-base: 1rem;
+  --ifm-navbar-background-color: var(--dark-background-darker-3);
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --primary-color-h: 312;
+  --primary-color-s: 17%;
+  --primary-color-l: 42%;
+
+  /*  -----   COMPUTED ------- */
+
+  /* Primary Color */
+
+  --primary-color: hsl(var(--primary-color-h), var(--primary-color-s), var(--primary-color-l));
+  --primary-color-alpha: hsla(var(--primary-color-h), var(--primary-color-s), calc(var(--primary-color-l) + 10%), 0.1);
+
+  /* Lighter */
+  --primary-color-lighter: hsl(var(--primary-color-h), var(--primary-color-s), calc(var(--primary-color-l) + 8%));
+  --primary-color-lightest: hsl(var(--primary-color-h), var(--primary-color-s), calc(var(--primary-color-l) + 13%));
+
+  /* Darker */
+  --primary-color-darker: hsl(var(--primary-color-h), var(--primary-color-s), calc(var(--primary-color-l) - 5%));
+  --primary-color-darkest: hsl(var(--primary-color-h), var(--primary-color-s), calc(var(--primary-color-l) - 10%));
+
+  /* Desaturated */
+  --primary-color-desaturated: hsl(
+    var(--primary-color-h),
+    calc(var(--primary-color-s) - var(--primary-color-s) * 0.7),
+    calc(var(--primary-color-l) - 10%)
+  );
+
+  --primary-color-darker-desaturated: hsl(
+    var(--primary-color-h),
+    calc(var(--primary-color-s) - var(--primary-color-s) * 0.8),
+    calc(var(--primary-color-l) - 14%)
+  );
+
+  --primary-color-darkest-desaturated: hsl(
+    var(--primary-color-h),
+    calc(var(--primary-color-s) - var(--primary-color-s) * 0.8),
+    calc(var(--primary-color-l) - 17%)
+  );
+
+  --foreground: #202020;
+  --dark-background: #25282c;
+  --dark-background-darker: #232628;
+  --dark-background-darker-2: #212426;
+  --dark-background-darker-3: #212225;
+  --dark-background-darkest: #1d1f22;
+  --dark-background-light: #2e3238;
+  --dark-background-lighter: #2d2d2d;
+  --dark-background-lightest: #3b3b3b;
+  --dark-background-lightest-2: #5f5f5f;
+  --dark-foreground: #c9d1d9;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
