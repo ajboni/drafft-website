@@ -9,7 +9,7 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`${siteConfig.title}`}
+      title={`Plan Your Game`}
       description="Centralize your scripts, dialogues, GDDs, and more — plan, design, and collaborate with ease. Own your game data and take control of your development process."
     >
       <Hero />

@@ -94,6 +94,7 @@ const config = {
           src: "assets/logos/icon_1024.png"
         },
         items: [
+          { to: "#pricing", label: "Pricing", position: "left" },
           {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
@@ -103,10 +104,16 @@ const config = {
           { to: "/blog", label: "Blog", position: "left" },
           {
             position: "right",
-            label: "Download",
+            label: "Download Free Version",
             to: "/download",
-            className: "btn-primary"
-          }
+            className: "btn-primary "
+          },
+          // {
+          //   position: "right",
+          //   label: "Purchase",
+          //   to: "/purchase",
+          //   className: "btn-primary py-2.5"
+          // }
         ]
       },
       colorMode: {

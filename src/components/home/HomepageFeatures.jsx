@@ -85,7 +85,7 @@ export default function HomepageFeatures() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base/7 font-semibold text-primary-color-lightest">Streamline Game Development</h2>
-          <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-balance">
+          <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
             Everything you need to bring your game to{" "}
             <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
               life
@@ -118,7 +118,7 @@ export default function HomepageFeatures() {
           </dl>
         </div>
         <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none text-center">
-          <a className="btn-primary py-2" href="/features">
+          <a className="btn-primary " href="/features">
             Explore All Features
           </a>
         </div>

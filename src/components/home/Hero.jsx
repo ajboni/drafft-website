@@ -46,7 +46,7 @@ export default function Example() {
                 <span className="sr-only">Your Company</span>
                 <img alt="" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" className="h-8 w-auto" />
               </a>
-              <button type="button" onClick={() => setMobileMenuOpen(false)} className="-m-2.5 rounded-md p-2.5 text-gray-400">
+              <button type="button" onClick={() => setMobileMenuOpen(false)} className="-m-2.5 rounded-xl p-2.5 text-gray-400">
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </button>
@@ -103,7 +103,7 @@ export default function Example() {
               </div>
 
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a href="/download" className="btn-primary py-2">
+                <a href="/download" className="btn-primary ">
                   Get Started for Free
                 </a>
                 <a
@@ -125,7 +125,7 @@ export default function Example() {
               alt="App screenshot"
               src={AppBusyImg}
               width={2432}
-              className="mt-12 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
+              className="mt-12 rounded-xl bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
             />
           </div>
         </div>
