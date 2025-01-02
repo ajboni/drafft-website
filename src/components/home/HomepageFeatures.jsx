@@ -102,8 +102,10 @@ export default function HomepageFeatures() {
             {features.map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-white">
-                  <feature.icon aria-hidden="true" className="size-5 flex-none text-primary-color-lightest" />
-                  {feature.name}
+                  <a href={feature.href} className="flex items-center gap-x-3">
+                    <feature.icon aria-hidden="true" className="size-5 flex-none text-primary-color-lightest" />
+                    <span className="text-white">{feature.name}</span>
+                  </a>
                 </dt>
                 <dd className="mt-2 mx-0 flex flex-auto flex-col text-base/7 text-gray-300">
                   <div className="flex-auto">{feature.description}</div>
@@ -117,7 +119,7 @@ export default function HomepageFeatures() {
             ))}
           </dl>
         </div>
-        <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none text-center">
+        <div className="mx-auto mt-16 mb-16 max-w-md sm:mt-20 lg:mt-24 lg:mb-24 text-center">
           <a className="btn-primary " href="/features">
             Explore All Features
           </a>

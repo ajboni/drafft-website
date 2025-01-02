@@ -104,10 +104,10 @@ const config = {
           { to: "/blog", label: "Blog", position: "left" },
           {
             position: "right",
-            label: "Download Free Version",
+            label: "Get Started for Free",
             to: "/download",
-            className: "btn-primary "
-          },
+            className: "btn-primary-navbar"
+          }
           // {
           //   position: "right",
           //   label: "Purchase",
@@ -128,8 +128,12 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro"
+                label: "Getting Started",
+                to: "/docs/getting-started"
+              },
+              {
+                label: "FAQ",
+                to: "/docs/faq"
               }
             ]
           },
@@ -137,16 +141,16 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus"
+                label: "Discussion Board",
+                href: "https://baj.itch.io/drafft/community"
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus"
+                label: "Itch.io Page",
+                href: "https://baj.itch.io/drafft"
               },
               {
-                label: "X",
-                href: "https://x.com/docusaurus"
+                label: "Discord (Coming Soon)",
+                href: "#"
               }
             ]
           },
@@ -159,11 +163,22 @@ const config = {
               },
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus"
+                href: "https://github.com/yourusername/drafft"
+              },
+              {
+                label: "Privacy Policy",
+                to: "/privacy"
               }
             ]
           }
         ],
+        logo: {
+          alt: "Plan Your Game",
+          src: "assets/logos/icon_1024.png",
+          href: "https://opensource.fb.com",
+          width: 160,
+          height: 51
+        },
         copyright: `Copyright © ${new Date().getFullYear()} Alexis Boni.`
       },
       prism: {

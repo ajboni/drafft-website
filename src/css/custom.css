@@ -63,6 +63,7 @@
   --dark-background-darker-2: #212426;
   --dark-background-darker-3: #212225;
   --dark-background-darkest: #1d1f22;
+  --dark-background-darkest-2: #1b1b1d;
   --dark-background-light: #2e3238;
   --dark-background-lighter: #2d2d2d;
   --dark-background-lightest: #3b3b3b;
@@ -76,21 +77,24 @@
 
 .navbar__search-input {
   border-radius: 12px;
-  height: 2.5rem;
+  /* height: 2.5rem; */
 }
 
-.navbar__items--right { 
+.navbar__items--right {
   gap: 1rem;
 }
 
 div[class^="navbarSearchContainer_"] {
-position: relative;
-padding: 0;
-right: unset;
+  position: relative;
+  padding: 0;
+  right: unset;
 }
 
 .btn-primary {
-  @apply  h-10 flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base font-semibold text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
+  @apply h-10 flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base font-semibold text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
+}
+.btn-primary-navbar {
+  @apply hidden md:flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base  text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
 }
 .btn-primary-inverted {
   @apply h-10 flex items-center justify-center rounded-xl text-primary-color  px-4  text-base font-semibold  shadow-sm hover:bg-primary-color-darkest hover:text-white hover:no-underline;

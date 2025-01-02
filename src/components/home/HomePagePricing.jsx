@@ -35,8 +35,7 @@ export default function Example() {
           <div className="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
             <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
               Transparent
-            </span>
-            {" "}
+            </span>{" "}
             Pricing
           </div>
         </div>
@@ -88,7 +87,7 @@ export default function Example() {
 
         <div className="mt-8 flex justify-center max-w-md mx-auto">
           <a
-            href="/download-demo" // Replace with the actual download link
+            href="/download" // Replace with the actual download link
             className="btn-primary-inverted w-full"
           >
             Download Now
