@@ -1,17 +1,13 @@
 import {
-  ArrowPathIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   CheckCircleIcon,
-  CloudArrowUpIcon,
   CloudIcon,
   CodeBracketIcon,
   Cog6ToothIcon,
-  DocumentChartBarIcon,
   DocumentTextIcon,
   LockClosedIcon,
   ServerIcon,
-  UsersIcon,
-  WrenchScrewdriverIcon
+  UsersIcon
 } from "@heroicons/react/20/solid";
 
 const features = [

@@ -13,7 +13,45 @@ const config = {
   title: "Drafft",
   tagline: "Organize GDDs, streamline dialogues, and collaborate effortlessly—all in one place.",
   favicon: "assets/icon.ico",
-
+  customFields: {
+    socials: [
+      {
+        name: "Twitter",
+        url: "https://twitter.com/yourusername",
+        icon: "twitter"
+      },
+      {
+        name: "GitHub",
+        url: "https://github.com/yourusername",
+        icon: "github"
+      },
+      {
+        name: "LinkedIn",
+        url: "https://linkedin.com/in/yourusername",
+        icon: "linkedin"
+      },
+      {
+        name: "YouTube",
+        url: "https://youtube.com/yourusername",
+        icon: "youtube"
+      },
+      {
+        name: "X",
+        url: "https://x.com/yourusername",
+        icon: "x"
+      },
+      {
+        name: "Instagram",
+        url: "https://instagram.com/yourusername",
+        icon: "instagram"
+      },
+      {
+        name: "TikTok",
+        url: "https://tiktok.com/@yourusername",
+        icon: "tiktok"
+      }
+    ]
+  },
   // Set the production url of your site here
   url: "https://your-docusaurus-site.example.com",
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -87,6 +125,14 @@ const config = {
     ({
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
+      announcementBar: {
+        id: "support_us",
+        content:
+          '<strong>Note:</strong> This site is for Drafft 2 which is currently under development. For the stable version, please visit <a target="_blank" href="https://baj.itch.io/drafft">our itch.io page</a>.',
+        backgroundColor: "var(--primary-color-darkest)",
+        textColor: "var(--dark-foreground)",
+        isCloseable: true
+      },
       navbar: {
         title: "Drafft",
         logo: {
@@ -94,12 +140,12 @@ const config = {
           src: "assets/logos/icon_1024.png"
         },
         items: [
-          { to: "#pricing", label: "Pricing", position: "left" },
+          { to: "/pricing", label: "Pricing", position: "left" },
           {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
-            label: "Tutorial"
+            label: "Docs"
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
@@ -129,11 +175,11 @@ const config = {
             items: [
               {
                 label: "Getting Started",
-                to: "/docs/getting-started"
+                href: "/docs/getting-started"
               },
               {
                 label: "FAQ",
-                to: "/docs/faq"
+                href: "/docs/faq"
               }
             ]
           },
@@ -145,12 +191,12 @@ const config = {
                 href: "https://baj.itch.io/drafft/community"
               },
               {
-                label: "Itch.io Page",
-                href: "https://baj.itch.io/drafft"
+                label: "Feature Requests",
+                href: "https://itch.io/t/4389447/drafft-v2-development-wishlist-feedback"
               },
               {
-                label: "Discord (Coming Soon)",
-                href: "#"
+                label: "Itch.io Page",
+                href: "https://baj.itch.io/drafft"
               }
             ]
           },
@@ -159,15 +205,15 @@ const config = {
             items: [
               {
                 label: "Blog",
-                to: "/blog"
+                href: "/blog"
               },
               {
                 label: "GitHub",
                 href: "https://github.com/yourusername/drafft"
               },
               {
-                label: "Privacy Policy",
-                to: "/privacy"
+                label: "EULA",
+                href: "/eula"
               }
             ]
           }
@@ -179,7 +225,7 @@ const config = {
           width: 160,
           height: 51
         },
-        copyright: `Copyright © ${new Date().getFullYear()} Alexis Boni.`
+        copyright: `Copyright © ${new Date().getFullYear()} Drafft.`
       },
       prism: {
         theme: prismThemes.github,

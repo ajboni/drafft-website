@@ -5,10 +5,10 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 
 const tiers = [
   {
-    name: "Licensed",
+    name: "Drafft License",
     id: "tier-licensed",
     href: "/purchase",
-    price: "$19.90",
+    price: "$24.90",
     description: "Unlock the full Drafft experience with no nag screens and future updates. Evaluation mode available for free.",
     features: [
       "All features available",
@@ -28,7 +28,7 @@ function classNames(...classes) {
 
 export default function Example() {
   return (
-    <div id="pricing" className="bg-dark-background-darkest py-24 sm:2">
+    <div id="pricing" className=" py-24 sm:2">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-base/7 font-semibold text-primary-color-lightest">Pricing</h2>

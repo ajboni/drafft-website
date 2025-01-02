@@ -1,0 +1,18 @@
+## Scripts
+
+This is one of the main sections of the app, a script is data that you will provide to your game and it can be written in any language.  
+A script could be a standalone document or be part of a dialogue tree. Instead of relying on writing int each dialogue tree node, each node will have its own script attached, but more on that later.  
+You will notice two items in the file tree: `goToLibrary` is a really simple script executing a **command** and a special read-only "Dialogues" folder which contains all scripts that are part of a dialogue Documents, lets ignore that for now.
+
+- Select `goToLibrary` and double-click on the text area. Press the `Toggle editor hotkeys panel` button. This will open a sidebar on the right with some shortcuts, these will be really useful for repetitive tasks like adding speech actions.
+- Modify `ctrl+4` shortcut and add the following: `::Narrator:: % deals % damage.`
+- Focus the text area and press `ctrl+4`. Each time a `%` appears in the shortcut it will ask the user for a value. Put `Max` and `66` or whatever you want there.
+
+You will also notice that `<PlayDialogueByAlias(area)>` and `::Narrator::` are highlighted differently and that is because they are part of the really small [Drafft Scripting Syntax](scripting.html). Go have a read on that page document for a quick overview. I'll wait...
+
+Also note that this script has and `id` and an `alias` shown in the script editor footer.
+
+{/* 
+<video controls width="50%" style="margin-left: 25%;margin-right:25%">
+  <source src="/img/tutorial-02.webm" type="video/webm" />
+</video> */}

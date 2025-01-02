@@ -90,12 +90,27 @@ div[class^="navbarSearchContainer_"] {
   right: unset;
 }
 
+table {
+  display: table;
+  width: initial;
+  margin: 0 auto;
+}
+
+div [class*="announcementBar"] {
+  z-index: 99;
+}
+
 .btn-primary {
   @apply h-10 flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base font-semibold text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
 }
 .btn-primary-navbar {
-  @apply hidden md:flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base  text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
+  @apply flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base  text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
 }
+
+.navbar__inner .btn-primary-navbar{
+  @apply hidden md:flex;
+}
+
 .btn-primary-inverted {
   @apply h-10 flex items-center justify-center rounded-xl text-primary-color  px-4  text-base font-semibold  shadow-sm hover:bg-primary-color-darkest hover:text-white hover:no-underline;
 }
