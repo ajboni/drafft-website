@@ -5,21 +5,52 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 
 const tiers = [
   {
-    name: "Drafft License",
-    id: "tier-licensed",
-    href: "/purchase",
-    price: "$24.90",
-    description: "Unlock the full Drafft experience with no nag screens and future updates. Evaluation mode available for free.",
-    features: [
+    name: "Drafft Legacy",
+    id: "tier-legacy",
+    href: "https://baj.itch.io/drafft",
+    price: "14.90",
+    description: "First version of Drafft. Fully functional and quite stable. Evaluation mode available for free. "
+,    features: [
       "All features available",
       "No startup nag screen",
-      "Email support",
-      "Access to future updates",
-      "Contribute to future features"
+      "Stable version",
+      "Multiplatform",
     ],
+    cta: "Get Started for Free"
+  },
+   {
+    name: "Drafft 2 Beta",
+    id: "tier-beta",
+    href: "/download-beta",
+    price: "$0.00",
+    description: "Beta version for v2. Not suitable for production work and may break.",
+    features: [
+      "Not All features available",
+      "Multiplatform",
+      "Inestable",
+      "Feedback welcomed!",
+      "Not compatible with v1 projects"
+        ],
     mostPopular: true,
-    cta: "Purchase License"
-  }
+    cta: "Join the waitlist"
+   }
+  // {
+  //   name: "Drafft 2 License",
+  //   id: "tier-licensed",
+  //   href: "/purchase",
+  //   price: "$24.90",
+  //   description: "Unlock the full Drafft experience with no nag screens and future updates. Evaluation mode available for free.",
+  //   features: [
+  //     "All features available",
+  //     "Multiplatform",
+  //     "No startup nag screen",
+  //     "Email support",
+  //     "Access to future updates",
+  //     "Contribute to future features"
+  //   ],
+  //   mostPopular: true,
+  //   cta: "Purchase License"
+  // }
 ];
 
 function classNames(...classes) {
@@ -43,7 +74,7 @@ export default function Example() {
           Start free with evaluation mode or upgrade for the full experience. Simple and fair pricing.
         </p>
 
-        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:max-w-md">
+        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 md:grid-cols-2 gap-8 md:max-w-4xl">
           {tiers.map((tier) => (
             <div
               key={tier.id}
