@@ -107,7 +107,7 @@ div [class*="announcementBar"] {
   @apply flex items-center justify-center rounded-xl bg-primary-color-darkest px-4  text-base  text-white shadow-sm hover:bg-primary-color-darker hover:text-white hover:no-underline;
 }
 
-.navbar__inner .btn-primary-navbar{
+.navbar__inner .btn-primary-navbar {
   @apply hidden md:flex;
 }
 
