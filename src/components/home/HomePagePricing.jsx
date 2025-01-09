@@ -27,7 +27,7 @@ const tiers = [
     features: [
       "Not All features available",
       "Multiplatform",
-      "Inestable",
+      "Unestable",
       "Feedback welcomed!",
       "Not compatible with v1 projects"
         ],
@@ -80,7 +80,7 @@ export default function Example() {
               key={tier.id}
               className={classNames(
                 tier.mostPopular ? "bg-white/5 ring-2 ring-primary-color" : "ring-1 ring-white/10",
-                "rounded-xl p-8 xl:p-10"
+                "rounded-md p-8 xl:p-10"
               )}
             >
               <div className="flex items-center justify-between gap-x-4">

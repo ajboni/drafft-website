@@ -1,0 +1,15 @@
+---
+title: Scripts
+description: Understanding the scripts section of the app.
+caption: Scripts
+---
+
+## Scripts
+
+This is one of the main sections of the app. A script is data that you will provide to your game, and it can be written in any language.  
+A script could be a standalone document or be part of a dialogue tree. Instead of writing in each dialogue tree node, each node will have its own script attached, but more on that later.  
+You will notice two items in the file tree: `goToLibrary` is a really simple script executing a **command** and a special read-only "Dialogues" folder which contains all scripts that are part of a dialogue. Let's ignore that for now.
+
+- Select `goToLibrary` and double-click on the text area. You will notice that `<PlayDialogueByAlias(area)>` and `::Narrator::` are highlighted differently, and that is because they are part of the really small [Drafft Scripting Syntax](scripting.html). Go have a read on that page document for a quick overview. I'll wait...
+
+Also note that this script has an `id` and an `alias` shown in the script editor footer.

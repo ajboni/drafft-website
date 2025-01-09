@@ -56,7 +56,7 @@ export default function Example() {
               alt="App screenshot"
               src={AppBusyImg}
               width={2432}
-              className="mt-12 rounded-xl bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
+              className="mt-12 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
             />
           </div>
         </div>
