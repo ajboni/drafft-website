@@ -1,0 +1,35 @@
+name: Deploy Website
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger only for tags starting with "v"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Build website (if needed)
+      - name: Build website
+        run: |
+          npm install
+          npm run build
+
+      # Step 3: Sync files to VPS
+      - name: Deploy to VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          HOST: ${{ secrets.HOST }}
+          USER: ${{ secrets.USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+          rsync -avz --delete ./build/ $USER@$HOST:/docker/drafft-site/html
+
