@@ -13,8 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          submodules: true
+          persist-credentials: false
 
+      - name: Checkout submodule
+        run: |
+          git submodule sync --recursive
+          git -c protocol.version=2 submodule update --init --force --depth=1 --recursive
+     
       # Step 2: Build website (if needed)
       - name: Build website
         run: |
