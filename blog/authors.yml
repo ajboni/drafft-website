@@ -1,12 +1,12 @@
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
+baj:
+  name: baj
+  title: baj
+  url: https://drafft.dev
+  image_url: https://drafft.dev/img/logo.png
   page: true
   socials:
-    x: yangshunz
-    github: yangshun
+    website: https://drafft.dev
+    github: ajboni
 
 slorber:
   name: Sébastien Lorber
