@@ -29,10 +29,11 @@ jobs:
           HOST: ${{ secrets.HOST }}
           USER: ${{ secrets.USER }}
         run: |
+        # mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
           rsync -avz --delete ./build/ $USER@$HOST:/docker/drafft-site/html
 
 
-# mkdir -p ~/.ssh
-# echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-# chmod 600 ~/.ssh/id_rsa
-# ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+
