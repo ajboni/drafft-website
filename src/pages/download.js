@@ -1,11 +1,17 @@
-import React from "react";
+
+import BgBlur from "../components/bg/BgBlur";
+import HomePagePricing from "../components/home/HomePagePricing";
 import Layout from "@theme/Layout";
 
-export default function MyReactPage() {
+function Download() {
   return (
     <Layout>
-      <h1>My React page</h1>
-      <p>This is a React page</p>
+      <div className="">
+        <HomePagePricing />
+        <BgBlur style={2} />
+      </div>
     </Layout>
   );
 }
+
+export default Download;

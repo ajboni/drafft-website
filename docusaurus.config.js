@@ -152,7 +152,7 @@ const config = {
             position: "right",
             label: "Get Started for Free",
             to: "/download",
-            className: "btn-primary-navbar"
+              className: "btn-primary-navbar"
           }
           // {
           //   position: "right",
