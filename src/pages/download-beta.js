@@ -1,14 +1,43 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
-
+import PocketBase from "pocketbase";
 export default function MyReactPage() {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  const pb = new PocketBase("https://pb.drafft.dev");
+
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const honeypot = formData.get("honeypot");
+
+    if (honeypot) {
+      // If honeypot is filled, it's a bot
+      alert("Bot detected!");
+      return;
+    }
+
+    // Prepare data for NocoDB
+    const data = {
+      email: email,
+      comments: "", // Add any default or optional values
+    };
+
+    try {
+      const response = await pb.collection('waitlist').create(data);
+      console.log("Data saved:", response);
+      alert("Successfully subscribed!");
+    } catch (error) {
+      console.error("Failed to save data:", error);
+      alert("There was an error saving your subscription. Please try again.");
+    }
+  };
+
   return (
     <Layout
       title={`Try Drafft Beta.`}
       description="Try the beta version of Drafft."
     >
-
       <main className="w-full mx-auto max-w-7xl px-6 lg:px-8">
         <div className="p-8 max-w-3xl mx-auto prose-dark xl:prose-lg">
           <h1>Try Drafft 2.0 Beta</h1>
@@ -54,51 +83,8 @@ export default function MyReactPage() {
             </div>
 
             <form
+              onSubmit={handleSubmit}
               className="flex sm:items-center gap-4"
-              onSubmit={async (e) => {
-                e.preventDefault();
-
-                const formData = new FormData(e.target);
-                const email = formData.get("email");
-                const honeypot = formData.get("honeypot");
-
-                if (honeypot) {
-                  // If honeypot is filled, it's a bot
-                  alert("Bot detected!");
-                  return;
-                }
-
-                // Prepare data for NocoDB
-                const data = {
-                  email: email,
-                  comments: "", // Add any default or optional values
-                };
-
-                try {
-                  const response = await fetch(
-                    "https://noco.drafft.dev/api/v1/db/data/v1/your_project/Waitlist",
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                        "xc-auth": "your-api-key", // Replace with your actual API key
-                      },
-                      body: JSON.stringify(data),
-                    }
-                  );
-
-                  if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                  }
-
-                  alert("Successfully subscribed!");
-                } catch (error) {
-                  console.error("Failed to save data:", error);
-                  alert(
-                    "There was an error saving your subscription. Please try again."
-                  );
-                }
-              }}
             >
               {/* Email Input */}
               <div className="w-full sm:max-w-md flex">
