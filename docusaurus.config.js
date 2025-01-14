@@ -15,34 +15,33 @@ const config = {
   favicon: "assets/icon.ico",
   customFields: {
     socials: [
-
       {
         name: "GitHub",
         url: "https://github.com/ajboni",
-        icon: "github"
+        icon: "github",
       },
-      
+
       {
         name: "YouTube",
         url: "https://youtube.com/drafft",
-        icon: "youtube"
+        icon: "youtube",
       },
       {
         name: "X",
         url: "https://x.com/drafftapp",
-        icon: "x"
+        icon: "x",
       },
       {
         name: "Instagram",
         url: "https://instagram.com/drafftapp",
-        icon: "instagram"
+        icon: "instagram",
       },
       {
         name: "TikTok",
         url: "https://tiktok.com/@drafftapp",
-        icon: "tiktok"
-      }
-    ]
+        icon: "tiktok",
+      },
+    ],
   },
   // Set the production url of your site here
   url: "https://drraft.dev",
@@ -63,7 +62,7 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
-    locales: ["en"]
+    locales: ["en"],
   },
 
   plugins: [
@@ -75,10 +74,10 @@ const config = {
           postcssOptions.plugins.push(require("tailwindcss"));
           postcssOptions.plugins.push(require("autoprefixer"));
           return postcssOptions;
-        }
+        },
       };
     },
-    require.resolve("docusaurus-lunr-search")
+    require.resolve("docusaurus-lunr-search"),
   ],
   presets: [
     [
@@ -89,13 +88,13 @@ const config = {
           sidebarPath: "./sidebars.js",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/ajboni/drafft-website/edit/main/"
+          editUrl: "https://github.com/ajboni/drafft-website/edit/main/",
         },
         blog: {
           showReadingTime: true,
           feedOptions: {
             type: ["rss", "atom"],
-            xslt: true
+            xslt: true,
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -103,13 +102,13 @@ const config = {
           // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn"
+          onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: "./src/css/custom.css"
-        }
-      })
-    ]
+          customCss: "./src/css/custom.css",
+        },
+      }),
+    ],
   ],
 
   themeConfig:
@@ -123,13 +122,13 @@ const config = {
           '<strong>Note:</strong> This site is for Drafft 2 which is currently under development. For the stable version, please visit <a target="_blank" href="https://baj.itch.io/drafft">our itch.io page</a>.',
         backgroundColor: "var(--primary-color-darkest)",
         textColor: "var(--dark-foreground)",
-        isCloseable: true
+        isCloseable: true,
       },
       navbar: {
         title: "Drafft",
         logo: {
           alt: "Plan Your Game",
-          src: "assets/logos/icon_1024.png"
+          src: "/assets/logos/icon_1024.png",
         },
         items: [
           { to: "/pricing", label: "Pricing", position: "left" },
@@ -137,27 +136,27 @@ const config = {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
-            label: "Docs"
+            label: "Docs",
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
             position: "right",
             label: "Get Started for Free",
             to: "/download",
-              className: "btn-primary-navbar"
-          }
+            className: "btn-primary-navbar",
+          },
           // {
           //   position: "right",
           //   label: "Purchase",
           //   to: "/purchase",
           //   className: "btn-primary py-2.5"
           // }
-        ]
+        ],
       },
       colorMode: {
         defaultMode: "dark",
         respectPrefersColorScheme: true,
-        disableSwitch: true
+        disableSwitch: true,
       },
       footer: {
         style: "dark",
@@ -167,63 +166,63 @@ const config = {
             items: [
               {
                 label: "Getting Started",
-                href: "/docs/getting-started"
+                href: "/docs/getting-started",
               },
               {
                 label: "FAQ",
-                href: "/faq"
-              }
-            ]
+                href: "/faq",
+              },
+            ],
           },
           {
             title: "Community",
             items: [
               {
                 label: "Discussion Board",
-                href: "https://baj.itch.io/drafft/community"
+                href: "https://baj.itch.io/drafft/community",
               },
               {
                 label: "Feature Requests",
-                href: "https://itch.io/t/4389447/drafft-v2-development-wishlist-feedback"
+                href: "https://itch.io/t/4389447/drafft-v2-development-wishlist-feedback",
               },
               {
                 label: "Itch.io Page",
-                href: "https://baj.itch.io/drafft"
-              }
-            ]
+                href: "https://baj.itch.io/drafft",
+              },
+            ],
           },
           {
             title: "More",
             items: [
               {
                 label: "Blog",
-                href: "/blog"
+                href: "/blog",
               },
               {
                 label: "GitHub",
-                href: "https://github.com/yourusername/drafft"
+                href: "https://github.com/yourusername/drafft",
               },
               {
                 label: "EULA",
-                href: "/eula"
-              }
-            ]
-          }
+                href: "/eula",
+              },
+            ],
+          },
         ],
         logo: {
           alt: "Plan Your Game",
           src: "assets/logos/icon_1024.png",
           href: "https://opensource.fb.com",
           width: 160,
-          height: 51
+          height: 51,
         },
-        copyright: `Copyright © ${new Date().getFullYear()} Drafft.`
+        copyright: `Copyright © ${new Date().getFullYear()} Drafft.`,
       },
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula
-      }
-    })
+        darkTheme: prismThemes.dracula,
+      },
+    }),
 };
 
 export default config;
