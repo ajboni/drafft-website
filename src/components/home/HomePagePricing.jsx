@@ -9,16 +9,11 @@ const tiers = [
     id: "tier-legacy",
     href: "https://baj.itch.io/drafft",
     price: "14.90",
-    description: "First version of Drafft. Fully functional and quite stable. Evaluation mode available for free. "
-,    features: [
-      "All features available",
-      "No startup nag screen",
-      "Stable version",
-      "Multiplatform",
-    ],
-    cta: "Get Started for Free"
+    description: "First version of Drafft. Fully functional and quite stable. Evaluation mode available for free. ",
+    features: ["All features available", "No startup nag screen", "Stable version", "Multiplatform"],
+    cta: "Get Started for Free",
   },
-   {
+  {
     name: "Drafft 2 Beta",
     id: "tier-beta",
     href: "/download-beta",
@@ -29,11 +24,11 @@ const tiers = [
       "Multiplatform",
       "Unestable",
       "Feedback welcomed!",
-      "Not compatible with v1 projects"
-        ],
+      "Not compatible with v1 projects",
+    ],
     mostPopular: true,
-    cta: "Join the waitlist"
-   }
+    cta: "Join the waitlist",
+  },
   // {
   //   name: "Drafft 2 License",
   //   id: "tier-licensed",
@@ -116,14 +111,14 @@ export default function Example() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center max-w-md mx-auto">
+        {/* <div className="mt-8 flex justify-center max-w-md mx-auto">
           <a
             href="/download" // Replace with the actual download link
             className="btn-primary-inverted w-full"
           >
             Download Now
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );
