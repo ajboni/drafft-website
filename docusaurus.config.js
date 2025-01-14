@@ -171,7 +171,7 @@ const config = {
               },
               {
                 label: "FAQ",
-                href: "/docs/faq"
+                href: "/faq"
               }
             ]
           },
