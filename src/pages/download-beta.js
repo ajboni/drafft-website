@@ -4,8 +4,8 @@ import WaitlistForm from "../components/WaitlistForm";
 export default function MyReactPage() {
   return (
     <Layout title={`Try Drafft Beta.`} description="Try the beta version of Drafft.">
-      <main className="w-full mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="p-8 max-w-3xl mx-auto prose-dark xl:prose-lg">
+      <main className="w-full mx-auto max-w-7xl px-6 lg:px-8 markdown">
+        <div className="p-8 max-w-3xl mx-auto ">
           <h1>Try Drafft 2.0 Beta</h1>
           <p>
             Don't miss out on the opportunity to be a part of the Drafft 2.0 launch. Sign up now to secure your spot and
@@ -19,13 +19,13 @@ export default function MyReactPage() {
             to explore and shape the next evolution of collaborative game development before its official release.
           </p>
 
-          <p>
+          <section className="mb-8 ">
             <WaitlistForm />
-          </p>
+          </section>
 
           <h2>Perks for Drafft 2.0 Beta Testers</h2>
 
-          <ul>
+          <ul className="">
             <li>
               <strong>Exclusive Early Access</strong>: Be among the first to explore the new features of Drafft 2.0 and
               get a head start in integrating it into your workflow.
