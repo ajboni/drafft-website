@@ -9,7 +9,7 @@ export default function MyReactPage() {
       description="Try the beta version of Drafft."
     >
       <Head>
-        <script async src="https://tally.so/widgets/embed.js"></script>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c"></script>
       </Head>
       <main className="w-full mx-auto max-w-7xl px-6 lg:px-8">
         <div className="p-8 max-w-3xl mx-auto prose-dark xl:prose-lg">
