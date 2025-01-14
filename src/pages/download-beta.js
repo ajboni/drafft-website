@@ -8,9 +8,7 @@ export default function MyReactPage() {
       title={`Try Drafft Beta.`}
       description="Try the beta version of Drafft."
     >
-      <Head>
-        <script defer src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c"></script>
-      </Head>
+
       <main className="w-full mx-auto max-w-7xl px-6 lg:px-8">
         <div className="p-8 max-w-3xl mx-auto prose-dark xl:prose-lg">
           <h1>Try Drafft 2.0 Beta</h1>

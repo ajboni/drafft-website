@@ -15,45 +15,37 @@ const config = {
   favicon: "assets/icon.ico",
   customFields: {
     socials: [
-      {
-        name: "Twitter",
-        url: "https://twitter.com/yourusername",
-        icon: "twitter"
-      },
+
       {
         name: "GitHub",
-        url: "https://github.com/yourusername",
+        url: "https://github.com/ajboni",
         icon: "github"
       },
-      {
-        name: "LinkedIn",
-        url: "https://linkedin.com/in/yourusername",
-        icon: "linkedin"
-      },
+      
       {
         name: "YouTube",
-        url: "https://youtube.com/yourusername",
+        url: "https://youtube.com/drafft",
         icon: "youtube"
       },
       {
         name: "X",
-        url: "https://x.com/yourusername",
+        url: "https://x.com/drafftapp",
         icon: "x"
       },
       {
         name: "Instagram",
-        url: "https://instagram.com/yourusername",
+        url: "https://instagram.com/drafftapp",
         icon: "instagram"
       },
       {
         name: "TikTok",
-        url: "https://tiktok.com/@yourusername",
+        url: "https://tiktok.com/@drafftapp",
         icon: "tiktok"
       }
     ]
   },
   // Set the production url of your site here
-  url: "https://your-docusaurus-site.example.com",
+  url: "https://drraft.dev",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -97,7 +89,7 @@ const config = {
           sidebarPath: "./sidebars.js",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          editUrl: "https://github.com/ajboni/drafft-website/edit/main/"
         },
         blog: {
           showReadingTime: true,
@@ -107,7 +99,7 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "https://github.com/ajboni/drafft-website/edit/main/",
           // Useful options to enforce blogging best practices
           onInlineTags: "warn",
           onInlineAuthors: "warn",
