@@ -5,6 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from "prism-react-renderer";
+import tomorrowNight from "./shared/prism/prism-uaf-theme.js";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -219,8 +220,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Drafft.`,
       },
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: tomorrowNight,
+        darkTheme: tomorrowNight,
       },
     }),
 };

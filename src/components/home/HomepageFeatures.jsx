@@ -7,7 +7,7 @@ import {
   DocumentTextIcon,
   LockClosedIcon,
   ServerIcon,
-  UsersIcon
+  UsersIcon,
 } from "@heroicons/react/20/solid";
 
 const features = [
@@ -16,7 +16,7 @@ const features = [
     description:
       "Seamlessly combine branching dialogue trees with linked scripts to craft intricate, non-linear narratives and flow-based logic.",
     href: "#",
-    icon: ChatBubbleOvalLeftEllipsisIcon
+    icon: ChatBubbleOvalLeftEllipsisIcon,
   },
 
   {
@@ -24,14 +24,14 @@ const features = [
     description:
       "Write scripts for immersive dialogue, scenes or even game logic. Automatically generate standard screenplay documents and add voiceover tags tailored for VO actors.",
     href: "#",
-    icon: CodeBracketIcon
+    icon: CodeBracketIcon,
   },
   {
     name: "GDD Editor",
     description:
       "Create, organize, and share comprehensive Game Design Documents (GDDs) with your team. Write in plain markdown, embed media, link to other documents, export to PDF.",
     href: "#",
-    icon: DocumentTextIcon
+    icon: DocumentTextIcon,
   },
 
   {
@@ -39,7 +39,7 @@ const features = [
     description:
       "Own your data and keep it secure. Use Drafft locally or with your own CouchDB setup — no cloud dependency, no compromises.",
     href: "#",
-    icon: LockClosedIcon
+    icon: LockClosedIcon,
   },
 
   {
@@ -47,35 +47,36 @@ const features = [
     description:
       "Export your data in standard JSON format for use with any game engine. Tailor your data exports to any target language or format.",
     href: "#",
-    icon: Cog6ToothIcon
+    icon: Cog6ToothIcon,
   },
   {
     name: "Multi-User Collaboration",
-    description: "Collaborate in real-time with your team. Sync changes instantly using your own CouchDB server instance.",
+    description:
+      "Collaborate in real-time with your team. Sync changes instantly using your own CouchDB server instance.",
     href: "#",
-    icon: UsersIcon
+    icon: UsersIcon,
   },
   {
     name: "Central Repository",
     description: "Store and manage all your game development assets in one place. Sync locally or remotely with ease.",
     href: "#",
-    icon: ServerIcon
+    icon: ServerIcon,
   },
   {
     name: "API Access",
     description: "Leverage Drafft's API to automate tasks, integrate with other tools, and streamline workflows.",
     href: "#",
-    icon: CloudIcon
+    icon: CloudIcon,
   },
   {
     name: "Evaluation Mode",
     description: "Use all features indefinitely in evaluation mode — no restrictions, no missing options.",
     href: "#",
-    icon: CheckCircleIcon
-  }
+    icon: CheckCircleIcon,
+  },
 ];
 
-export default function HomepageFeatures() {
+export default function HomepageFeatures({ maxFeatures = features.length }) {
   return (
     <div className="bg-dark-background-darker-3 scroll-m-32" id="features">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -88,14 +89,14 @@ export default function HomepageFeatures() {
             </span>
           </p>
           <p className="mt-6 text-lg/8 text-gray-300">
-            Drafft is your all-in-one multiplatform app for game development. From scripting and dialogue design to item databases
-            and GDDs, our tools integrate seamlessly with your workflow. Collaborate in real-time, export in standard JSON, and
-            customize your projects to fit any engine.
+            Drafft is your all-in-one multiplatform app for game development. From scripting and dialogue design to item
+            databases and GDDs, our tools integrate seamlessly with your workflow. Collaborate in real-time, export in
+            standard JSON, and customize your projects to fit any engine.
           </p>
         </div>
         <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {features.map((feature) => (
+            {features.slice(0, maxFeatures).map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-white">
                   <a href={feature.href} className="flex items-center gap-x-3">
@@ -115,11 +116,13 @@ export default function HomepageFeatures() {
             ))}
           </dl>
         </div>
-        <div className="mx-auto mt-16 mb-16 max-w-md sm:mt-20 lg:mt-24 lg:mb-24 text-center">
-          <a className="btn-primary " href="/features">
-            Explore All Features
-          </a>
-        </div>
+        {maxFeatures < features.length && (
+          <div className="mx-auto mt-16 mb-16 max-w-md sm:mt-20 lg:mt-24 lg:mb-24 text-center">
+            <a className="btn-primary " href="/features">
+              Explore All Features
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
