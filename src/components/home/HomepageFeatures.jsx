@@ -9,6 +9,7 @@ import {
   ServerIcon,
   UsersIcon,
 } from "@heroicons/react/20/solid";
+import GetStartedCTA from "../cta/GetStartedCTA";
 
 const features = [
   {
@@ -57,21 +58,33 @@ const features = [
     icon: UsersIcon,
   },
   {
-    name: "Central Repository",
-    description: "Store and manage all your game development assets in one place. ",
-    href: "#",
-    icon: ServerIcon,
-  },
-  {
-    name: "API Access",
-    description: "Leverage Drafft's rudimentary API to automate tasks, integrate with other tools, and streamline workflows.",
+    name: "Comprehensive Repositories",
+    description:
+      "Manage quests, items, grids, and miscellaneous objects with a simple text based repository system. Supports JSON, HJSON, TOML and plain text. ",
     href: "#",
     icon: CloudIcon,
   },
   {
+    name: "API Access",
+    description:
+      "Leverage Drafft's (quite limited) API to automate tasks, integrate with other tools, and streamline workflows.",
+    href: "#",
+    icon: CloudIcon,
+  },
+  {
+    name: "Central Repository",
+    description: "Store and manage all your game development assets in one place. ",
+    icon: ServerIcon,
+  },
+
+  {
     name: "Evaluation Mode",
     description: "Use all features indefinitely in evaluation mode — no restrictions, no missing options.",
-    href: "#",
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "True Multiplatform",
+    description: "Runs on Linux (x86_64, arm64, snap, flatpak), arm64, MacOS, and Windows. ",
     icon: CheckCircleIcon,
   },
 ];
@@ -99,18 +112,27 @@ export default function HomepageFeatures({ maxFeatures = features.length }) {
             {features.slice(0, maxFeatures).map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-white">
-                  <a href={feature.href} className="flex items-center gap-x-3">
-                    <feature.icon aria-hidden="true" className="size-5 flex-none text-primary-color-lightest" />
-                    <span className="text-white">{feature.name}</span>
-                  </a>
+                  {feature.href ? (
+                    <a href={feature.href} className="flex items-center gap-x-3">
+                      <feature.icon aria-hidden="true" className="size-5 flex-none text-primary-color-lightest" />
+                      <span className="text-white">{feature.name}</span>
+                    </a>
+                  ) : (
+                    <>
+                      <feature.icon aria-hidden="true" className="size-5 flex-none text-primary-color-lightest" />
+                      <span className="text-white">{feature.name}</span>
+                    </>
+                  )}
                 </dt>
                 <dd className="mt-2 mx-0 flex flex-auto flex-col text-base/7 text-gray-300">
                   <div className="flex-auto">{feature.description}</div>
-                  <div className="mt-4">
-                    <a href={feature.href} className="text-sm/6 font-semibold text-primary-color-lightest">
-                      Learn more <span aria-hidden="true">→</span>
-                    </a>
-                  </div>
+                  {feature.href && (
+                    <div className="mt-4">
+                      <a href={feature.href} className="text-sm/6 font-semibold text-primary-color-lightest">
+                        Learn more <span aria-hidden="true">→</span>
+                      </a>
+                    </div>
+                  )}
                 </dd>
               </div>
             ))}
@@ -123,6 +145,11 @@ export default function HomepageFeatures({ maxFeatures = features.length }) {
             </a>
           </div>
         )}
+      </div>
+      <div className="w-full bg-dark-background-darkest">
+        <div className="py-24 max-w-2xl mx-auto text-center text-sm/6 text-gray-300">
+          <GetStartedCTA />
+        </div>
       </div>
     </div>
   );
