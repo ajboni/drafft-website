@@ -58,13 +58,13 @@ const features = [
   },
   {
     name: "Central Repository",
-    description: "Store and manage all your game development assets in one place. Sync locally or remotely with ease.",
+    description: "Store and manage all your game development assets in one place. ",
     href: "#",
     icon: ServerIcon,
   },
   {
     name: "API Access",
-    description: "Leverage Drafft's API to automate tasks, integrate with other tools, and streamline workflows.",
+    description: "Leverage Drafft's rudimentary API to automate tasks, integrate with other tools, and streamline workflows.",
     href: "#",
     icon: CloudIcon,
   },

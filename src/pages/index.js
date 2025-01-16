@@ -2,11 +2,11 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 
 import Head from "@docusaurus/Head";
+import Clarity from "@microsoft/clarity";
 import Hero from "@site/src/components/home/Hero";
 import HomePagePricing from "@site/src/components/home/HomePagePricing";
 import HomepageFeatures from "@site/src/components/home/HomepageFeatures";
 import { useEffect } from "react";
-import Clarity from "@microsoft/clarity";
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   useEffect(() => {

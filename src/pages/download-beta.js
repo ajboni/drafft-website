@@ -1,11 +1,12 @@
 import Layout from "@theme/Layout";
 import React from "react";
 import WaitlistForm from "../components/WaitlistForm";
+import { useSpinner } from "../hooks/useSpinner";
 export default function MyReactPage() {
   return (
     <Layout title={`Try Drafft Beta.`} description="Try the beta version of Drafft.">
       <main className="w-full mx-auto max-w-7xl px-6 lg:px-8 markdown">
-        <div className="p-8 max-w-3xl mx-auto ">
+        <div className="py-4 lg:py-8 lg:px-8 max-w-3xl mx-auto ">
           <h1>Try Drafft 2.0 Beta</h1>
           <p>
             Don't miss out on the opportunity to be a part of the Drafft 2.0 launch. Sign up now to secure your spot and
