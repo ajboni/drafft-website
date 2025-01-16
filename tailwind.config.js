@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx,md,mdx}", "./docs/**/*.{md,mdx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx,md,mdx}", "./docs/**/*.{md,mdx}", "./blog/**/*.{md,mdx}"],
   theme: {
     extend: {
       colors: {
@@ -22,18 +22,15 @@ module.exports = {
         "dark-background-lighter": "var(--dark-background-lighter)",
         "dark-background-lightest": "var(--dark-background--lightest)",
         "dark-foreground": "var(--dark-foreground)",
-        foreground: "var(--dark-foreground)"
-      }
-    }
+        foreground: "var(--dark-foreground)",
+      },
+    },
   },
-  plugins: [
-
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require("@tailwindcss/typography")],
   darkMode: ["class", '[data-theme="dark"]'],
   corePlugins: {
-    preflight: false
+    preflight: false,
   },
   blocklist: ["container"],
-  safelist: ["!hidden"]
+  safelist: ["!hidden"],
 };

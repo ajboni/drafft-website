@@ -96,7 +96,6 @@ export default function Example() {
   const { title, customFields } = siteConfig;
   const { socials } = customFields;
   const { copyright, links = [], logo = {} } = footer;
-  console.log(socials);
   return (
     <footer className="bg-dark-background-darkest-2">
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 ">
