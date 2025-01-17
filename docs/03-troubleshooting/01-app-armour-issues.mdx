@@ -1,0 +1,54 @@
+---
+title: AppArmor Issues with AppImage
+description: Troubleshooting and fixing AppArmor profile issues for Drafft AppImage on Linux Ubuntu 24++.
+---
+
+# AppArmor Issues with AppImage
+
+If you are experiencing issues launching Drafft on Linux Ubuntu 24++ due to AppArmor restrictions, follow the steps below to create an AppArmor profile for the Drafft AppImage.
+
+## Steps to Fix AppArmor Issues
+
+1. **Create an AppArmor Profile**
+
+   First, create a new AppArmor profile for Drafft:
+
+```bash
+   sudo touch /etc/apparmor.d/drafft-appimage
+```
+
+2. Edit the AppArmor Profile
+
+Open the newly created profile file in a text editor and add the following content. Make sure to replace `/YOUR_OWN_LOCATION/drafft-1.4.5-linux-x86_64.AppImage` with the actual path and version of your Drafft AppImage:
+
+```
+abi <abi/4.0>,
+include <tunables/global>
+
+profile drafft-appimage /YOUR_OWN_LOCATION/drafft-1.4.5-linux-x86_64.AppImage flags=(default_allow) {
+  userns,
+
+  include if exists <local/drafft-appimage>
+}
+```
+
+3. Restart AppArmor Service
+
+After saving the profile, restart the AppArmor service to apply the changes:
+
+```bash
+sudo systemctl reload apparmor.service
+```
+4. Update Profile if AppImage Location Changes
+
+If you move your Drafft AppImage to a different location, you do not need to create a new profile. Simply update the file /etc/apparmor.d/drafft-appimage with the new location and restart the AppArmor service:
+
+## Important Notes
+- Do not disable AppArmor or create rules around it. Creating a proper profile ensures that AppArmor knows how to handle Drafft.
+- This process should be followed for any AppImage to ensure it launches correctly under AppArmor restrictions.
+By following these steps, you should be able to launch Drafft without any issues related to AppArmor.
+
+For more information, refer to the [Electron Builder GitHub issue](https://github.com/electron-userland/electron-builder/issues/8635#issuecomment-2442653122).
+
+
+> Thanks to [Nano Game Lab](https://itch.io/profile/nanogamelab) for providing the solution to this issue.
