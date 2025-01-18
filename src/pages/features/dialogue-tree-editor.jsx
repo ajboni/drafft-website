@@ -2,13 +2,31 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import HomepageFeatures from "../../components/home/HomepageFeatures";
 import DialogueTreeEditorImg from "@site/static/img/dialogue-tree-editor/dialogue-tree-editor-01.png";
+import Markdown from "react-markdown";
+import GetStartedCTA from "../../components/cta/GetStartedCTA";
 
+const markdown = "# Hi, *Pluto*!";
 export default function DialogueTreeEditor() {
   const { siteConfig } = useDocusaurusContext();
+  const markdown = `
+
+
+# Feature Breakdown
+- See the Big Picture: The visual tree structure lets you map out your dialogue flow, so you always know where the story is headed.
+- Write Without Limits: The scripting editor gives you the freedom to write complex scenes—no more cramming text into tiny boxes.
+
+# Why You'll Love It
+- Stay Organized: Keep your dialogue structured and easy to follow. No more getting lost in messy branching paths.
+- Work Faster: Jump between the visual layout and scripting editor seamlessly—build your scenes without friction.
+- Team-Friendly: Whether you're solo or working with others, Drafft makes it easy to collaborate and refine your story.
+
+# See It in Action
+Ready to take your interactive storytelling to the next level? Try Drafft today and start crafting better dialogues with ease!   
+  `;
   return (
     <Layout title={`Features | ${siteConfig.title}`}>
-      <main className="bg-dark-background-darker-3 py-8 lg:py-16">
-        <div className="max-w-6xl mx-auto px-4">
+      <main className="bg-dark-background-darker-3 pt-8 lg:pt-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base/7 font-semibold text-primary-color-lightest">Unleash Your Narrative Potential</h2>
             <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
@@ -27,44 +45,13 @@ export default function DialogueTreeEditor() {
             alt="App screenshot"
             src={DialogueTreeEditorImg}
             width={2432}
-            className="mt-12 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
+            className="my-8 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
           />
-          <h2 className="text-2xl font-semibold mb-4">Feature Explanation:</h2>
-          <ul className="list-disc list-inside mb-6">
-            <li>
-              <strong>Visual Tree Structure:</strong> Provides a clear overview of dialogue flow and branching paths,
-              allowing you to visualize all possible outcomes.
-            </li>
-            <li>
-              <strong>Linked Scripting Editor:</strong> Enables detailed scriptwriting without the constraints of small
-              input boxes, facilitating the creation of complex scenes without screen clutter.
-            </li>
-          </ul>
-          <h2 className="text-2xl font-semibold mb-4">User Benefits:</h2>
-          <ul className="list-disc list-inside mb-6">
-            <li>
-              <strong>Enhanced Organization:</strong> Maintain a structured overview of your narrative, ensuring
-              consistency and coherence.
-            </li>
-            <li>
-              <strong>Efficient Workflow:</strong> Switch effortlessly between visual mapping and scriptwriting,
-              streamlining the development process.
-            </li>
-            <li>
-              <strong>Improved Collaboration:</strong> The intuitive interface makes it easier for team members to
-              understand and contribute to the dialogue design.
-            </li>
-          </ul>
-          <h2 className="text-2xl font-semibold mb-4">Experience the Difference:</h2>
-          <p className="text-lg mb-6">
-            Elevate your storytelling capabilities with Drafft's Non-linear, Branching Tree Dialogue Editor. Start your
-            free trial today and transform the way you design interactive narratives.
-          </p>
-          <div className="text-center">
-            <a href="/plan-your-game" className="btn btn-primary">
-              Plan Your Game | Drafft
-            </a>
-          </div>
+          <Markdown className="py-16">{markdown}</Markdown>
+        </div>
+        <div className="py-32 bg-dark-background-darkest">
+          <GetStartedCTA/>
+
         </div>
       </main>
     </Layout>

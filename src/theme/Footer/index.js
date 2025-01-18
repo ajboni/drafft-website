@@ -98,7 +98,7 @@ export default function Example() {
   const { copyright, links = [], logo = {} } = footer;
   return (
     <footer className="bg-dark-background-darkest-2">
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 ">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-24 ">
         <div className="xl:grid xl:grid-cols-3 gap-8 flex flex-col xl:gap-8">
           <div className="mb-8 space-y-4 max-w-sm m-auto flex flex-col items-center xl:col-span-1 xl:items-start xl:justify-center">
             <img alt="Drafft Logo" src={logo.src} className="h-9" />
