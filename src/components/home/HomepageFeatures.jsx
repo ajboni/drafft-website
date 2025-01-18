@@ -13,10 +13,10 @@ import GetStartedCTA from "../cta/GetStartedCTA";
 
 const features = [
   {
-    name: "Non-linear Dialogue Editor",
+    name: "Non-linear Dialogue Tree Editor",
     description:
       "Seamlessly combine branching dialogue trees with linked scripts to craft intricate, non-linear narratives and flow-based logic.",
-    href: "#",
+    href: "/features/dialogue-tree-editor",
     icon: ChatBubbleOvalLeftEllipsisIcon,
   },
 

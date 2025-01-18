@@ -6,7 +6,7 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout title={`Features | ${siteConfig.title}`}>
-      <main className="bg-dark-background-darker-3">
+      <main className="bg-dark-background-darker-3 py-8 lg:py-16">
         <HomepageFeatures />
       </main>
     </Layout>

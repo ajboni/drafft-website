@@ -131,6 +131,7 @@ const config = {
           src: "/assets/logos/icon_1024.png",
         },
         items: [
+          { to: "/features", label: "Features", position: "left" },
           { to: "/pricing", label: "Pricing", position: "left" },
           {
             type: "docSidebar",
