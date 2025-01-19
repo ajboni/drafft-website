@@ -21,7 +21,7 @@ export default function DialogueTreeEditor() {
 - Team-Friendly: Whether you're solo or working with others, Drafft makes it easy to collaborate and refine your story.
 
 # See It in Action
-Ready to take your interactive storytelling to the next level? Try Drafft today and start crafting better dialogues with ease!   
+Ready to take your interactive storytelling to the next level? [Try Drafft](/download) today and start crafting better dialogues with ease!   
   `;
   return (
     <Layout title={`Features | ${siteConfig.title}`}>
@@ -47,7 +47,7 @@ Ready to take your interactive storytelling to the next level? Try Drafft today 
             width={2432}
             className="my-8 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"
           />
-          <Markdown className="py-16">{markdown}</Markdown>
+          <Markdown className="py-16 leading-loose">{markdown}</Markdown>
         </div>
         <div className="py-32 bg-dark-background-darkest">
           <GetStartedCTA/>
