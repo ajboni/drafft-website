@@ -24,7 +24,7 @@ const features = [
     name: "Scripting Editor",
     description:
       "Write scripts for immersive dialogue, scenes or even game logic. Automatically generate standard screenplay documents and add voiceover tags tailored for VO actors.",
-    href: "#",
+    href: "/features/script-editor",
     icon: CodeBracketIcon,
   },
   {

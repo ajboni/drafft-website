@@ -1,11 +1,9 @@
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import HomepageFeatures from "../../components/home/HomepageFeatures";
 import DialogueTreeEditorImg from "@site/static/img/dialogue-tree-editor/dialogue-tree-editor-01.png";
 import Markdown from "react-markdown";
 import GetStartedCTA from "../../components/cta/GetStartedCTA";
 
-const markdown = "# Hi, *Pluto*!";
 export default function DialogueTreeEditor() {
   const { siteConfig } = useDocusaurusContext();
   const markdown = `
@@ -50,7 +48,7 @@ Ready to take your interactive storytelling to the next level? [Try Drafft](/dow
           <Markdown className="py-16 leading-loose">{markdown}</Markdown>
         </div>
         <div className="py-32 bg-dark-background-darkest">
-          <GetStartedCTA/>
+          <GetStartedCTA />
 
         </div>
       </main>

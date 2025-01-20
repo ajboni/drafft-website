@@ -66,6 +66,15 @@ const config = {
   },
 
   plugins: [
+    [
+      "@dipakparmar/docusaurus-plugin-umami",
+      /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
+      ({
+
+        websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
+        analyticsDomain: "drafft.dev", // Required
+        scriptName: "script.js", // Optional
+      })],
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
