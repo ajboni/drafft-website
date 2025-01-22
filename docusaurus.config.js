@@ -73,8 +73,7 @@ const config = {
       /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
       ({
         websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
-        analyticsDomain: "drafft.dev", // Required
-        dataHostURL: "https://cloud.umami.is",
+        analyticsDomain: "https://cloud.umami.is", // Required
       }),
     ],
     async function myPlugin(context, options) {
