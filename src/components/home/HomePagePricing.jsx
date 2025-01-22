@@ -29,7 +29,7 @@ const tiers = [
     href: "/download-beta",
     price: "$65",
     description:
-      "The next generation of Drafft. Enhanced features for serious game development.Includes 1 year of updates—yours forever for just $65.”",
+      "The next generation of Drafft. Enhanced features for serious game development.Includes 1 year of updates—yours forever for just $65.",
     features: [
       "Yours Forever, Includes 1 Year of updates",
       "Enhanced Dialogue Tree Editor (New UI, More Nodes)",

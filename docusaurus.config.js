@@ -207,10 +207,6 @@ const config = {
                 label: "Contact",
                 href: "mailto:hello@drafft.dev",
               },
-              {
-                label: "Support",
-                href: "mailto:support@drafft.dev",
-              },
             ],
           },
           {
@@ -223,6 +219,10 @@ const config = {
               {
                 label: "Blog",
                 href: "/blog",
+              },
+              {
+                label: "Support",
+                href: "mailto:support@drafft.dev",
               },
               // {
               //   label: "GitHub",

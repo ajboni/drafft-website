@@ -1,8 +1,8 @@
-
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-// TODO: Put proper image
-import ScriptsFeatureImg from "@site/static/img/app-busy.png"
+import ScriptsFeatureImg from "@site/static/img/scripts/scripts-01.png";
+import ScreenplayPreviewImg from "@site/static/img/scripts/scripts-02.png"; // Add your screenshot
+import ScriptPlayerImg from "@site/static/img/scripts/scripts-03.png"; // Add your screenshot
 import Markdown from "react-markdown";
 import GetStartedCTA from "../../components/cta/GetStartedCTA";
 
@@ -20,6 +20,15 @@ export default function ScriptsFeature() {
 - **Stay Organized:** Keep scripts structured and easy to navigate with automatic text extraction for essential elements.
 - **Flexible & Powerful:** Whether you're writing a cinematic cutscene or dynamic dialogue, Drafft gives you the tools to do it right.
 
+# Preview Your Scripts
+Visualize your script as a professional screenplay, complete with proper formatting and layout. Perfect for sharing with writers, directors, or voice actors.  
+
+![Screenplay Preview](${ScreenplayPreviewImg})  
+
+**Basic Script Player:** Test your script in action with a built-in script player. Simulate dialogue flow, test timing, and ensure your narrative works as intended.  
+
+![Script Player Preview](${ScriptPlayerImg})  
+
 # See It in Action
 Ready to take your scriptwriting to the next level? [Try Drafft](/download) today and bring your narratives to life effortlessly!
   `;
@@ -28,15 +37,19 @@ Ready to take your scriptwriting to the next level? [Try Drafft](/download) toda
       <main className="bg-dark-background-darker-3 pt-8 lg:pt-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base/7 font-semibold text-primary-color-lightest">Write, Organize, and Export with Ease</h2>
+            <h2 className="text-base/7 font-semibold text-primary-color-lightest">
+              Write, Organize, and Export with Ease
+            </h2>
             <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
-              Powerful & Intuitive {" "}
+              Powerful & Intuitive{" "}
               <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
                 Scripting Editor
               </span>
             </p>
             <p className="mt-6 text-lg/8 text-gray-300">
-              Drafft's scripting tool streamlines the writing process with auto-generated screenplay documents, multi-language support, and smart parsing for essential elements like voice-overs and commands. Everything exports to clean JSON, making your workflow seamless.
+              Drafft's scripting tool streamlines the writing process with auto-generated screenplay documents,
+              multi-language support, and smart parsing for essential elements like voice-overs and commands. Everything
+              exports to clean JSON, making your workflow seamless.
             </p>
           </div>
           <img
