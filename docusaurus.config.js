@@ -74,7 +74,7 @@ const config = {
       ({
         websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
         analyticsDomain: "drafft.dev", // Required
-        scriptName: "https://cloud.umami.is/script.js",
+        dataHostURL: "https://cloud.umami.is",
       }),
     ],
     async function myPlugin(context, options) {
