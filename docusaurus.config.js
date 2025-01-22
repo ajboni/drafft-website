@@ -11,8 +11,10 @@ import tomorrowNight from "./shared/prism/prism-uaf-theme.js";
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Drafft",
-  tagline: "Organize GDDs, streamline dialogues, and collaborate effortlessly—all in one place.",
+  tagline:
+    "Centralize your scripts, dialogue trees, and GDDs in one powerful platform. Drafft is offline-first, privacy-focused, and built for indie developers.",
   favicon: "assets/icon.ico",
+
   customFields: {
     socials: [
       {
@@ -123,6 +125,38 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        {
+          name: "description",
+          content:
+            "Drafft v2 is the ultimate collaborative tool for game developers. Organize your game design process with GDDs, Scripts, Dialogue Trees, and a Database Editor—all exportable to JSON.Drafft is multi-platform offline-first, privacy-focused, and built for indie developers.",
+        },
+        {
+          name: "keywords",
+          content:
+            "game development, game design, collaborative tools, GDD, dialogue trees, JSON exporter, indie game dev, game development tools",
+        },
+        { property: "og:title", content: "Drafft v2: The All-in-One Game Development Tool" },
+        {
+          property: "og:description",
+          content:
+            "Drafft v2 is the ultimate collaborative tool for game developers. Organize your game design process with GDDs, Scripts, Dialogue Trees, and a Database Editor—all exportable to JSON.Drafft is multi-platform offline-first, privacy-focused, and built for indie developers.",
+        },
+        { property: "og:image", content: "https://drafft.dev/img/hero.png" },
+        { property: "og:url", content: "https://drafft.dev" },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: "Drafft v2: The All-in-One Game Development Tool" },
+        {
+          name: "twitter:description",
+          content:
+            "Organize your game design process with Drafft v2. Collaborate on GDDs, Scripts, Dialogue Trees, and more—all in one place.",
+        },
+        { name: "twitter:image", content: "https://drafft.dev/img/hero.png" },
+        { name: "twitter:site", content: "@DrafftApp" },
+        { name: "twitter:creator", content: "@DrafftApp" },
+      ],
+
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       announcementBar: {
