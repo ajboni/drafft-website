@@ -74,7 +74,6 @@ const config = {
       ({
         websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
         analyticsDomain: "drafft.dev", // Required
-        scriptName: "script.js", // Optional
       }),
     ],
     async function myPlugin(context, options) {
@@ -140,7 +139,7 @@ const config = {
         {
           property: "og:description",
           content:
-            "Drafft v2 is the ultimate collaborative tool for game developers. Organize your game design process with GDDs, Scripts, Dialogue Trees, and a Database Editor—all exportable to JSON.Drafft is multi-platform offline-first, privacy-focused, and built for indie developers.",
+            "Drafft v2 is the ultimate collaborative tool for game developers. Organize your game design process with GDDs, Scripts, Dialogue Trees, and a Database Editor—all exportable to JSON. Drafft is multi-platform offline-first, privacy-focused, and built for indie developers.",
         },
         { property: "og:image", content: "https://drafft.dev/img/drafft-social-card.png" },
         { property: "og:url", content: "https://drafft.dev" },
