@@ -46,7 +46,7 @@ const config = {
     ],
   },
   // Set the production url of your site here
-  url: "https://drraft.dev",
+  url: "https://drafft.dev",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -74,6 +74,7 @@ const config = {
       ({
         websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
         analyticsDomain: "drafft.dev", // Required
+        scriptName: "https://cloud.umami.is/script.js",
       }),
     ],
     async function myPlugin(context, options) {
