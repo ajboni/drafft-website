@@ -8,27 +8,43 @@ const tiers = [
     name: "Drafft Legacy",
     id: "tier-legacy",
     href: "https://baj.itch.io/drafft",
-    price: "$14.90",
-    description: "First version of Drafft. Fully functional and quite stable. Evaluation mode available for free. ",
-    features: ["All features available", "No startup nag screen", "Stable version", "Multiplatform"],
+    price: "$15",
+    description:
+      "The stable, no-frills version of Drafft. Perfect for prototyping and game jams. Unrestricted evaluation mode available for free.",
+    features: [
+      "Unrestricted Free Evaluation Mode",
+      "Dialogue Tree Editor",
+      "Script Editor",
+      "Basic GDD Editor",
+      "Extra Basic Editors (Items, Kanban, etc.)",
+      "Stable version—no updates, no surprises",
+      "Offline First, Private Data",
+      "Optional Multiuser (Bring your own database)",
+    ],
     cta: "Get Started for Free",
   },
   {
     name: "Drafft 2 Beta",
     id: "tier-beta",
     href: "/download-beta",
-    price: "$0.00",
-    description: "Beta version for v2. Not suitable for production work and may break.",
+    price: "$65",
+    description:
+      "The next generation of Drafft. Enhanced features for serious game development.Includes 1 year of updates—yours forever for just $65.”",
     features: [
-      "Not all features available (yet)",
-      "Multiplatform",
-      "Offline First",
+      "Yours Forever, Includes 1 Year of updates",
+      "Enhanced Dialogue Tree Editor (New UI, More Nodes)",
+      "Enhanced Script Editor (Auto suggestions, Adcanced Formatting)",
+      "Enhanced GDD Editor (Markdown, Connections, Media Embedding)",
+      "Media Management",
+      "Refreshed UI",
+      "Offline First, Private Data",
+      "Optional Multiuser (Bring your own database)",
+      "Optional Hosted Database ($5/month)",
       "Beta version",
-      "Feedback welcomed!",
-      "Not compatible with v1 projects",
+      "Free forever for v1 license holders",
     ],
     mostPopular: true,
-    cta: "Join the waitlist",
+    cta: "Join the Waitlist",
   },
   // {
   //   name: "Drafft 2 License",
@@ -58,7 +74,9 @@ export default function Example() {
     <div id="pricing" className=" py-24 sm:2">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Pricing</h2>
+          <h2 className="text-base/7 font-semibold text-primary-color-lightest">
+            Build Your Game Your Way. Free to Try, Affordable to Own.
+          </h2>
           <div className="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
             <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
               Transparent
@@ -67,7 +85,8 @@ export default function Example() {
           </div>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">
-          Start free with evaluation mode or upgrade for the full experience. Simple and fair pricing.
+          Create branching stories, dialogue trees, and game design documents with Drafft. Start with the free, stable
+          v1, or upgrade to v2 for advanced features and collaboration tools.
         </p>
 
         <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 md:grid-cols-2 gap-8 md:max-w-4xl">

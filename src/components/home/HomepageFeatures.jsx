@@ -77,11 +77,11 @@ const features = [
     icon: ServerIcon,
   },
 
-  {
-    name: "Evaluation Mode",
-    description: "Use all features indefinitely in evaluation mode — no restrictions, no missing options.",
-    icon: CheckCircleIcon,
-  },
+  // {
+  //   name: "Evaluation Mode",
+  //   description: "Use all features indefinitely in evaluation mode — no restrictions, no missing options.",
+  //   icon: CheckCircleIcon,
+  // },
   {
     name: "True Multiplatform",
     description: "Runs on Linux (x86_64, arm64, snap, flatpak), arm64, MacOS, and Windows. ",

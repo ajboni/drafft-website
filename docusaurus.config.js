@@ -70,11 +70,11 @@ const config = {
       "@dipakparmar/docusaurus-plugin-umami",
       /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
       ({
-
         websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
         analyticsDomain: "drafft.dev", // Required
         scriptName: "script.js", // Optional
-      })],
+      }),
+    ],
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -182,6 +182,10 @@ const config = {
                 label: "FAQ",
                 href: "/faq",
               },
+              {
+                label: "EULA",
+                href: "/eula",
+              },
             ],
           },
           {
@@ -196,8 +200,16 @@ const config = {
                 href: "https://itch.io/t/4389447/drafft-v2-development-wishlist-feedback",
               },
               {
-                label: "Itch.io Page",
+                label: "Drafft Legacy",
                 href: "https://baj.itch.io/drafft",
+              },
+              {
+                label: "Contact",
+                href: "mailto:hello@drafft.dev",
+              },
+              {
+                label: "Support",
+                href: "mailto:support@drafft.dev",
               },
             ],
           },
@@ -205,17 +217,17 @@ const config = {
             title: "More",
             items: [
               {
+                label: "Pricing",
+                href: "/pricing",
+              },
+              {
                 label: "Blog",
                 href: "/blog",
               },
-              {
-                label: "GitHub",
-                href: "https://github.com/yourusername/drafft",
-              },
-              {
-                label: "EULA",
-                href: "/eula",
-              },
+              // {
+              //   label: "GitHub",
+              //   href: "https://github.com/yourusername/drafft",
+              // },
             ],
           },
         ],
