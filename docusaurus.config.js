@@ -5,7 +5,6 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import tomorrowNight from "./shared/prism/prism-uaf-theme.js";
-
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
@@ -68,6 +67,7 @@ const config = {
   },
 
   plugins: [
+    "docusaurus-plugin-zooming",
     [
       "@dipakparmar/docusaurus-plugin-umami",
       /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
