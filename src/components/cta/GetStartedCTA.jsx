@@ -35,8 +35,8 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
 
       <div className="mt-4 text-center">
         <div className="text-sm font-medium text-gray-400">
-          <span className="text-primary-color font-semibold">Tip:</span> <strong>Drafft is free to try</strong> for as
-          long as you want — no limitations or time restrictions.
+          <span className="text-primary-color font-semibold">Tip:</span> <strong>Drafft v1 is free to try</strong> for
+          as long as you want — no limitations or time restrictions.
         </div>
       </div>
     </div>

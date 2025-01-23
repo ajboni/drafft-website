@@ -31,7 +31,7 @@ const features = [
     name: "GDD Editor",
     description:
       "Create, organize, and share comprehensive Game Design Documents (GDDs) with your team. Write in plain markdown, embed media, link to other documents, export to PDF.",
-    href: "#",
+    href: "/features/gdd",
     icon: DocumentTextIcon,
   },
 

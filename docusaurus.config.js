@@ -157,14 +157,14 @@ const config = {
       ],
 
       image: "img/drafft-social-card.png",
-      announcementBar: {
-        id: "support_us",
-        content:
-          '<strong>Note:</strong> This site is for Drafft 2 which is currently under development. For the stable version, please visit <a target="_blank" href="https://baj.itch.io/drafft">our itch.io page</a>.',
-        backgroundColor: "var(--primary-color-darkest)",
-        textColor: "var(--dark-foreground)",
-        isCloseable: true,
-      },
+      // announcementBar: {
+      //   id: "support_us",
+      //   content:
+      //     '<strong>Note:</strong> This site is for Drafft 2 which is currently under development. For the stable version, please visit <a target="_blank" href="https://baj.itch.io/drafft">our itch.io page</a>.',
+      //   backgroundColor: "var(--primary-color-darkest)",
+      //   textColor: "var(--dark-foreground)",
+      //   isCloseable: true,
+      // },
       navbar: {
         title: "Drafft",
         logo: {
