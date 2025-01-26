@@ -17,12 +17,6 @@ const config = {
   customFields: {
     socials: [
       {
-        name: "GitHub",
-        url: "https://github.com/ajboni",
-        icon: "github",
-      },
-
-      {
         name: "YouTube",
         url: "https://youtube.com/drafft",
         icon: "youtube",
@@ -31,16 +25,6 @@ const config = {
         name: "X",
         url: "https://x.com/drafftapp",
         icon: "x",
-      },
-      {
-        name: "Instagram",
-        url: "https://instagram.com/drafftapp",
-        icon: "instagram",
-      },
-      {
-        name: "TikTok",
-        url: "https://tiktok.com/@drafftapp",
-        icon: "tiktok",
       },
     ],
   },
