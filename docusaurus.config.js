@@ -158,6 +158,8 @@ const config = {
         items: [
           { to: "/features", label: "Features", position: "left" },
           { to: "/pricing", label: "Pricing", position: "left" },
+          { to: "/gallery", label: "Gallery", position: "left" },
+
           {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
