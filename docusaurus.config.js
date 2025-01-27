@@ -183,7 +183,7 @@ const config = {
       },
       colorMode: {
         defaultMode: "dark",
-        respectPrefersColorScheme: true,
+        respectPrefersColorScheme: false,
         disableSwitch: true,
       },
       footer: {
@@ -251,8 +251,8 @@ const config = {
         ],
         logo: {
           alt: "Plan Your Game",
-          src: "assets/logos/icon_1024.png",
-          href: "https://opensource.fb.com",
+          src: "/assets/logos/icon_1024.png",
+          href: "https://drafft.dev",
           width: 160,
           height: 51,
         },
