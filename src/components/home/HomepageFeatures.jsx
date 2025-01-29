@@ -39,7 +39,7 @@ const features = [
     name: "Private Data, No Cloud",
     description:
       "Own your data and keep it secure. Use Drafft locally or with your own CouchDB setup — no cloud dependency, no compromises.",
-    href: "#",
+    href: "/features/privacy",
     icon: LockClosedIcon,
   },
 
@@ -47,7 +47,7 @@ const features = [
     name: "Engine Agnostic",
     description:
       "Export your data in standard JSON format for use with any game engine. Tailor your data exports to any target language or format.",
-    href: "#",
+    href: "/features/engine-agnostic",
     icon: Cog6ToothIcon,
   },
   {

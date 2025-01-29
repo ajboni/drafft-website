@@ -8,11 +8,13 @@ const importAll = (r) => r.keys().map((key) => ({ src: r(key).default }));
 const scriptImages = importAll(require.context("@site/static/img/scripts/", false, /\.png$/));
 const gddImages = importAll(require.context("@site/static/img/gdd/", false, /\.png$/));
 const dialogueTreeImages = importAll(require.context("@site/static/img/dialogue-tree-editor/", false, /\.png$/));
+const engineAgnosticImages = importAll(require.context("@site/static/img/engine-agnostic/", false, /\.png$/));
+const privacyImages = importAll(require.context("@site/static/img/privacy/", false, /\.png$/));
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-const photos = [...scriptImages, ...gddImages, ...dialogueTreeImages];
+const photos = [...scriptImages, ...gddImages, ...dialogueTreeImages, ...engineAgnosticImages, ...privacyImages];
 
 function MediaGallery() {
   const [index, setIndex] = useState(-1);
