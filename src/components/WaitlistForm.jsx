@@ -4,7 +4,6 @@ import { useSpinner } from "../hooks/useSpinner";
 
 function WaitlistForm() {
   const { showSpinner, hideSpinner } = useSpinner();
-  
   const handleSubmit = async (e) => {
     showSpinner();
     e.preventDefault();
@@ -20,11 +19,11 @@ function WaitlistForm() {
 
     try {
       const response = await pb.collection("waitlist").create(data);
-    if (honeypot) {
-      // If honeypot is filled, it's a bot
-      alert("Bot detected!");
-      throw new Error("Bot detected!");
-    }
+      if (honeypot) {
+        // If honeypot is filled, it's a bot
+        alert("Bot detected!");
+        throw new Error("Bot detected!");
+      }
       console.log("Data saved:", response);
       alert("Successfully subscribed!");
     } catch (error) {
@@ -71,7 +70,7 @@ function WaitlistForm() {
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary" data-umami-event="waitlist-form-subscribe">
           Subscribe
         </button>
       </form>

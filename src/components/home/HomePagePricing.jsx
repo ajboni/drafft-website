@@ -22,6 +22,7 @@ const tiers = [
       "Optional Multiuser (Bring your own database)",
     ],
     cta: "Get Started for Free",
+    umamiEvent: "cta-download-legacy",
   },
   {
     name: "Drafft 2 Beta",
@@ -45,6 +46,7 @@ const tiers = [
     ],
     mostPopular: true,
     cta: "Join the Waitlist",
+    umamiEvent: "cta-join-waitlist",
   },
   // {
   //   name: "Drafft 2 License",
@@ -110,6 +112,7 @@ export default function Example() {
               <a
                 href={tier.href}
                 aria-describedby={tier.id}
+                data-umami-event={tier.umamiEvent}
                 className={classNames(
                   tier.mostPopular
                     ? "bg-primary-color-darkest text-white shadow-sm hover:bg-primary-color-darker focus-visible:bg-primary-color-darkest hover:no-underline hover:text-white"
