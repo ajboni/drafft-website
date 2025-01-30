@@ -54,7 +54,7 @@ const features = [
     name: "Multi-User Collaboration",
     description:
       "Collaborate in real-time with your team. Sync changes instantly using your own CouchDB server instance.",
-    href: "#",
+    href: "/features/multi-user",
     icon: UsersIcon,
   },
   {
