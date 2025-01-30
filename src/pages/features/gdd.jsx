@@ -5,6 +5,7 @@ import DocumentLinkingImg from "@site/static/img/gdd/gdd-02.png";
 import TreeStructureImg from "@site/static/img/gdd/gdd-03.png";
 import Markdown from "react-markdown";
 import GetStartedCTA from "../../components/cta/GetStartedCTA";
+import Head from "@docusaurus/Head";
 
 export default function GddFeature() {
   const { siteConfig } = useDocusaurusContext();
@@ -37,6 +38,22 @@ Visualize your game's structure with nested documents that mirror your project's
   `;
   return (
     <Layout title={`Features | ${siteConfig.title}`}>
+      <Head>
+        <meta charSet="utf-8" />
+        <title>GDD Editor | Drafft - Unified Game Design Documentation in Markdown</title>
+        <meta
+          name="description"
+          content="Streamline your game design process with Drafft's GDD Editor. Write in Markdown, link documents wiki-style, organize with tree structures, and export to JSON for seamless integration."
+        />
+        <meta property="og:title" content="GDD Editor | Drafft - Unified Game Design Documentation in Markdown" />
+        <meta
+          property="og:description"
+          content="Streamline your game design process with Drafft's GDD Editor. Write in Markdown, link documents wiki-style, organize with tree structures, and export to JSON for seamless integration."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://drafft.dev" />
+        <link rel="canonical" href="https://drafft.dev" />
+      </Head>
       <main className="bg-dark-background-darker-3 pt-8 lg:pt-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">

@@ -3,7 +3,7 @@ import Layout from "@theme/Layout";
 import DialogueTreeEditorImg from "@site/static/img/dialogue-tree-editor/dialogue-tree-editor-01.png";
 import Markdown from "react-markdown";
 import GetStartedCTA from "../../components/cta/GetStartedCTA";
-
+import Head from "@docusaurus/Head";
 export default function DialogueTreeEditor() {
   const { siteConfig } = useDocusaurusContext();
   const markdown = `
@@ -23,14 +23,30 @@ Ready to take your interactive storytelling to the next level? [Try Drafft](/dow
   `;
   return (
     <Layout title={`Features | ${siteConfig.title}`}>
+      <Head>
+        <meta charSet="utf-8" />
+        <title>Dialogue Tree Editor | Drafft </title>
+        <meta
+          name="description"
+          content="Build and manage dialogue trees with our powerful Dialogue Tree Editor. Create templates, generate conversation trees, and design dialogue structures for games, storytelling, and more."
+        />
+        <meta property="og:title" content="Dialogue Tree Editor | Create Dialogue Trees Easily" />
+        <meta
+          property="og:description"
+          content="Build and manage dialogue trees with our powerful Dialogue Tree Editor. Create templates, generate conversation trees, and design dialogue structures for games, storytelling, and more."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://drafft.dev" />
+        <link rel="canonical" href="https://drafft.dev" />
+      </Head>
       <main className="bg-dark-background-darker-3 pt-8 lg:pt-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base/7 font-semibold text-primary-color-lightest">Unleash Your Narrative Potential</h2>
             <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
-              Non-linear, branching tree{" "}
+              Non-linear, branching{" "}
               <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
-                Dialogue Editor
+                Dialogue Tree Editor
               </span>
             </p>
             <p className="mt-6 text-lg/8 text-gray-300">
@@ -49,7 +65,6 @@ Ready to take your interactive storytelling to the next level? [Try Drafft](/dow
         </div>
         <div className="py-32 bg-dark-background-darkest">
           <GetStartedCTA />
-
         </div>
       </main>
     </Layout>

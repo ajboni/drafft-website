@@ -5,6 +5,7 @@ import ScreenplayPreviewImg from "@site/static/img/scripts/scripts-02.png"; // A
 import ScriptPlayerImg from "@site/static/img/scripts/scripts-03.png"; // Add your screenshot
 import Markdown from "react-markdown";
 import GetStartedCTA from "../../components/cta/GetStartedCTA";
+import Head from "@docusaurus/Head";
 
 export default function ScriptsFeature() {
   const { siteConfig } = useDocusaurusContext();
@@ -34,6 +35,25 @@ Ready to take your scriptwriting to the next level? [Try Drafft](/download) toda
   `;
   return (
     <Layout title={`Features | ${siteConfig.title}`}>
+      <Head>
+        <meta charSet="utf-8" />
+        <title>Scripting Editor | Drafft - Effortless Screenwriting & Script Organization</title>
+        <meta
+          name="description"
+          content="Streamline your scriptwriting with Drafft's powerful scripting editor. Auto-generate screenplays, write in multiple languages, and export to clean JSON for seamless integration with game engines."
+        />
+        <meta
+          property="og:title"
+          content="Scripting Editor | Drafft - Effortless Screenwriting & Script Organization"
+        />
+        <meta
+          property="og:description"
+          content="Streamline your scriptwriting with Drafft's powerful scripting editor. Auto-generate screenplays, write in multiple languages, and export to clean JSON for seamless integration with game engines."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://drafft.dev" />
+        <link rel="canonical" href="https://drafft.dev" />
+      </Head>
       <main className="bg-dark-background-darker-3 pt-8 lg:pt-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
@@ -53,7 +73,7 @@ Ready to take your scriptwriting to the next level? [Try Drafft](/download) toda
             </p>
           </div>
           <img
-            alt="App screenshot"
+            alt="Streamline your scriptwriting with Drafft's powerful scripting editor. Auto-generate screenplays, write in multiple languages, and export to clean JSON for seamless integration with game engines."
             src={ScriptsFeatureImg}
             width={2432}
             className="my-8 rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10 sm:mt-20"

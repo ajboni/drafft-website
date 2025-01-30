@@ -117,7 +117,7 @@ const config = {
         {
           name: "keywords",
           content:
-            "game development, game design, collaborative tools, GDD, dialogue trees, JSON exporter, indie game dev, game development tools",
+            "game development, game design, collaborative tools, GDD, dialogue trees, JSON exporter, indie game dev, game development tools, dialogue tree, dialogue tree software, dialog tree ",
         },
         { property: "og:title", content: "Drafft v2: The All-in-One Game Development Tool" },
         {
