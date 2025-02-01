@@ -43,11 +43,6 @@ collaboration:
   permalink: /collaboration
   description: Collaboration tag description
 
-drafft:
-  label: Drafft
-  permalink: /drafft
-  description: Drafft tag description
-
 scripts:
   label: Scripts
   permalink: /scripts
