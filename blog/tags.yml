@@ -28,26 +28,6 @@ tools:
   permalink: /tools
   description: Tools tag description
 
-game-development:
-  label: Game Development
-  permalink: /game-development
-  description: Game development tag description
-
-dialogue-writing:
-  label: Dialogue Writing
-  permalink: /dialogue-writing
-  description: Dialogue writing tag description
-
-narrative-design:
-  label: Narrative Design
-  permalink: /narrative-design
-  description: Narrative design tag description
-
-game-development:
-  label: Game Development
-  permalink: /game-development
-  description: Game development tag description
-
 workflow:
   label: Workflow
   permalink: /workflow
