@@ -1,15 +1,11 @@
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import Clarity from "@microsoft/clarity";
 import Hero from "@site/src/components/home/Hero";
 import HomePagePricing from "@site/src/components/home/HomePagePricing";
 import HomepageFeatures from "@site/src/components/home/HomepageFeatures";
 import { useEffect } from "react";
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
-  useEffect(() => {
-    Clarity.init("ptje4lffwd");
-  }, []);
 
   return (
     <Layout
