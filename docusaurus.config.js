@@ -12,8 +12,7 @@ const config = {
   title: "Drafft",
   tagline:
     "Centralize your scripts, dialogue trees, and GDDs in one powerful platform. Drafft is offline-first, privacy-focused, and built for indie developers.",
-  favicon: "assets/icon.ico",
-
+  favicon: "img/favicon.ico",
   customFields: {
     socials: [
       {
