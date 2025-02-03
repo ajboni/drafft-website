@@ -1,30 +1,33 @@
 import Layout from "@theme/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-
-const importAll = (r) => r.keys().map((key) => ({ src: r(key).default }));
-
-const scriptImages = importAll(require.context("@site/static/img/scripts/", false, /\.png$/));
-const gddImages = importAll(require.context("@site/static/img/gdd/", false, /\.png$/));
-const dialogueTreeImages = importAll(require.context("@site/static/img/dialogue-tree-editor/", false, /\.png$/));
-const engineAgnosticImages = importAll(require.context("@site/static/img/engine-agnostic/", false, /\.png$/));
-const privacyImages = importAll(require.context("@site/static/img/privacy/", false, /\.png$/));
-
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-const photos = [...scriptImages, ...gddImages, ...dialogueTreeImages, ...engineAgnosticImages, ...privacyImages];
-
 function MediaGallery() {
+  const [photos, setPhotos] = useState([]);
   const [index, setIndex] = useState(-1);
+
+  useEffect(() => {
+    const importAll = (r) => r.keys().map((key) => ({ src: r(key).default }));
+
+    const scriptImages = importAll(require.context("@site/static/img/scripts/", false, /\.png$/));
+    const gddImages = importAll(require.context("@site/static/img/gdd/", false, /\.png$/));
+    const dialogueTreeImages = importAll(require.context("@site/static/img/dialogue-tree-editor/", false, /\.png$/));
+    const engineAgnosticImages = importAll(require.context("@site/static/img/engine-agnostic/", false, /\.png$/));
+    const privacyImages = importAll(require.context("@site/static/img/privacy/", false, /\.png$/));
+
+    setPhotos([...scriptImages, ...gddImages, ...dialogueTreeImages, ...engineAgnosticImages, ...privacyImages]);
+  }, []);
+
   return (
     <Layout>
-      <div className="p2 lg:p-8">
-        <Carousel showThumbs={false} emulateTouch={true} labels={false} className="max-w-5xl mx-auto">
-          {photos.map((photo, index) => (
-            <div onClick={() => setIndex(index)} className="cursor-pointer" key={index}>
-              <img src={photo.src} alt={`Gallery image ${index + 1}`} />
+      <div className="p-2 lg:p-8">
+        <Carousel showThumbs={false} emulateTouch={true} className="max-w-5xl mx-auto">
+          {photos.map((photo, idx) => (
+            <div onClick={() => setIndex(idx)} className="cursor-pointer" key={photo.src}>
+              <img src={photo.src} alt={`Gallery image ${idx + 1}`} />
             </div>
           ))}
         </Carousel>
