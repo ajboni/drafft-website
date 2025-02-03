@@ -4,7 +4,7 @@ import Layout from "@theme/Layout";
 
 function Pricing() {
   return (
-    <Layout>
+    <Layout title={`Pricing`}>
       <div className="">
         <HomePagePricing />
         <BgBlur style={2} />

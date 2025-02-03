@@ -22,7 +22,7 @@ function MediaGallery() {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={`Gallery`}>
       <div className="p-2 lg:p-8">
         <Carousel showThumbs={false} emulateTouch={true} className="max-w-5xl mx-auto">
           {photos.map((photo, idx) => (
