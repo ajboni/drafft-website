@@ -45,4 +45,4 @@ In case of conflicts, the app will try its best to choose the [winning revision]
 
 ## Video
 
-<iframe width="100%" height="615" src="https://www.youtube.com/embed/6i8Qx_jX2zI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="615" src="https://www.youtube.com/embed/6i8Qx_jX2zI" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>

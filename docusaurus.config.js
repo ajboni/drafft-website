@@ -13,7 +13,16 @@ const config = {
   tagline:
     "Centralize your scripts, dialogue trees, and GDDs in one powerful platform. Drafft is offline-first, privacy-focused, and built for indie developers.",
   favicon: "img/favicon.ico",
-
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+      }),
+    ],
+  ],
   customFields: {
     socials: [
       {
@@ -52,6 +61,15 @@ const config = {
   },
 
   plugins: [
+    "docusaurus-plugin-zooming",
+    [
+      "@dipakparmar/docusaurus-plugin-umami",
+      /** @type {import('@dipakparmar/docusaurus-plugin-umami').Options} */
+      ({
+        websiteID: "9b4b4462-208a-4160-bdc3-526c4e320c9c", // Required
+        analyticsDomain: "cloud.umami.is", // Required
+      }),
+    ],
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -63,6 +81,7 @@ const config = {
         },
       };
     },
+    require.resolve("docusaurus-lunr-search"),
   ],
   presets: [
     [
