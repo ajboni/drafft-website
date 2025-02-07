@@ -13,6 +13,16 @@ const config = {
   tagline:
     "Centralize your scripts, dialogue trees, and GDDs in one powerful platform. Drafft is offline-first, privacy-focused, and built for indie developers.",
   favicon: "img/favicon.ico",
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+      }),
+    ],
+  ],
   customFields: {
     socials: [
       {
@@ -71,7 +81,7 @@ const config = {
         },
       };
     },
-    require.resolve("docusaurus-lunr-search"),
+    // require.resolve("docusaurus-lunr-search"),
   ],
   presets: [
     [

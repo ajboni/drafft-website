@@ -79,13 +79,20 @@
 @tailwind utilities;
 
 .navbar__search-input {
-  border-radius: 12px;
+  border-radius: 6px;
   /* height: 2.5rem; */
 }
 
+@media (max-width: 1024px) {
+  div[class^="searchHintContainer_"] {
+    display:none !important;
+  }
+}
+
+/* 
 .navbar__items--right {
   gap: 1rem;
-}
+} */
 
 div[class^="navbarSearchContainer_"] {
   position: relative;
