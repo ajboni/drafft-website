@@ -1,0 +1,117 @@
+---
+
+title: Drafft v1 Output Schema
+description: Detailed documentation on the output schema structure for Drafft v1.
+
+---
+
+# Output Schema
+
+This document describes the structure of the output schema for Drafft v1, including scripts, dialogues, actors, quests, items, grids, kanban, and miscellaneous entities.
+
+## Structure Overview
+
+The output schema consists of several collections:
+
+- **Scripts**: Contains script files and folders.
+- **Dialogues**: Defines interactive dialogues and their graphical representation.
+- **Actors**: Represents characters with properties such as name, age, and bio.
+- **Quests**: Defines game objectives with conditions and properties.
+- **Items**: Represents in-game objects with associated properties.
+- **Grids**: Contains structured tabular data.
+- **Kanban**: Defines a Kanban-style board with lanes and cards.
+- **Misc**: A category for miscellaneous entries.
+
+---
+
+## Scripts
+
+Each script entry has the following properties:
+
+| Property      | Type               | Description                                        |
+| ------------- | ------------------ | -------------------------------------------------- |
+| `name`        | `string`           | Name of the script or folder                       |
+| `type`        | `string`           | Can be `Script` or `Folder`                        |
+| `parent`      | `string` or `null` | ID of the parent folder or `null` if root          |
+| `children`    | `array`            | List of child script/folder IDs (only for folders) |
+| `content`     | `string`           | Script content (if applicable)                     |
+| `icon`        | `string`           | Icon identifier                                    |
+| `color`       | `string`           | Color in hex format                                |
+| `path`        | `string`           | Path within the structure                          |
+| `isClonable`  | `boolean`          | Whether the script can be cloned                   |
+| `isRemovable` | `boolean`          | Whether the script can be deleted                  |
+| `isReadOnly`  | `boolean`          | Whether the script is read-only                    |
+| `created`     | `string`           | Creation timestamp                                 |
+| `modified`    | `string`           | Last modification timestamp                        |
+| `collection`  | `string`           | Collection type (always `Script`)                  |
+| `_id`         | `string`           | Unique identifier                                  |
+| `_rev`        | `string`           | Revision identifier                                |
+
+---
+
+## Dialogues
+
+Each dialogue entry represents an interactive conversation and contains:
+
+| Property                 | Type               | Description                                         |
+| ------------------------ | ------------------ | --------------------------------------------------- |
+| `name`                   | `string`           | Name of the dialogue                                |
+| `type`                   | `string`           | Always `Dialogue`                                   |
+| `parent`                 | `string` or `null` | Parent folder ID or `null` if root                  |
+| `graph`                  | `object`           | Contains nodes and links defining the dialogue flow |
+| `dialogueScriptFolderID` | `string`           | ID of the associated script folder                  |
+| `_id`                    | `string`           | Unique identifier                                   |
+| `_rev`                   | `string`           | Revision identifier                                 |
+
+### Dialogue Graph Structure
+
+The `graph` object defines the dialogue's structure using nodes and links:
+
+| Property     | Type      | Description                                      |
+|-------------|----------|--------------------------------------------------|
+| `id`        | `string` | Unique identifier for the graph                 |
+| `offsetX`   | `number` | Horizontal offset for visualization             |
+| `offsetY`   | `number` | Vertical offset for visualization               |
+| `zoom`      | `number` | Zoom level percentage                           |
+| `gridSize`  | `number` | Grid size for alignment                         |
+| `nodes`     | `array`  | List of dialogue nodes                          |
+| `links`     | `array`  | Connections between nodes                       |
+
+### Dialogue Node Structure
+Each **node** represents a dialogue block and contains:
+
+| Property   | Type      | Description                                       |
+|-----------|----------|---------------------------------------------------|
+| `id`      | `string` | Unique identifier for the node                    |
+| `type`    | `string` | Type of the node (`default`, `choice`, etc.)      |
+| `x`       | `number` | X-axis position                                   |
+| `y`       | `number` | Y-axis position                                   |
+| `extras`  | `object` | Additional metadata (e.g., script reference)      |
+| `ports`   | `array`  | Input and output connection points                |
+
+### Dialogue Port/Link Structure
+Each **port** represents an interaction point in a node:
+
+| Property     | Type      | Description                                      |
+|-------------|----------|--------------------------------------------------|
+| `id`        | `string` | Unique identifier for the port                   |
+| `type`      | `string` | Input (`in`) or output (`out`) type               |
+| `parentNode`| `string` | ID of the parent node                            |
+| `links`     | `array`  | List of connected links                          |
+| `label`     | `string` | Label describing the port function               |
+
+---
+
+## Quests
+
+Each quest defines an in-game objective with the following properties:
+
+| Property      | Type                             | Description                |
+| ------------- | -------------------------------- | -------------------------- |
+| `name`        | `string`                         | Name of the quest          |
+| `type`        | `string`                         | Always `Quest`             |
+| `properties`  | `string || object`               | Quest-related properties   |
+| `conditions`  | `string || object`               | Quest-related conditions   |
+| `_id`         | `string`                         | Unique identifier          |
+| `_rev`        | `string`                         | Revision identifier        |
+
