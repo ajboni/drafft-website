@@ -61,14 +61,13 @@ const features = [
     name: "Comprehensive Repositories",
     description:
       "Manage quests, items, grids, and miscellaneous objects with a simple text based repository system. Supports JSON, HJSON, TOML and plain text. ",
-    href: "#",
     icon: CloudIcon,
   },
   {
     name: "API Access",
     description:
       "Leverage Drafft's (quite limited) API to automate tasks, integrate with other tools, and streamline workflows.",
-    href: "#",
+    href: "/docs/reference/api",
     icon: CloudIcon,
   },
   {
