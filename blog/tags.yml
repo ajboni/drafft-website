@@ -13,6 +13,19 @@ game-development:
   permalink: /game-development
   description: Game development tag description
 
+game-design:
+  label: Game Design
+  permalink: /game-design
+
+documentation:
+  label: Documentation
+  permalink: /documentation
+
+GDD:
+  label: GDD
+  permalink: /GDD
+  description: GDD tag description
+
 dialogue-writing:
   label: Dialogue Writing
   permalink: /dialogue-writing
