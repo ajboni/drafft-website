@@ -1,6 +1,6 @@
 "use client";
 
-import AppBusyImg from "@site/static/img/app-busy.png";
+import AppBusyImg from "@site/static/img/app-busy-2.png";
 import { useState } from "react";
 import BgBlur from "../bg/BgBlur";
 import GetStartedCTA from "../cta/GetStartedCTA";
