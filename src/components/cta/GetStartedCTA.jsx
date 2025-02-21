@@ -14,8 +14,8 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
 
       {showDescription && (
         <div className="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8">
-          Centralize your scripts, dialogue trees, GDDs, and more — plan, design, and collaborate with ease. Own your
-          game data and take control of your process.
+          Drafft is a multi-platform, offline-first, privacy-focused game development tool that centralizes your game
+          content, Dialogue Trees, Scripts, GDDs, and more.
         </div>
       )}
 

@@ -101,9 +101,8 @@ export default function HomepageFeatures({ maxFeatures = features.length }) {
             </span>
           </p>
           <p className="mt-6 text-lg/8 text-gray-300">
-            Drafft is your all-in-one multiplatform app for game development. From scripting and dialogue design to item
-            databases and GDDs, our tools integrate seamlessly with your workflow. Collaborate in real-time, export in
-            standard JSON, and customize your projects to fit any engine.
+            From scripting and dialogue design to item databases and GDDs, our tools integrate seamlessly with your
+            workflow. Collaborate in real-time, export in standard JSON, and customize your projects to fit any engine.
           </p>
         </div>
         <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none">
