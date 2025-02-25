@@ -179,7 +179,7 @@ const config = {
           { to: "/blog", label: "Blog", position: "left" },
           {
             position: "right",
-            label: "Get Started for Free",
+            label: "Get Started",
             to: "/download",
             className: "btn-primary-navbar",
           },

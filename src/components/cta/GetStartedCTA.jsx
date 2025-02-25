@@ -21,7 +21,7 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
 
       <div className="mt-10 flex items-center justify-center gap-x-6">
         <a href="/download" className="btn-primary ">
-          Get Started for Free
+          Get Started
         </a>
         {showLearnMore && (
           <a
