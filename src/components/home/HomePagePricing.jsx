@@ -8,7 +8,16 @@ const tiers = [
     name: "Drafft",
     id: "subscription",
     href: "/download-beta",
-    price: { monthly: "$9", yearly: "$7.50" },
+    price: {
+      monthly: {
+        price: "$9",
+        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/5b4074fc-f19f-47b8-9e78-0bb58be468a0?enabled=705672",
+      },
+      yearly: {
+        price: "$7.50",
+        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/5b179017-631c-44b6-9c55-2e3a74aa5411?enabled=705678",
+      },
+    },
     description: "Simple Pricing. All of Drafft features",
     features: [
       "All Drafft Features",
@@ -26,7 +35,12 @@ const tiers = [
     name: "Pay Once",
     id: "perpetual",
     href: "/download-beta",
-    price: { once: "$175" },
+    price: {
+      once: {
+        price: "$175",
+        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668",
+      },
+    },
     description: "Your copy forever & one year of updates",
     features: [
       "All Drafft Features",
@@ -50,8 +64,10 @@ function classNames(...classes) {
 export default function Example() {
   const [lemonLoaded, setLemonLoaded] = useState(false);
   const [frequency, setFrequency] = useState("yearly");
+  const CHECKOUT_URL = "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=";
+  //drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668
 
-  useEffect(() => {
+  https: useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://app.lemonsqueezy.com/js/lemon.js";
     script.defer = true;
@@ -103,7 +119,7 @@ export default function Example() {
                   <div className="flex flex-col gap-4 my-6">
                     <div className="flex gap-6 items-end">
                       <div className={classNames("text-6xl font-semibold tracking-tight ")}>
-                        {tier.price[frequency] || tier.price.once}
+                        {tier.price[frequency]?.price || tier.price.once.price || "--"}
                       </div>
 
                       {!tier.price.once && (
@@ -142,14 +158,15 @@ export default function Example() {
                   )}
                   <div className="mt-6 flex items-baseline gap-x-1"></div>
                   <a
-                    href={tier.href}
+                    target="_blank"
+                    href={tier.price[frequency]?.lemonCheckoutHref || tier.price.once?.lemonCheckoutHref}
                     aria-describedby={tier.id}
                     data-umami-event={`cta-purchase-${tier.price.once ? "perpetual" : "subscription-" + frequency}`}
                     className={classNames(
                       tier.featured
                         ? "bg-primary-color-darkest text-white shadow-sm hover:bg-primary-color-darker focus-visible:bg-primary-color-darkest hover:no-underline hover:text-white"
                         : "bg-white/10 text-white hover:bg-white/20 focus-visible:outline-white",
-                      "mt-6 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:no-underline hover:text-white"
+                      "mt-6 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:no-underline hover:text-white lemonsqueezy-button"
                     )}
                   >
                     {tier.cta}
