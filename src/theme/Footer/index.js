@@ -125,9 +125,14 @@ export default function Example() {
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-24 ">
         <div className="xl:grid xl:grid-cols-3 gap-8 flex flex-col xl:gap-8">
           <div className="mb-8 space-y-4 max-w-sm m-auto flex flex-col items-center xl:col-span-1 xl:items-start xl:justify-center">
-            <img alt="Drafft Logo" src={logo.src} className="h-9" />
+            <div className="flex gap-2 items-center">
+              <img alt="Drafft Logo" src={logo.src} className="h-9" />
+              <div className="text-balance text-2xl font-bold text-gray-300">{title}</div>
+            </div>
             <div className="text-balance text-sm/6 text-gray-300">
               {title} | {logo.alt}
+              <div className="">© 2025 Alexis Boni. </div>
+              <div className=""> All rights reserved. </div>
             </div>
             <div className="flex gap-x-6">
               {navigation.social.map((item) => (
