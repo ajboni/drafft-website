@@ -3,7 +3,7 @@ name: Deploy Website
 on:
   push:
     branches:
-    - '**' # Trigger on every commit to any branch
+      - main # Trigger only on commits to the main branch
 jobs:
   deploy:
     runs-on: ubuntu-latest
