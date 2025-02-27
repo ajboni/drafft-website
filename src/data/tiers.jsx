@@ -1,0 +1,55 @@
+const tiers = [
+  {
+    name: "Drafft",
+    id: "subscription",
+    href: "/download-beta",
+    price: {
+      monthly: {
+        price: "$9",
+        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/5b4074fc-f19f-47b8-9e78-0bb58be468a0?enabled=705672",
+      },
+      yearly: {
+        price: "$7.50",
+        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/5b179017-631c-44b6-9c55-2e3a74aa5411?enabled=705678",
+      },
+    },
+    description: "Simple Pricing. All of Drafft features",
+    features: [
+      "All Drafft Features",
+      "Lifetime updates",
+      "Offline First, Private Data",
+      "Optional Multiuser (Bring your own database)",
+      "Optional cloud hosted database (coming soon)",
+      "3 personal devices",
+    ],
+    featured: true,
+    cta: "Get Started",
+    umamiEvent: "cta-purchase-subscription",
+  },
+  {
+    name: "Pay Once",
+    id: "perpetual",
+    href: "/download-beta",
+    price: {
+      once: {
+        price: "$175",
+        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668",
+      },
+    },
+    description: "Your copy forever & one year of updates",
+    features: [
+      "All Drafft Features",
+      "One year of updates updates",
+      "Offline First, Private Data",
+      "Optional Multiuser (Bring your own database)",
+      "Optional Hosted Database (coming soon)",
+      "3 personal devices",
+      "Free forever for v1 license holders until April 2025",
+    ],
+    featured: false,
+    cta: "Get Started",
+    umamiEvent: "cta-purchase-perpetual",
+  },
+];
+
+export default tiers;

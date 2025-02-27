@@ -1,61 +1,9 @@
 "use client";
 import { Field, Label, Switch } from "@headlessui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-
-const tiers = [
-  {
-    name: "Drafft",
-    id: "subscription",
-    href: "/download-beta",
-    price: {
-      monthly: {
-        price: "$9",
-        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/5b4074fc-f19f-47b8-9e78-0bb58be468a0?enabled=705672",
-      },
-      yearly: {
-        price: "$7.50",
-        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/5b179017-631c-44b6-9c55-2e3a74aa5411?enabled=705678",
-      },
-    },
-    description: "Simple Pricing. All of Drafft features",
-    features: [
-      "All Drafft Features",
-      "Lifetime updates",
-      "Offline First, Private Data",
-      "Optional Multiuser (Bring your own database)",
-      "Optional cloud hosted database (coming soon)",
-      "3 personal devices",
-    ],
-    featured: true,
-    cta: "Get Started",
-    umamiEvent: "cta-purchase-subscription",
-  },
-  {
-    name: "Pay Once",
-    id: "perpetual",
-    href: "/download-beta",
-    price: {
-      once: {
-        price: "$175",
-        lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668",
-      },
-    },
-    description: "Your copy forever & one year of updates",
-    features: [
-      "All Drafft Features",
-      "One year of updates updates",
-      "Offline First, Private Data",
-      "Optional Multiuser (Bring your own database)",
-      "Optional Hosted Database (coming soon)",
-      "3 personal devices",
-      "Free forever for v1 license holders until April 2025",
-    ],
-    featured: false,
-    cta: "Get Started",
-    umamiEvent: "cta-purchase-perpetual",
-  },
-];
+import { useAnimation, useInView, motion } from "framer-motion";
+import tiers from "../../data/tiers";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -64,10 +12,20 @@ function classNames(...classes) {
 export default function Example() {
   const [lemonLoaded, setLemonLoaded] = useState(false);
   const [frequency, setFrequency] = useState("yearly");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const pricingControl = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      pricingControl.start("visible");
+    }
+  }, [isInView]);
+
   const CHECKOUT_URL = "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=";
   //drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668
 
-  https: useEffect(() => {
+  useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://app.lemonsqueezy.com/js/lemon.js";
     script.defer = true;
@@ -83,15 +41,38 @@ export default function Example() {
 
   return (
     <>
-      <div id="pricing" className="py-24 sm:2 min-h-screen">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div id="pricing" className="py-16 sm:2 min-h-screen scroll-m-12">
+        <motion.div
+          variants={{
+            visible: { opacity: 1, y: 10 },
+            hidden: { opacity: 0, y: 0 },
+          }}
+          ref={ref}
+          animate={pricingControl}
+          transition={{ delay: 0.1, duration: 1.5 }}
+          initial="hidden"
+          className="mx-auto max-w-7xl px-6 lg:px-8"
+        >
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-base/7 font-semibold text-primary-color-lightest">Transparent pricing</h2>
             <div className="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
               The ultimate{" "}
-              <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
+              <motion.span
+                initial={{ x: 0, y: 0 }}
+                animate={{
+                  x: [0, -0.8, 0.8, -0.8, 0.8, 0], // Smaller horizontal movement
+                  rotate: [0, -0.3, 0.3, -0.3, 0.3, 0], // Less rotation
+                }}
+                transition={{
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 6, // Speed of shake
+                  ease: "easeInOut",
+                }}
+                className="inline-block font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]"
+              >
                 toolkit
-              </span>{" "}
+              </motion.span>{" "}
               for game developers.
             </div>
           </div>
@@ -191,7 +172,7 @@ export default function Example() {
             Download Now
           </a>
         </div> */}
-        </div>
+        </motion.div>
       </div>
     </>
   );

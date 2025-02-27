@@ -1,12 +1,9 @@
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import Hero from "@site/src/components/home/Hero";
 import HomePagePricing from "@site/src/components/home/HomePagePricing";
 import HomepageFeatures from "@site/src/components/home/HomepageFeatures";
-import { useEffect } from "react";
-export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
 
+export default function Home() {
   return (
     <Layout
       title={`Plan Your Game`}
@@ -21,7 +18,7 @@ export default function Home() {
       {/* </Head> */}
       <Hero />
       <main className="bg-dark-background-darker-3">
-        <HomepageFeatures maxFeatures={6} />
+        <HomepageFeatures />
         <HomePagePricing />
       </main>
     </Layout>
