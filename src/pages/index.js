@@ -2,6 +2,7 @@ import Layout from "@theme/Layout";
 import Hero from "@site/src/components/home/Hero";
 import HomePagePricing from "@site/src/components/home/HomePagePricing";
 import HomepageFeatures from "@site/src/components/home/HomepageFeatures";
+import HomePageFAQ from "../components/home/HomePageFAQ";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <main className="bg-dark-background-darker-3">
         <HomepageFeatures />
         <HomePagePricing />
+        <HomePageFAQ/>
       </main>
     </Layout>
   );
