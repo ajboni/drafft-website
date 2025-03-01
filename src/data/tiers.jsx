@@ -32,19 +32,18 @@ const tiers = [
     href: "/download-beta",
     price: {
       once: {
-        price: "$175",
+        price: "$360",
         lemonCheckoutHref: "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668",
       },
     },
-    description: "Your copy forever & one year of updates",
+    description: "Your copy forever",
     features: [
       "All Drafft Features",
-      "One year of updates updates",
+      "Lifetime updates",
       "Offline First, Private Data",
       "Optional Multiuser (Bring your own database)",
       "Optional Hosted Database (coming soon)",
       "3 personal devices",
-      "Free forever for v1 license holders until April 2025",
     ],
     featured: false,
     cta: "Get Started",
