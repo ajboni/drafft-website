@@ -15,7 +15,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-dark-background-darker-3">
+    <div className="bg-dark-background-darkest-2">
       <div className="relative isolate">
         <BgBlur style={1} />
         <div className="py-16 sm:py-24">

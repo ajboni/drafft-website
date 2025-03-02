@@ -108,7 +108,7 @@ export default function Example() {
                       )}
                     </div>
                     {tier.price.once ? (
-                      <div className="text-sm text-gray-400">{`One time payment. Inlcudes one year of updates`}. </div>
+                      <div className="text-sm text-gray-400">{`One time payment. Yours forever`}. </div>
                     ) : (
                       <div className="text-sm text-gray-400">{`Per month billed ${frequency}`}. </div>
                     )}

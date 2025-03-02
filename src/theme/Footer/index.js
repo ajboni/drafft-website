@@ -95,7 +95,7 @@ export default function Example() {
   const { socials } = customFields;
   const { copyright, links = [], logo } = footer;
   return (
-    <footer className="bg-dark-background-darkest-2">
+    <footer className="bg-dark-background-darkest-3">
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-24 ">
         <div className="xl:grid xl:grid-cols-3 gap-8 flex flex-col xl:gap-8">
           <div className="mb-8 space-y-4 xl:max-w-sm m-auto flex flex-col text-center  items-center xl:col-span-1 xl:items-center xl:justify-center">

@@ -15,7 +15,7 @@ function HomePageFAQ() {
   }
 //   faqs.splice(0, 2);
   return (
-    <div className="bg-dark-background-darkest scroll-m-32 p-24" id="faqs">
+    <div className="p-24" id="faqs">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
@@ -28,7 +28,7 @@ function HomePageFAQ() {
 
         <dl className="mt-16 divide-y divide-white w-full ">
           {faqs.map((faq) => (
-            <Disclosure as="div" className="w-full max-w-4xl mx-auto">
+            <Disclosure as="div" key={faq.question} className="w-full max-w-4xl mx-auto">
               {({ open }) => (
                 <>
                   <DisclosureButton className="w-full  text-lg font-semibold text-zinc-100 p-3 text-left border-0  border-b border-white/5 bg-inherit group flex justify-between items-center">

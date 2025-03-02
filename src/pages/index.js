@@ -18,7 +18,7 @@ export default function Home() {
       {/*   ></script> */}
       {/* </Head> */}
       <Hero />
-      <main className="bg-dark-background-darker-3">
+      <main className="bg-dark-background-darkest-2">
         <HomepageFeatures />
         <HomePagePricing />
         <HomePageFAQ/>

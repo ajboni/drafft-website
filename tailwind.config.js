@@ -19,6 +19,7 @@ module.exports = {
         "dark-background-darker-3": "var(--dark-background-darker-3)",
         "dark-background-darkest": "var(--dark-background-darkest)",
         "dark-background-darkest-2": "var(--dark-background-darkest-2)",
+        "dark-background-darkest-3": "var(--dark-background-darkest-3)",
         "dark-background-lighter": "var(--dark-background-lighter)",
         "dark-background-lightest": "var(--dark-background--lightest)",
         "dark-foreground": "var(--dark-foreground)",

@@ -17,7 +17,7 @@ export default function HomepageFeatures({ maxFeatures }) {
   }, [isInView]);
 
   return (
-    <div className="bg-dark-background-darker-3 scroll-m-32" id="features">
+    <div className="scroll-m-32" id="features">
       <motion.div
         variants={{
           visible: { opacity: 1, y: 10 },

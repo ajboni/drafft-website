@@ -167,7 +167,7 @@ const config = {
         },
         items: [
           // { to: "/features", label: "Features", position: "left" },
-          { to: "/#pricing", label: "Pricing", position: "left" },
+          { to: "/#pricing", label: "Pricing", position: "left" ,   activeBaseRegex: '/\#pricing',},
           { to: "/gallery", label: "Gallery", position: "left" },
 
           {
@@ -208,7 +208,7 @@ const config = {
               },
               {
                 label: "FAQ",
-                href: "/faq",
+                href: "/#faqs",
               },
               {
                 label: "EULA",
