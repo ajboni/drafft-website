@@ -22,9 +22,6 @@ export default function Example() {
     }
   }, [isInView]);
 
-  const CHECKOUT_URL = "https://drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=";
-  //drafft.lemonsqueezy.com/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668
-
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://app.lemonsqueezy.com/js/lemon.js";
