@@ -169,6 +169,33 @@ export default function Example() {
             Download Now
           </a>
         </div> */}
+
+          {/* Free Trial Section */}
+          <div className="mt-12 text-center">
+            <h3 className="text-2xl font-semibold text-white">Not sure yet? Try Drafft free for 14 days!</h3>
+            <p className="mt-2 text-lg text-gray-400">Full access to all features. No credit card required.</p>
+            <a
+              href="" // Replace with actual trial signup link
+              data-umami-event="cta-free-trial"
+              className="lemonsqueezy-button mt-4 inline-block rounded-md bg-primary-color-darkest px-6 py-3 text-lg font-semibold text-white shadow-md hover:bg-primary-color-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color-darkest"
+            >
+              Start Free Trial
+            </a>
+          </div>
+
+          {/* Legacy Version */}
+          <div className="mt-8 text-center">
+            <div className="text-lg text-gray-400">
+              Looking for <span className="font-semibold text-white">Drafft Legacy</span>?
+            </div>
+            <a
+              href="https://baj.itch.io/drafft" // Replace with actual legacy version link
+              className="mt-1 inline-block text-primary-color-lightest hover:underline"
+              data-umami-event="cta-legacy"
+            >
+              Download Drafft Legacy
+            </a>
+          </div>
         </motion.div>
       </div>
     </>
