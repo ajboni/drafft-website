@@ -81,7 +81,7 @@
 
 .navbar__search-input {
   border-radius: 6px;
-  /* height: 2.5rem; */
+  height: 2.5rem;
 }
 
 @media (max-width: 1024px) {

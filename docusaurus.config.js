@@ -167,7 +167,7 @@ const config = {
         },
         items: [
           // { to: "/features", label: "Features", position: "left" },
-          { to: "/#pricing", label: "Pricing", position: "left" ,   activeBaseRegex: '/\#pricing',},
+          { to: "/#pricing", label: "Pricing", position: "left", activeBaseRegex: "/#pricing" },
           { to: "/gallery", label: "Gallery", position: "left" },
 
           {
@@ -177,11 +177,15 @@ const config = {
             label: "Docs",
           },
           { to: "/blog", label: "Blog", position: "left" },
+          // {
+          //   position: "right",
+          //   label: "Get Started",
+          //   to: "/download",
+          //   className: "btn-primary-navbar",
+          // },
           {
+            type: "custom-downloadButton",
             position: "right",
-            label: "Get Started",
-            to: "/download",
-            className: "btn-primary-navbar",
           },
           // {
           //   position: "right",
@@ -230,10 +234,6 @@ const config = {
               {
                 label: "Drafft Legacy",
                 href: "https://baj.itch.io/drafft",
-              },
-              {
-                label: "Contact",
-                href: "mailto:hello@drafft.dev",
               },
             ],
           },
