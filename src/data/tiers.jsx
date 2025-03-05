@@ -10,7 +10,7 @@ const tiers = [
       },
       yearly: {
         price: "$7.50",
-        lemonCheckoutHref: "https://store.draft.dev/buy/5b179017-631c-44b6-9c55-2e3a74aa5411?enabled=705678",
+        lemonCheckoutHref: "https://store.drafft.dev/buy/5b179017-631c-44b6-9c55-2e3a74aa5411?enabled=705678",
       },
     },
     description: "Simple Pricing. All of Drafft features",
@@ -43,7 +43,7 @@ const tiers = [
       "Offline First, Private Data",
       "Optional Multiuser (Bring your own database)",
       "Optional Hosted Database (coming soon)",
-      "3 personal devices",
+      "5 personal devices",
     ],
     featured: false,
     cta: "Get Started",

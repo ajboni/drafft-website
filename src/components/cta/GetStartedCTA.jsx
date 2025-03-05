@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
+import AppContext from "../../AppContext";
+import DownloadButton from "../../pages/download-button";
 
 function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitle = true }) {
+  const { osData } = useContext(AppContext);
+  const { os, arch, icon } = osData;
   return (
     <div className="mx-auto max-w-3xl text-center">
       {showTitle && (
@@ -33,7 +37,7 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
           className="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8"
         >
           Drafft is a multi-platform, offline-first, privacy-focused game development tool that centralizes your game
-          content, Dialogue Trees, Scripts, GDDs, and more.
+          content, Dialogue Trees, Scripts, Gdds, and More.
         </motion.div>
       )}
 
@@ -43,15 +47,16 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
         transition={{ delay: 1.2, duration: 1 }}
         className="mt-10 flex items-center justify-center gap-x-6"
       >
-        <a href="/download" className="btn-primary ">
-          Get Started
-        </a>
+        {/* <a href="/download" className="btn-primary flex items-center justify-center gap-x-2 ">
+          {icon} <span>Download for <span className="capitalize">{os}</span></span>
+        </a> */}
+        <DownloadButton longTitle={true}></DownloadButton>
         {showLearnMore && (
           <a
-            href="#features"
+            href="/download"
             className="text-sm sm:text-base font-semibold text-white hover:text-primary-color hover:no-underline"
           >
-            Learn More <span aria-hidden="true">→</span>
+            All Downloads <span aria-hidden="true">→</span>
           </a>
         )}
       </motion.div>

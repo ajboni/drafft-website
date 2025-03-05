@@ -10,18 +10,11 @@ export default function Home() {
       title={`Plan Your Game`}
       description="Centralize your scripts, dialogues, GDDs, and more — plan, design, and collaborate with ease. Own your game data and take control of your development process."
     >
-      {/* <Head> */}
-      {/*   <script */}
-      {/*     defer */}
-      {/*     src="https://cloud.umami.is/script.js" */}
-      {/*     data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" */}
-      {/*   ></script> */}
-      {/* </Head> */}
       <Hero />
       <main className="bg-dark-background-darkest-2">
         <HomepageFeatures />
         <HomePagePricing />
-        <HomePageFAQ/>
+        <HomePageFAQ />
       </main>
     </Layout>
   );
