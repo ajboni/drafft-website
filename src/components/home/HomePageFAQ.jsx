@@ -3,7 +3,7 @@ import { Fragment, useEffect, useRef } from "react";
 import { AnimatePresence, easeOut, motion } from "framer-motion";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { ChevronDownIcon, MinusIcon, PlusIcon, PlusSmallIcon } from "@heroicons/react/20/solid";
-import Markdown from 'react-markdown'
+import Markdown from "react-markdown";
 
 function HomePageFAQ() {
   const regex = /## (.*?)\n([\s\S]*?)(?=\n##|\n*$)/g;
@@ -13,7 +13,7 @@ function HomePageFAQ() {
   while ((match = regex.exec(FAQ)) !== null) {
     faqs.push({ question: match[1].trim(), answer: match[2].trim().replace("---", "") });
   }
-//   faqs.splice(0, 2);
+  //   faqs.splice(0, 2);
   return (
     <div className="p-24" id="faqs">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -26,12 +26,12 @@ function HomePageFAQ() {
           </p>
         </div>
 
-        <dl className="mt-16 divide-y divide-white w-full ">
+        <dl className="mt-16 divide-y divide-white/5 w-full ">
           {faqs.map((faq) => (
             <Disclosure as="div" key={faq.question} className="w-full max-w-4xl mx-auto">
               {({ open }) => (
                 <>
-                  <DisclosureButton className="w-full  text-lg font-semibold text-zinc-100 p-3 text-left border-0  border-b border-white/5 bg-inherit group flex justify-between items-center">
+                  <DisclosureButton className="w-full  text-lg font-semibold text-zinc-100 p-3 text-left  bg-inherit group flex justify-between items-center">
                     {faq.question}
 
                     <ChevronDownIcon className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />

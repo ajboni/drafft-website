@@ -78,6 +78,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  box-sizing: border-box;
+  border: 0 solid;
+}
 
 .navbar__search-input {
   border-radius: 6px;

@@ -50,7 +50,7 @@ export default function Example() {
           initial="hidden"
           className="mx-auto max-w-7xl px-6 lg:px-8"
         >
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="mx-auto max-w-4xl text-center  rounded-md p-8 xl:p-10">
             <h2 className="text-base/7 font-semibold text-primary-color-lightest">Transparent pricing</h2>
             <div className="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
               The ultimate{" "}
