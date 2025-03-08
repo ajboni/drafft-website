@@ -33,7 +33,7 @@ function Download() {
     const versionMatch = asset.name.match(/(\d+\.\d+\.\d+)/);
 
     const _os = osMatch ? osMatch[1] : "unknown";
-    const _arch = archMatch ? archMatch[1] : "xx64";
+    const _arch = archMatch ? archMatch[1] : "x64";
     const _version = versionMatch ? versionMatch[1] : "latest";
 
     console.log(`OS: ${_os}, Arch: ${_arch}, Version: ${_version}`);

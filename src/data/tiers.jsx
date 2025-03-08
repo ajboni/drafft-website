@@ -6,11 +6,11 @@ const tiers = [
     price: {
       monthly: {
         price: "$9",
-        lemonCheckoutHref: "https://store.drafft.dev/buy/5b4074fc-f19f-47b8-9e78-0bb58be468a0?enabled=705672",
+        lemonCheckoutHref: "https://store.drafft.dev/buy/a25407e8-3ac9-4e48-97b2-7834cc8a6cb9?enabled=718868",
       },
       yearly: {
         price: "$7.50",
-        lemonCheckoutHref: "https://store.drafft.dev/buy/5b179017-631c-44b6-9c55-2e3a74aa5411?enabled=705678",
+        lemonCheckoutHref: "https://store.drafft.dev/buy/2911b6c6-f1f7-4d1d-b0ca-d8916ee47668?enabled=718869",
       },
     },
     description: "Simple Pricing. All of Drafft features",
@@ -33,7 +33,7 @@ const tiers = [
     price: {
       once: {
         price: "$360",
-        lemonCheckoutHref: "https://store.drafft.dev/buy/813957b0-8e0b-4d06-9c02-ac48e645f0cb?enabled=705668",
+        lemonCheckoutHref: "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867",
       },
     },
     description: "Your copy forever",
