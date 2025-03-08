@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import BgBlur from "../components/bg/BgBlur";
 import HomePagePricing from "../components/home/HomePagePricing";
 import Layout from "@theme/Layout";
-import { getDownloadUrl } from "../lib/utils";
 import AppContext from "../AppContext";
 import {
   LuDownload,
@@ -22,6 +21,29 @@ function Download() {
   const [previousReleases, setPreviousReleases] = useState([]);
   const { osData } = useContext(AppContext);
   const { os, arch, icon } = osData;
+  const filteredAssets =
+    releaseInfo.assets?.filter((x) => !x.name.includes("blockmap") && !x.name.includes(".yml")) || [];
+
+  const platforms = [];
+  for (const asset of filteredAssets) {
+    console.log(asset);
+    // extract os from asset name
+    const osMatch = asset.name.match(/-(win|mac|linux)/);
+    const archMatch = asset.name.match(/-(x86_64|arm64|x64)/);
+    const versionMatch = asset.name.match(/(\d+\.\d+\.\d+)/);
+
+    const _os = osMatch ? osMatch[1] : "unknown";
+    const _arch = archMatch ? archMatch[1] : "xx64";
+    const _version = versionMatch ? versionMatch[1] : "latest";
+
+    console.log(`OS: ${_os}, Arch: ${_arch}, Version: ${_version}`);
+
+    platforms.push({
+      name: _os,
+    });
+    // extract arch from asset name
+    // extract version from asset name
+  }
 
   useEffect(() => {
     async function getReleaseinfo() {
@@ -29,7 +51,6 @@ function Download() {
       } catch (err) {}
       const response = await fetch(`https://api.github.com/repos/ajboni/drafft-releases/releases`);
       const releases = await response.json();
-      console.log(releases);
       setReleaseInfo(releases[0]);
       setPreviousReleases(releases.slice(1));
     }
@@ -53,7 +74,7 @@ function Download() {
     return (
       <div className="w-full max-w-4xl">
         {/* Latest Version Card */}
-        <div className="bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700 mb-8">
+        <div className="bg-dark-background-darker rounded-lg shadow-xl overflow-hidden border border-gray-700 mb-8">
           <div className="p-6 border-b border-gray-700 flex justify-between items-center">
             <div>
               <h2 className="text-xl font-semibold text-gray-100">Latest Version</h2>
@@ -67,10 +88,10 @@ function Download() {
           <div className="p-6">
             {/* Platform Downloads */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              {releaseInfo.platforms?.map((platform) => (
+              {platforms?.map((platform) => (
                 <div
                   key={platform.name}
-                  className="border border-gray-700 rounded-lg p-4 bg-gray-800 hover:bg-gray-750 transition-colors"
+                  className="border border-gray-700 rounded-lg p-4 bg-dark-background-darker hover:bg-gray-750 transition-colors"
                 >
                   <div className="flex items-center mb-3">
                     <platform.icon className="w-5 h-5 text-blue-400 mr-2" />
@@ -113,7 +134,7 @@ function Download() {
         </div>
 
         {/* Previous Versions */}
-        <div className="bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700">
+        <div className="bg-dark-background-darker rounded-lg shadow-xl overflow-hidden border border-gray-700">
           <div
             className="p-6 border-b border-gray-700 flex justify-between items-center cursor-pointer"
             onClick={() => setShowAllVersions(!showAllVersions)}
@@ -157,21 +178,21 @@ function Download() {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <a
             href="#docs"
-            className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
+            className="bg-dark-background-darker border border-gray-700 rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
           >
             <LuFileText className="w-5 h-5 text-blue-400 mr-3" />
             <span className="text-gray-200">Documentation</span>
           </a>
           <a
             href="#source"
-            className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
+            className="bg-dark-background-darker border border-gray-700 rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
           >
             <LuGlobe className="w-5 h-5 text-blue-400 mr-3" />
             <span className="text-gray-200">Source Code</span>
           </a>
           <a
             href="#license"
-            className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
+            className="bg-dark-background-darker border border-gray-700 rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
           >
             <LuShield className="w-5 h-5 text-blue-400 mr-3" />
             <span className="text-gray-200">License</span>
@@ -179,7 +200,7 @@ function Download() {
         </div>
 
         {/* System Requirements */}
-        <div className="mt-8 bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700">
+        <div className="mt-8 bg-dark-background-darker rounded-lg shadow-lg overflow-hidden border border-gray-700">
           <div className="p-4 border-b border-gray-700">
             <h2 className="text-lg font-semibold text-gray-100">System Requirements</h2>
           </div>
@@ -225,7 +246,7 @@ function Download() {
     );
   };
   return (
-    <Layout title={`Download Drafft.`} description="Download Drafft for Windows, MacOS and Linux.">
+    <Layout title={`Download Drafft`} description="Download Drafft for Windows, MacOS and Linux.">
       <div className="bg-dark-background-darkest-2">
         <div className="relative isolate">
           <BgBlur style={1} />

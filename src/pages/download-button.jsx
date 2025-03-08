@@ -8,7 +8,8 @@ export default function DownloadButton({ longTitle = false }) {
 
   const downloadLatestVersion = async () => {
     try {
-      const release = await getDownloadUrl(os, arch);
+      console.log(os, arch);
+      const release = await getDownloadUrl({ os, arch });
       console.log(release.url);
       window.open(release.url);
     } catch (error) {
