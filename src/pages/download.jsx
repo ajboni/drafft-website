@@ -88,7 +88,8 @@ function Download() {
               {filteredAssets?.map((asset) => (
                 <div
                   key={asset.name}
-                  className=" flex flex-col gap-0 items-start  border cursor-pointer border-dark-background-lightest rounded-lg p-4  hover:bg-dark-background-lighter hover:border-dark-background-lightest-2 transition-colors "
+                  onClick={() => window.open(asset.browser_download_url)}
+                  className=" flex flex-col gap-0 items-start  border cursor-pointer border-dark-background-lightest rounded-lg p-4  hover:bg-dark-background-lighter hover:border-dark-background-lightest-2 trans-colors "
                 >
                   <div className="flex items-center gap-x-2 gap">
                     {/* <platform.icon className="w-5 h-5 text-primary-color-lighter mr-2" /> */}
@@ -169,18 +170,18 @@ function Download() {
             <span className="text-gray-200">Documentation</span>
           </a>
           <a
-            href="#source"
+            href="https://github.com/ajboni/drafft-releases/releases"
             className="bg-dark-background-darker border border-dark-background-lightest rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
           >
             <LuGlobe className="w-5 h-5 text-primary-color-lighter mr-3" />
-            <span className="text-gray-200">Source Code</span>
+            <span className="text-gray-200">All Downloads</span>
           </a>
           <a
-            href="#license"
+            href="http://localhost:3000/eula"
             className="bg-dark-background-darker border border-dark-background-lightest rounded-lg p-4 flex items-center hover:bg-gray-750 transition-colors"
           >
             <LuShield className="w-5 h-5 text-primary-color-lighter mr-3" />
-            <span className="text-gray-200">License</span>
+            <span className="text-gray-200">EULA</span>
           </a>
         </div>
 

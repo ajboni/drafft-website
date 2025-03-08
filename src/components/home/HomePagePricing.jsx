@@ -73,9 +73,14 @@ export default function Example() {
               for game developers.
             </div>
           </div>
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">
+          <p className="mx-auto mt-6 max-w-4xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">
             Create branching stories, dialogue trees, and game design documents with Drafft.
           </p>
+
+          <div className=" max-w-4xl  mt-6 text-center text-sm text-gray-400 border border-primary-color-desaturated rounded-md p-3 mx-auto">
+            Drafft is in active beta! We're continuously improving the experience. <br /> Not sure yet? Try the free
+            trial before purchasing—your feedback helps shape the future!
+          </div>
 
           <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 md:grid-cols-2 gap-8 md:max-w-4xl">
             {lemonLoaded &&
