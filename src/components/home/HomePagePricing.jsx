@@ -182,7 +182,7 @@ export default function Example() {
             <a
               href="https://store.drafft.dev/buy/43bcb39c-0d63-4dd0-83c7-db02eb3bf4fd?enabled=718870"
               data-umami-event="cta-free-trial"
-              className="lemonsqueezy-button mt-4 inline-block rounded-md bg-primary-color-darkest px-6 py-3 text-lg font-semibold text-white shadow-md hover:bg-primary-color-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color-darkest"
+              className=" mt-4 inline-block rounded-md bg-primary-color-darkest px-6 py-3 text-lg font-semibold text-white shadow-md hover:bg-primary-color-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-color-darkest"
             >
               Start Free Trial
             </a>

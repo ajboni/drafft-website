@@ -225,7 +225,7 @@ const config = {
             items: [
               {
                 label: "Discussion Board",
-                href: "https://baj.itch.io/drafft/community",
+                href: "https://community.drafft.dev",
               },
               {
                 label: "Feature Requests",
