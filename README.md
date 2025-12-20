@@ -42,6 +42,11 @@ Drafft is especially suited for teams that want **structured data without hard-c
 - Focus: Game data, quests, items, dialogue, and design workflows
 - Philosophy: Own your data, stay flexible
 
+### Analytics
+
+This website uses privacy-friendly, cookie-free analytics (Umami) to understand general usage patterns.
+No personal data or cross-site tracking is performed.
+
 ## License
 
 The content of this repository (documentation, website text, and examples) is licensed under
