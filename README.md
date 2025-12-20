@@ -41,3 +41,12 @@ Drafft is especially suited for teams that want **structured data without hard-c
 - Website: [https://drafft.dev](https://drafft.dev)
 - Focus: Game data, quests, items, dialogue, and design workflows
 - Philosophy: Own your data, stay flexible
+
+## License
+
+The content of this repository (documentation, website text, and examples) is licensed under
+the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+The Drafft application and related software are licensed separately.
+
+© 2025 Alexis Boni.
