@@ -1,0 +1,138 @@
+---
+title: Grids
+description: Learn how to format and customize cell data in Grids. Explore techniques for formatting numbers, currency, dates, and more to improve the presentation of your data grid.
+---
+
+## Introduction
+
+The Grid section in Drafft provides a powerful and flexible way to organize and manage your data using a spreadsheet-like interface. Whether you're building a table for game data, managing item inventories, or creating a complex database, Drafft’s Grids give you the tools to format and present your information clearly and efficiently.
+
+With support for multiple column types and the ability to apply custom formatting, Drafft makes it easy to control how data is displayed. From numbers and currencies to dates and colors, you can tailor each cell to meet your specific needs. The grids are built on top of the popular Jspreadsheet library, offering a robust set of features and customization options.
+
+In this guide, you’ll learn how to create tables, format cells, and leverage the different column types to build more dynamic and functional grids for your projects.
+
+![Grids](/img/gallery/grid.webp)
+
+## Column Types
+
+The available column types are:
+
+- text
+- numeric
+- hidden
+- dropdown
+- checkbox
+- radio
+- calendar
+- image
+- color
+- html
+
+## Cell Formatting
+
+Drafft's grids offers flexible cell formatting features similar to Excel and Google Sheets, with customizable options for better data presentation. You can format numbers, currencies, dates, and more to suit specific application requirements, enabling enhanced control over how data is displayed and integrated.
+
+Grids are built on top of Jspreadsheet, a powerful JavaScript spreadsheet library that offers a wide range of features and customization options. For more information, please refer to the [Jspreadsheet documentation](https://bossanova.uk/jspreadsheet/docs).
+
+## Overview
+
+### Column Level Settings
+
+The following properties are applied uniformly to all cells in a column.
+
+| Attribute       | Description                                                        |
+| --------------- | ------------------------------------------------------------------ |
+| mask?: object   | This property force the mask during the edition.                   |
+| format?: object | This property will mask the content of a cell after the edition.   |
+| locale? object  | This property apply the JavaScript Intl.FormatNumber to the cells. |
+
+## Documentation
+
+### Mask and Format Settings
+
+In Jspreadsheet CE, the `mask` property enforces a specific input pattern during cell editing using spreadsheet-like tokens. The `format` property applies formatting rules to cell content after editing. Below are examples of tokens that can be used:
+
+| Valid examples |
+| -------------- |
+| 0              |
+| 0.00           |
+| 0%             |
+| 0.00%          |
+| #,##0          |
+| #,##0.00       |
+| #,##0          |
+| d-mmm-yy       |
+| d-mmm          |
+| dd/mm/yyyy     |
+| mmm-yy         |
+| h:mm AM/PM     |
+| h:mm:ss AM/PM  |
+| h:mm           |
+| h:mm:ss        |
+| m/d/yy h:mm    |
+| mm:ss          |
+| [h]:mm:ss      |
+
+### Locale
+
+#### Currency Formatting
+
+To use the `currency` style in Jspreadsheet, specify the `currency` property. Optionally, you can use the `currencyDisplay` and `currencySign` properties to control the display format of the currency unit.
+
+## Examples
+
+### Data Grid with Different Currencies
+
+The example below demonstrates number formatting using `Intl.NumberFormat` or `mask`.
+
+See more examples of the [spreadsheet format](https://jsfiddle.net/spreadsheet/L9jxszf3/) on jsfiddle
+
+```json
+[
+  {
+    "title": "Currency INR",
+    "type": "number",
+    "locale": "en-IN",
+    "options": {
+      "style": "currency",
+      "currency": "INR"
+    }
+  },
+  {
+    "title": "Currency BRL",
+    "type": "number",
+    "locale": "pt-BR",
+    "options": {
+      "style": "currency",
+      "currency": "BRL"
+    }
+  },
+  {
+    "title": "Percent US",
+    "type": "number",
+    "mask": "0.00%"
+  },
+  {
+    "title": "Units Liter US",
+    "type": "number",
+    "locale": "en-US",
+    "options": {
+      "style": "unit",
+      "unit": "liter",
+      "unitDisplay": "long"
+    }
+  },
+  {
+    "type": "number",
+    "format": "#.##0,00"
+  },
+  {
+    "type": "number",
+    "mask": "#,##0"
+  }
+]
+```
+
+### Export Schema
+
+See [Drafft Output Schema](/docs/reference/exporting/exporting_schema#grids-collection) for the JSON export schema.

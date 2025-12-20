@@ -1,0 +1,37 @@
+---
+title: Quests
+description: "Use Quest documents to define in-game objectives using structured metadata and completion conditions. Drafft supports dual-pane editing in JSON, HJSON, TOML, YAML, or plain text."
+---
+
+# Quests
+
+Use Quest documents in Drafft to define in-game objectives, side missions, or main storyline beats.
+
+Each Quest doc uses a **dual-pane editor**:
+
+- **Properties**: Define quest metadata, narrative role, rewards, difficulty, etc.
+- **Conditions**: Define the game state required to mark the quest as _completed_ (e.g., inventory contains item, dialogue flag is set, boss defeated).
+
+Drafft supports flexible formats: **JSON**, **HJSON**, **TOML**, **YAML**, or plain **text**. Both panes are validated and exported as standard JSON under the hood.
+
+![Quests](/img/gallery/quest-editor.webp)
+
+---
+
+## Example
+
+```yaml title="Properties (yaml)"
+title: "The Forest Trial"
+reward: "Health Potion"
+difficulty: "Easy"
+optional: false
+```
+
+```yaml title="Conditions (yaml)"
+defeatedBoss": true,
+hasItems:
+  - Health Potion
+  - Magic Potion
+```
+
+See [Drafft Output Schema](/docs/reference/exporting/exporting_schema#quests-collection) for the JSON export schema.

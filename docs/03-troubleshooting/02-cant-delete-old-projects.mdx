@@ -1,0 +1,36 @@
+---
+title: Can't Delete Old Projects
+description: Troubleshooting and fixing issues with deleting old projects in Drafft.
+---
+
+# Can't Delete Old Projects
+
+If you are unable to delete old projects in Drafft, follow the steps below to resolve the issue.
+
+There was a bug in the previous version of Drafft that caused some projects to have a wrong/empty `dbname` value. This caused and issue when trying to load or delete the project.
+
+Although the issue was fixed in the latest version, it is still possible to encounter this problem if you have old projects in your Drafft folder.
+
+## Identify the Problematic Projects
+
+If you notice that in the project manager some projects have a different `Database Name` than the project title, it is very possible that this project might be corrupted and cannot be deleted or loaded properly.
+
+## Example of a Problematic Project
+
+If the project title is "My Project", the database name should be `drafft_2_my_project`. If the `Database Name` show any other value this indicates a mismatch that could lead issues.
+
+## Steps to Fix the Issue
+
+:::danger
+Make sure you have backups of your projects before proceeding with the following steps.
+:::
+
+### If the project is not needed and/or can be deleted.
+
+1. Open the project manager and locate the problematic project.
+2. Press `ctrl + shift + i` to open the developer tools.
+3. Click on the "Application" tab.
+4. Go to Storage -> IndexedDB
+5. You should see a list of databases. Locate 2 databases with your project title: ex: `_pouch_draft_2_my_project` and `_pouch_draft_2_my_project_mrview-8755123123`.
+6. Delete both databases.
+7. Restart Drafft.

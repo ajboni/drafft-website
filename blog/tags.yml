@@ -1,0 +1,62 @@
+v2:
+  label: Version 2
+  permalink: /v2
+  description: Version 2 tag description
+
+announcements:
+  label: Announcements
+  permalink: /announcements
+  description: announcements tag description
+
+game-development:
+  label: Game Development
+  permalink: /game-development
+  description: Game development tag description
+
+game-design:
+  label: Game Design
+  permalink: /game-design
+
+documentation:
+  label: Documentation
+  permalink: /documentation
+
+GDD:
+  label: GDD
+  permalink: /GDD
+  description: GDD tag description
+
+dialogue-writing:
+  label: Dialogue Writing
+  permalink: /dialogue-writing
+  description: Dialogue writing tag description
+
+narrative-design:
+  label: Narrative Design
+  permalink: /narrative-design
+  description: Narrative design tag description
+
+tools:
+  label: Tools
+  permalink: /tools
+  description: Tools tag description
+
+workflow:
+  label: Workflow
+  permalink: /workflow
+  description: Workflow tag description
+
+json:
+  label: JSON
+  permalink: /json
+  description: JSON tag description
+
+collaboration:
+  label: Collaboration
+  permalink: /collaboration
+  description: Collaboration tag description
+
+scripts:
+  label: Scripts
+  permalink: /scripts
+  description: Scripts tag description

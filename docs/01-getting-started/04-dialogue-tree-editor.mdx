@@ -1,0 +1,64 @@
+---
+title: Dialogue Tree Editor
+description: Understanding the dialogue tree editor section of the app.
+caption: Dialogue Tree Editor
+---
+
+The script concept can also be applied to dialogues. Drafft will give you the chance to design a dialogue tree (or a general purpose tree) with the possibility to attach a script to each node. The way of structuring a dialogue tree is up to you, but the intended idea is to do linear logic inside the script and use the tree as a branching mechanism. This will make the tree less convoluted.
+
+A dialogue tree consists of a series of nodes interconnected (or not). Drafft provides 7 different nodes which should be enough to implement any logic in combination with a script.
+
+- `Start` node is a `1 Output` node. Its intended usage is for the developer to identify where to position the dialogue when starting it.
+- `Script` node is a `1 Input -> 1 Output` node that carries an associated script. This is intended for running game logic or linear dialogue.
+- `Choice` node is a `1 Input -> n Outputs` node intended for branching logic.
+- `End` node is a `1 Input only` node intended to provide a flag on where a branch hits a dead end.
+- Similarly, the `Return` node is a `1 Input only` node intended to provide a flag on where a branch hits a dead end and should return to the choice node, or any other custom logic. This is to avoid populating the graph with lots of arrows going back.
+- `Jump` node is a `1 Input -> 1 Output` node that allows you to jump to another node in the tree. This is useful for reusing dialogue sections or creating loops without duplicating content.
+- `Notes` node is a `1 Input -> 1 Output` node intended for adding comments or documentation within your dialogue tree. Notes nodes are ignored during execution and serve only as annotations for you or your team.
+
+:::tip
+Even though the script node is intended to provide scripting logic, any node can have a linked script.  
+Also, any node can be customized to have a different number of inputs and outputs, but the ones listed above are the most commonly used and available by default.
+:::
+
+{/* ![](/img/tutorial-03.webp) */}
+
+Go to the `Dialogues` section and load the `Aries - 01 - Aries Encounter` dialogue and click each node to inspect the associated script. Feel free to experiment with editing and moving/linking nodes.
+
+{/* ![](/img/tutorial-04.webp) */}
+
+With the document locked for edits, select the first node, the green starting node, and add a few lines at the start:
+
+```text
+::Mother:: I saw Kenji walking all day looking for something.
+::Mother:: Maybe he has a new job.
+::Mother:: [Happy] Finally!
+```
+
+### Detecting Actors
+
+To update the Actor database, click the `Auto Detect Actors` button in the toolbar. You should see a message: "Added 1 Actors: Mother".
+
+{/* ![](/img/tutorial-auto-detecting-actors.webp) */}
+
+### Generating Voice Over Tags
+
+Using the Drafft Scripting Syntax (UAF), you can automatically generate a tag for each dialogue line. This allows you to link audio files to each line without needing a metadata database, simplifying the editing process. Tags follow this format: `[#speechTag]::Actor::Actor Line [expression]`.
+
+Tags are generated using a combination of the script alias and a short UUID. Click the "Generate tags for current script" button. A success message should appear.
+
+Reopen the node script to see the changes.
+
+{/* ![](/img/tutorial-voice-over-tag-generation.webp) */}
+
+### Previewing Dialogue
+
+Drafft includes a basic dialogue and script player. Select the dialogue and click the `Play Dialogue` button.
+
+Use this screen to navigate and debug the dialogue logic.
+
+{/* ![Preview Dialogue Tree](/img/tutorial-preview-dialogue-tree.webp) */}
+
+The Drafft Scripting Syntax enhances the previewing process by ignoring non-dialogue elements and displaying actor portraits and emotions. The "speech only" button advances to `::ActorTag::` lines.
+
+> Click on the text box to advance to the next line.

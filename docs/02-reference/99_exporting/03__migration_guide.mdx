@@ -1,0 +1,127 @@
+---
+title: Drafft  Migration Guide - V1 to V2 Schema
+description: A comprehensive guide to understanding and migrating from Drafft Legacy (V1) to the current Drafft V2 schema structure, including breaking changes and code examples.
+---
+
+# Migration Guide: V1 to V2 Schema
+
+This document outlines the key differences between Drafft V1 and V2 schemas to help you migrate your projects and understand the structural changes.
+
+## Breaking Changes Overview
+
+The migration from V1 to V2 includes several notable changes:
+
+1. **Content Structure Changes**: The `content` property now contains type-specific structured data rather than direct values
+2. **Dialogue Structure Changes**: Complete overhaul of dialogue representation from `graph` to `tree` structure
+3. **New Properties**: Additional metadata fields across all collections
+4. **Collection-specific Properties**: More specialized properties for each collection type
+
+## Common Changes Across All Collections
+
+| Change            | V1 Schema         | V2 Schema                                      | Impact                                                             |
+| ----------------- | ----------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| Content Structure | Direct properties | Nested in `content` object                     | **Breaking Change**: All content access requires `.content` prefix |
+| Comments          | Not standardized  | Standardized `comments` field (for future use) | **Enhancement**: Consistent commenting across objects              |
+
+## Folders Collection Changes
+
+| Change   | V1 Schema           | V2 Schema                            | Impact                                                                     |
+| -------- | ------------------- | ------------------------------------ | -------------------------------------------------------------------------- |
+| Children | Array of ID strings | Array of objects with `_id` property | **Breaking Change**: Children structure changed from simple IDs to objects |
+
+## GDD Collection Changes
+
+| Change      | V1 Schema         | V2 Schema               | Impact                                               |
+| ----------- | ----------------- | ----------------------- | ---------------------------------------------------- |
+| GDD Content | Direct property   | Nested as `content.gdd` | **Breaking Change**: GDD content access path changed |
+| GDD Format  | MArkdown and HTML | Markdown Only           | **Breaking Change**: HTML support dropped            |
+
+## Scripts Collection Changes
+
+| Change         | V1 Schema          | V2 Schema                  | Impact                                                  |
+| -------------- | ------------------ | -------------------------- | ------------------------------------------------------- |
+| Script Content | Direct property    | Nested as `content.script` | **Breaking Change**: Script content access path changed |
+| Editor Mode    | `scriptEditorMode` | `editorMode`               | **Breaking Change**: Property renamed                   |
+
+### Code Example: Accessing Script Content
+
+```javascript
+// V1
+const scriptContent = script.content;
+
+// V2
+const scriptContent = script.content.script;
+```
+
+## Dialogues Collection Changes
+
+| Change           | V1 Schema                        | V2 Schema                         | Impact                                                         |
+| ---------------- | -------------------------------- | --------------------------------- | -------------------------------------------------------------- |
+| Structure        | `graph` with `nodes` and `links` | `tree` with `nodes` and `edges`   | **Breaking Change**: Complete restructuring of dialogue format |
+| Positioning      | `x`/`y` coordinates              | `position.x`/`position.y` objects | **Breaking Change**: Node positioning access changed           |
+| Connection Model | `links` and `ports`              | Simplified `edges`                | **Breaking Change**: Connection model completely changed       |
+| Node Properties  | Various direct properties        | Restructured under `data`         | **Breaking Change**: Node property access paths changed        |
+
+### Code Example: Accessing Dialogue Nodes
+
+```javascript
+// V1
+const nodes = dialogue.graph.nodes;
+const nodePosition = { x: nodes[0].x, y: nodes[0].y };
+
+// V2
+const nodes = dialogue.content.tree.nodes;
+const nodePosition = nodes[0].position;
+```
+
+## Actors Collection Changes
+
+| Change      | V1 Schema                              | V2 Schema                                      | Impact                                                    |
+| ----------- | -------------------------------------- | ---------------------------------------------- | --------------------------------------------------------- |
+| Content     | Direct property                        | All props below are now nested under `content` | **Breaking Change**: Actor content access path changed    |
+| Bio         | Direct `bio` property (HTML)           | `content.bio` (Markdown)                       | **Breaking Change**: Format change from HTML to Markdown  |
+| Expressions | Direct property                        | Nested as `content.expressions`                | **Breaking Change**: Expressions access path changed      |
+| Properties  | Direct `properties` property           | `content.properties`                           | **Breaking Change**: Properties access path changed       |
+| Attachments | Stored with document as `_attachments` | Removed (using drafft:// protocol)             | **Breaking Change**: Attachment storage mechanism changed |
+
+### Code Example: Accessing Actor Properties
+
+```javascript
+// V1
+const actorProperties = JSON.parse(actor.properties); // Direct access to properties
+
+// V2
+const rawProperties = actor.content.properties; // Available under content. Could be parsed manually
+```
+
+## Grids Collection Changes
+
+| Change             | V1 Schema                 | V2 Schema                               | Impact                                                            |
+| ------------------ | ------------------------- | --------------------------------------- | ----------------------------------------------------------------- |
+| Columns            | Direct `columns` property | Nested as `content.columns`             | **Breaking Change**: Columns access path changed                  |
+| Data               | Direct `data` property    | Nested as `content.data`                | **Breaking Change**: Data access path changed                     |
+| Data Structure     | Less detailed             | Comprehensive cell/column model         | **Enhancement**: More powerful grid capabilities                  |
+| Styling            | Not standardized          | Detailed `style` object                 | **New Feature**: Cell-level styling support                       |
+| Worksheet Metadata | Not present               | Added `worksheetId` and `worksheetName` | **Enhancement**: Better worksheet identification (For future use) |
+
+## Kanban Collection Changes
+
+:::info
+Under development
+:::
+
+## Other Changes
+
+| Change             | V1 Schema | V2 Schema | Impact                                                   |
+| ------------------ | --------- | --------- | -------------------------------------------------------- |
+| Hotkeys Collection | Present   | Removed   | **Breaking Change**: Hotkeys collection no longer exists |
+
+# Migration Helper
+
+Check [this script](https://github.com/ajboni/drafft-examples/blob/main/migrate-to-v2.js) for a reference implementation (under development)
+
+## Conclusion
+
+The migration from V1 to V2 schema represents a significant evolution in the data model, offering more structure, better organization, and enhanced capabilities. While the changes do introduce breaking changes, the resulting schema is more robust and future-proof.
+
+The most critical changes are in the content access patterns and the dialogue structure. By following this migration guide, you should be able to successfully update your application to support the V2 schema while understanding the architectural improvements it brings.

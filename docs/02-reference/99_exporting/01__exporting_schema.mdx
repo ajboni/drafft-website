@@ -1,0 +1,256 @@
+---
+title: Drafft Output Schema
+description: Detailed documentation on the output schema structure for Drafft.
+---
+
+# Output Schema
+
+This document describes the structure of the output schema for Drafft, including scripts, dialogues, actors, quests, items, grids, kanban, and miscellaneous entities.
+
+> Work in progress!
+
+## Collections Overview
+
+The application consists of the following primary collections:
+
+- **Scripts**: Contains script files and folders for code components
+- **Dialogues**: Contains dialogue trees and conversation structures
+- **Actors**: Contains character definitions and their properties
+- **Quests**: Available in future versions
+- **Items**: Available in future versions
+- **Misc**: Available in future versions
+- **Grids**: Contains spreadsheet-like data structures
+- **Kanban**: Contains kanban board task management structures
+
+## Common Properties
+
+All objects in every collection share these common properties:
+
+| Property      | Type           | Description                                                      |
+| ------------- | -------------- | ---------------------------------------------------------------- |
+| `name`        | string         | Name of the object                                               |
+| `type`        | string         | Type of the object (Script, Folder, Dialogue, Actor, Grid, etc.) |
+| `parent`      | string \| null | ID of the parent object, or null if no parent                    |
+| `icon`        | string         | Icon identifier for the UI representation                        |
+| `color`       | string         | Color code in hex format                                         |
+| `path`        | string         | Path to the object in the tree structure                         |
+| `isClonable`  | boolean        | Whether the object can be cloned                                 |
+| `isRemovable` | boolean        | Whether the object can be removed                                |
+| `isReadOnly`  | boolean        | Whether the object is read-only                                  |
+| `collection`  | string         | The collection this object belongs to                            |
+| `locked`      | boolean        | Whether the object is currently locked for editing               |
+| `lockedBy`    | string         | Username of who locked the object                                |
+| `modified`    | string         | Timestamp of last modification                                   |
+| `_id`         | string         | Unique identifier for the object                                 |
+| `_rev`        | string         | Revision identifier for the object                               |
+
+## Scripts Collection
+
+The scripts collection contains executable code, script files, and organizational folders.
+
+### Script Object Properties
+
+| Property         | Type   | Description                           |
+| ---------------- | ------ | ------------------------------------- |
+| `content.script` | string | The actual script code content        |
+| `created`        | string | Timestamp when the script was created |
+| `comments`       | string | User comments about the script        |
+| `alias`          | string | Alternative identifier for the script |
+| `editorMode`     | string | The code editor mode (language)       |
+
+### Script Folder Properties
+
+| Property                 | Type    | Description                                 |
+| ------------------------ | ------- | ------------------------------------------- |
+| `children`               | array   | Array of IDs of child objects               |
+| `isDialogueScriptFolder` | boolean | Whether this folder is for dialogue scripts |
+
+## Dialogues Collection
+
+The dialogues collection contains conversation trees and interactive dialogue structures.
+
+### Dialogue Object Properties
+
+| Property                 | Type           | Description                                     |
+| ------------------------ | -------------- | ----------------------------------------------- |
+| `content.tree`           | object         | The dialogue tree structure                     |
+| `content.tree.nodes`     | array          | Array of node objects that make up the dialogue |
+| `content.tree.edges`     | array          | Array of connections between nodes              |
+| `created`                | string         | Timestamp when the dialogue was created         |
+| `comments`               | string         | User comments about the dialogue                |
+| `alias`                  | string         | Alternative identifier for the dialogue         |
+| `dialogueScriptFolderID` | string         | ID of the associated script folder              |
+| `dialoggerNodeID`        | string \| null | ID of the associated dialogger node             |
+| `dialoggerNodeCount`     | number         | Count of dialogue nodes                         |
+
+### Dialogue Node Properties
+
+| Property          | Type    | Description                              |
+| ----------------- | ------- | ---------------------------------------- |
+| `id`              | string  | Unique identifier for the node           |
+| `position.x`      | number  | X coordinate position of the node        |
+| `position.y`      | number  | Y coordinate position of the node        |
+| `type`            | string  | Type of the node                         |
+| `dragHandle`      | string  | CSS selector for the drag handle         |
+| `data.label`      | string  | Label text for the node                  |
+| `data.nodeType`   | string  | Type of the node (notes, dialogue, etc.) |
+| `data.handles`    | array   | Connection points for the node           |
+| `data.notes`      | string  | Markdown content for notes nodes         |
+| `measured.width`  | number  | Width of the node                        |
+| `measured.height` | number  | Height of the node                       |
+| `dragging`        | boolean | Whether the node is being dragged        |
+
+## Actors Collection
+
+The actors collection contains character definitions and their properties.
+
+### Actor Object Properties
+
+| Property              | Type   | Description                               |
+| --------------------- | ------ | ----------------------------------------- |
+| `content.bio`         | string | Markdown biography of the actor           |
+| `content.expressions` | array  | Array of expression objects for the actor |
+| `content.properties`  | string | Raw property text in HJSON format         |
+| `properties`          | object | Parsed properties as an object            |
+| `properties.name`     | string | Name of the actor                         |
+| `properties.age`      | number | Age of the actor                          |
+| `properties.gender`   | string | Gender of the actor                       |
+| `editorLanguage`      | string | Language format for the editor            |
+
+### Actor Expression Properties
+
+| Property    | Type   | Description                          |
+| ----------- | ------ | ------------------------------------ |
+| `name`      | string | Name of the expression               |
+| `permalink` | string | URL to the expression image          |
+| `_id`       | string | Unique identifier for the expression |
+
+## Quests Collection
+
+_Available in future versions_
+
+## Items Collection
+
+Here’s the schema table for the exported JSON structure:
+
+| Property         | Type                         | Description                                                    |
+| ---------------- | ---------------------------- | -------------------------------------------------------------- |
+| `name`           | `string`                     | Name of the item.                                              |
+| `content`        | `object`                     | Contains the actual item data.                                 |
+| `content.item`   | `string \| object`           | Raw text input or a parsed JSON object if the format is valid. |
+| `type`           | `string`                     | The type of the document: "Item".                              |
+| `parent`         | `null \| string`             | Parent item ID or `null` if no parent.                         |
+| `icon`           | `string`                     | Icon representation of the item.                               |
+| `color`          | `string`                     | Hex color code associated with the item.                       |
+| `path`           | `string`                     | Path identifier for the item.                                  |
+| `isClonable`     | `boolean`                    | Indicates if the item can be cloned.                           |
+| `isRemovable`    | `boolean`                    | Indicates if the item can be deleted.                          |
+| `isReadOnly`     | `boolean`                    | Indicates if the item is read-only.                            |
+| `created`        | `string (ISO 8601 datetime)` | Timestamp of when the item was created.                        |
+| `modified`       | `string (ISO 8601 datetime)` | Timestamp of the last modification.                            |
+| `comments`       | `string`                     | User comments associated with the item.                        |
+| `collection`     | `string`                     | Collection name to which the item belongs.                     |
+| `locked`         | `boolean`                    | Whether the item is locked for editing.                        |
+| `lockedBy`       | `string \| null`             | User ID of the person who locked the item, if applicable.      |
+| `alias`          | `string`                     | Alternative name or alias for the item.                        |
+| `editorLanguage` | `string`                     | The language mode used in the editor (e.g., "yaml").           |
+| `_id`            | `string (UUID)`              | Unique identifier for the item.                                |
+| `_rev`           | `string`                     | Revision identifier for tracking changes.                      |
+
+## Misc Collection
+
+_Available in future versions_
+
+## Grids Collection
+
+The grids collection contains spreadsheet-like data structures.
+
+### Grid Object Properties
+
+| Property                | Type   | Description                         |
+| ----------------------- | ------ | ----------------------------------- |
+| `content.cache`         | object | Cache data for the grid             |
+| `content.cells`         | object | Cell data for the grid              |
+| `content.comments`      | object | Comments within the grid            |
+| `content.columns`       | array  | Column definitions                  |
+| `content.data`          | array  | 2D array of cell data               |
+| `content.meta`          | object | Metadata about the grid             |
+| `content.style`         | object | Style definitions for cells         |
+| `content.worksheetId`   | string | ID of the worksheet                 |
+| `content.worksheetName` | string | Name of the worksheet (Sheet1)      |
+| `created`               | string | Timestamp when the grid was created |
+| `comments`              | string | User comments about the grid        |
+| `alias`                 | string | Alternative identifier for the grid |
+
+### Grid Column Properties
+
+| Property | Type   | Description                      |
+| -------- | ------ | -------------------------------- |
+| `id`     | string | Unique identifier for the column |
+| `title`  | string | Display title for the column     |
+| `type`   | string | Data type of the column          |
+| `name`   | string | Internal name of the column      |
+
+## Kanban Boards
+
+## Kanban
+
+| Property      | Type      | Description                             |
+| ------------- | --------- | --------------------------------------- |
+| `name`        | `string`  | Name of the Kanban board                |
+| `type`        | `string`  | Always `Kanban`                         |
+| `template`    | `string`  | Board template identifier               |
+| `columns`     | `array`   | List of column objects (see below)      |
+| `settings`    | `object`  | UI settings (e.g., showTags, showIcons) |
+| `path`        | `string`  | File path in the project                |
+| `icon`        | `string`  | Icon shown in sidebar                   |
+| `color`       | `string`  | Hex color code for the board            |
+| `comments`    | `string`  | Notes or comments                       |
+| `collection`  | `string`  | Always `Kanban`                         |
+| `locked`      | `boolean` | Whether the doc is locked               |
+| `lockedBy`    | `string`  | User who locked the doc                 |
+| `isClonable`  | `boolean` | Can be duplicated                       |
+| `isRemovable` | `boolean` | Can be deleted                          |
+| `isReadOnly`  | `boolean` | Whether the board is editable           |
+| `created`     | `string`  | ISO date created                        |
+| `modified`    | `string`  | ISO date last modified                  |
+| `alias`       | `string`  | Optional short name                     |
+| `_id`         | `string`  | Unique identifier                       |
+| `_rev`        | `string`  | Revision identifier                     |
+
+### Column Object
+
+Each column holds an array of cards.
+
+| Property | Type     | Description              |
+| -------- | -------- | ------------------------ |
+| `id`     | `string` | Unique column identifier |
+| `title`  | `string` | Title of the column      |
+| `type`   | `string` | Always `column`          |
+| `cards`  | `array`  | List of card objects     |
+
+### Card Object
+
+Each card tracks a task or idea.
+
+| Property      | Type      | Description                        |
+| ------------- | --------- | ---------------------------------- |
+| `id`          | `string`  | Unique card identifier             |
+| `type`        | `string`  | Always `card`                      |
+| `title`       | `string`  | Title of the card                  |
+| `description` | `string`  | Full description in Markdown       |
+| `tags`        | `array`   | List of string tags (e.g., "Idea") |
+| `related`     | `array`   | List of related entity IDs         |
+| `completed`   | `boolean` | Whether the task is completed      |
+| `dueDate`     | `string`  | Optional due date (YYYY-MM-DD)     |
+| `assigned`    | `string`  | Optional assignee name             |
+
+## Meta Information
+
+The export file also contains metadata about the export itself:
+
+| Property              | Type   | Description                                    |
+| --------------------- | ------ | ---------------------------------------------- |
+| `_meta.exportedAt`    | string | Timestamp when the export was created          |
+| `_meta.exportedBy`    | string | Username who created the export                |
+| `_meta.drafftVersion` | string | Version of the application used for the export |
