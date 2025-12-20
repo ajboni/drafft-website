@@ -1,41 +1,43 @@
-# Website
+# Drafft – Game Development Data Management
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This repository contains the **official website and documentation** for **Drafft**, a game development tool designed to help developers **structure, manage, and centralize game data**.
 
-### Installation
+Drafft is built for **indie game developers and small teams** who want more structure than raw files, without the rigidity of heavyweight tools.
 
-```
-$ yarn
-```
+## 🎮 What is Drafft?
 
-### Local Development
+Drafft is a **game data management tool** focused on the parts of development that are usually scattered across spreadsheets, documents, and ad-hoc JSON files:
 
-```
-$ yarn start
-```
+- Items, quests, dialogue trees, and game design documents (GDDs)
+- Flexible, developer-controlled schemas
+- Support for JSON, HJSON, TOML, YAML, and plain text
+- Clean exports for direct use in game engines
+- No vendor lock-in — you always own your data
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Drafft acts as a **single source of truth** for game design data, while remaining engine-agnostic and workflow-friendly.
 
-### Build
+## 🧩 What this repository contains
 
-```
-$ yarn build
-```
+- The Drafft public website
+- Product documentation and guides
+- Legal pages (EULA, Terms of Service, FAQ, Warranty)
+- Custom syntax highlighting for game-specific formats
+- Keyboard shortcut and editor reference material
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+All content in this repository is static and intended to be public.
 
-### Deployment
+## 👥 Who Drafft is for
 
-Using SSH:
+- Indie game developers
+- Technical designers
+- Narrative designers
+- Small game studios
+- Developers who prefer owning and exporting their data
 
-```
-$ USE_SSH=true yarn deploy
-```
+Drafft is especially suited for teams that want **structured data without hard-coded schemas**.
 
-Not using SSH:
+## 🔗 Learn more
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- Website: [https://drafft.dev](https://drafft.dev)
+- Focus: Game data, quests, items, dialogue, and design workflows
+- Philosophy: Own your data, stay flexible
