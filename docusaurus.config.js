@@ -63,7 +63,6 @@ const config = {
   },
 
   plugins: [
-    ["@gracefullight/docusaurus-plugin-microsoft-clarity", { projectId: "ptje4lffwd" }],
     "docusaurus-plugin-zooming",
     [
       "@dipakparmar/docusaurus-plugin-umami",
