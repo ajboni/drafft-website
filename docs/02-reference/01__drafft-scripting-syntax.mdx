@@ -70,3 +70,21 @@ Drafft will include comments in the [screenplay](./screenplay_generation).
 // INT. SUBURBAN HOME - KITCHEN - NIGHT
 // FILBERT (9), wiry, lost in his own imaginary world. Dressed as a Knight. A toy sword in his other hand.
 ```
+
+## Inline JSON
+
+Since v1.0.13 it is possible to inline standard JSON in both speech and commands lines. `%json` variable will contain parsed content.
+
+Examples:
+
+```uaf
+::Reporter:: Now let's take a look at the weather for today.
+<CutTo(Location1)> {"weather":"rainy"}
+::FieldReporter:: Not looking very good here. {"props":["umbrella","raincoat", "microphone"]}
+<CutTo(Studio)>
+::Reporter:: What's the traffic on your side Mike?
+<CutTo(Location2)> {"traffic": {"cars": "low", "trucks":"none"}}
+::Mike:: Low traffic in this area.
+```
+
+JSON can be transformed at export time as well, see [Export Mappings](./exporting#inline-json)
