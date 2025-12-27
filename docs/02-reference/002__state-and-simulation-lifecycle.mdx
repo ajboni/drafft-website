@@ -1,0 +1,261 @@
+---
+title: State & Simulation Lifecycle
+tags:
+  - scripting
+  - state
+  - simulation
+  - mental-model
+  - authoring
+draft: true
+---
+
+# State & Simulation Lifecycle
+
+Drafft separates **authored data** from **simulated state**.
+
+This distinction is essential to understanding how scripts behave, how the Dialogue Simulator works, and how to debug narrative flow without coupling logic to export or runtime.
+
+This page describes how **state exists, changes, and resets** during authoring.
+
+---
+
+## Core Concepts
+
+### Defaults (Authored State)
+
+Defaults are the values you author in Drafft documents:
+
+- Quest properties
+- Actor properties
+- Variables
+- Items, flags, and other design data
+
+Defaults represent **authorial intent**.
+
+They are:
+
+- Stable
+- Version-controlled
+- Exported as part of the project
+- Never mutated by scripts
+
+---
+
+### Live Scenario (Simulated State)
+
+The **Live Scenario** represents the **current simulated world state while authoring**.
+
+It is derived from defaults and then modified by script execution.
+
+:::tip
+Think of the Live Scenario as:
+_“What is true right now, based on what I’ve simulated so far?”_
+:::
+
+---
+
+## State Lifecycle
+
+### 1. Initialization
+
+When a project or editor session starts:
+
+```
+Live Scenario = Defaults
+```
+
+At this point, no simulation has occurred.
+
+---
+
+### 2. Script Execution
+
+When a script is simulated:
+
+```uaf
+@set actors.Aries.mood = "angry"
+```
+
+- The script runs **against the Live Scenario**
+- Mutations apply immediately
+- Subsequent scripts see the updated state
+
+Example:
+
+```uaf
+::Narrator:: Aries looks ${actors.Aries.mood}.
+```
+
+After simulation, this resolves to:
+
+```
+Aries looks angry.
+```
+
+---
+
+### 3. Continuity Across Scripts
+
+The Live Scenario **persists across scripts**.
+
+If Script A sets:
+
+```uaf
+@set actors.Aries.mood = "angry"
+```
+
+Then Script B, authored later, will observe:
+
+```uaf
+${actors.Aries.mood} → "angry"
+```
+
+This matches natural author expectations during narrative development.
+
+---
+
+### 4. Resetting State
+
+At any point, the Live Scenario can be reset:
+
+```
+Reset Live Scenario → Defaults
+```
+
+This clears all simulated mutations and restores the authored baseline.
+
+---
+
+## Write to Live Scenario Toggle
+
+By default, simulation **writes to the Live Scenario**.
+
+However, Drafft provides a toggle:
+
+> **Write to Live Scenario**
+
+### Enabled (default)
+
+- Script mutations persist
+- State carries across simulations
+- Ideal for narrative authoring and iteration
+
+### Disabled (ephemeral simulation)
+
+- Scripts run against a temporary copy of state
+- All changes are discarded after execution
+- Live Scenario remains unchanged
+
+This mode is useful for:
+
+- Testing edge cases
+- Previewing alternative branches
+- Verifying conditional logic without affecting ongoing work
+
+---
+
+## Saved Scenarios
+
+While the Live Scenario is ephemeral by default, it can be **serialized and saved**.
+
+A saved scenario is simply a snapshot of Live Scenario state.
+
+Example use cases:
+
+- “Chapter 2 – After Library”
+- “Boss Fight Setup”
+- Bug reproduction states
+- QA handoff
+
+Saved scenarios:
+
+- Do not affect defaults
+- Can be restored into the Live Scenario
+- Are optional, not required for normal authoring
+
+---
+
+## State Resolution in Scripts
+
+All state access follows the same resolution rule:
+
+```
+<collection>.<_sid>.<property>
+```
+
+Examples:
+
+```uaf
+actors.Aries.mood
+quest.forestTrial.completed
+variables.player.courage
+```
+
+By default, these resolve to **Live Scenario values**.
+
+---
+
+### Accessing Defaults Explicitly
+
+To access authored values instead of simulated state, use the `defaults` root:
+
+```uaf
+${defaults.quest.forestTrial.completed}
+```
+
+This bypasses Live Scenario mutations.
+
+---
+
+## What Scripts Can and Cannot Do
+
+### Scripts Can
+
+- Read Live Scenario state
+- Mutate Live Scenario via `@set`
+- Drive conditional structure during simulation
+- Be replayed deterministically
+
+### Scripts Cannot
+
+- Mutate defaults
+- Persist changes automatically
+- Execute engine logic
+- Implicitly affect export output
+
+---
+
+## Relationship to Export and Runtime
+
+| Context    | Behavior                          |
+| ---------- | --------------------------------- |
+| Export     | State is not evaluated or mutated |
+| Simulation | Uses Live Scenario                |
+| Runtime    | Engine defines state behavior     |
+
+The Dialogue Simulator uses the **same rules** described on this page.
+
+---
+
+## Why This Model Exists
+
+This design ensures:
+
+- Predictable authoring
+- Clear separation of intent vs outcome
+- Debuggable narrative flow
+- Engine-agnostic exports
+- No hidden side effects
+
+State is always explicit.
+Nothing happens “behind your back.”
+
+---
+
+## Summary
+
+- Defaults define what _should_ exist
+- Live Scenario defines what _currently_ exists
+- Scripts mutate Live Scenario
+- Live Scenario can be reset or saved
+- Export remains pure and context-free

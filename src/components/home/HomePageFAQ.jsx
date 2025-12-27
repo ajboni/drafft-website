@@ -1,8 +1,8 @@
 import FAQ from "!!raw-loader!@site/shared/FAQ.mdx";
-import { Fragment, useEffect, useRef } from "react";
-import { AnimatePresence, easeOut, motion } from "framer-motion";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import { ChevronDownIcon, MinusIcon, PlusIcon, PlusSmallIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { AnimatePresence, easeOut, motion } from "framer-motion";
+import { Fragment } from "react";
 import Markdown from "react-markdown";
 
 function HomePageFAQ() {
