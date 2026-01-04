@@ -1,0 +1,57 @@
+---
+
+id: macos-gatekeeper-warning
+title: macOS Gatekeeper Warning on First Launch
+description: Drafft may be blocked by macOS Gatekeeper because the app is not signed or notarized. This page explains the warning and an advanced workaround.
+keywords:
+
+* macOS
+* Gatekeeper
+* unsigned app
+* Drafft
+* Apple Silicon
+* Intel Mac
+
+---
+
+# macOS Gatekeeper Warning on First Launch
+
+On macOS, Drafft may be blocked on first launch by **Gatekeeper**. This is expected behavior.
+
+---
+
+## What You May See
+
+macOS may show:
+
+> **“Drafft-2.app” was blocked to protect your Mac.**
+> Apple could not verify that this app is free of malware.
+
+On some Intel Macs, an **“Open Anyway”** button appears in **System Settings → Privacy & Security**.
+
+On **Apple Silicon (M1 / M2 / M3)** systems, this option may **not appear at all**.
+
+---
+
+## Important
+
+- **Drafft is not signed or notarized by Apple**
+- macOS is behaving as designed
+- The workaround below **bypasses Gatekeeper checks**
+- **Proceed at your own risk**
+
+If you are unsure, **do not continue**.
+
+---
+
+## Workaround (Advanced Users Only)
+
+If you trust the source of the app, you can remove the quarantine attribute manually.
+
+```bash
+xattr -c ./Drafft-2.app
+```
+
+After running this, you should be able to open Drafft normally.
+
+---
