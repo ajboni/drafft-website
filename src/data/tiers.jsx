@@ -32,10 +32,10 @@ const tiers = [
       once: {
         price: "$60",
         lemonCheckoutHref: "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867",
-        discountedPrice: "$45",
-        discountedNote: "🔥 Limited Time: $15 Off — Save 25%",
-        discountedCheckoutHref:
-          "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867&checkout[discount_code]=25OFF",
+        // discountedPrice: "$45",
+        // discountedNote: "🔥 Limited Time: $15 Off — Save 25%",
+        // discountedCheckoutHref:
+        // "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867&checkout[discount_code]=25OFF",
       },
     },
     description: "Your copy forever",
