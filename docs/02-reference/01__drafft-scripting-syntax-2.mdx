@@ -609,6 +609,34 @@ Example:
 - Right-hand side must be a valid expression
 - No side effects outside of the assignment itself
 
+#### Compound Assignment Operators
+
+You can use compound assignment operators for brevity when performing arithmetic operations:
+
+| Operator | Meaning                 | Example                                                               |
+| -------- | ----------------------- | --------------------------------------------------------------------- |
+| `+=`     | Add and assign          | `@set variables.player.hp += 5` (same as `= variables.player.hp + 5`) |
+| `-=`     | Subtract and assign     | `@set variables.player.hp -= 3`                                       |
+| `*=`     | Multiply and assign     | `@set variables.player.level *= 2`                                    |
+| `/=`     | Divide and assign       | `@set variables.player.mp /= 2`                                       |
+| `^=`     | Exponentiate and assign | `@set variables.player.power ^= 2`                                    |
+
+**Benefits for dialogue writers:**
+
+- Avoid repeating long variable paths
+- Reduce opportunities for typos
+- Make intent clearer at a glance
+
+Example comparison:
+
+```uaf
+// Verbose form (still supported)
+@set variables.player.quest.forestTrial.jobsDone = variables.player.quest.forestTrial.jobsDone + 1
+
+// Compact form (equivalent)
+@set variables.player.quest.forestTrial.jobsDone += 1
+```
+
 ---
 
 ## Inline Interpolation (`${}`)
