@@ -148,24 +148,198 @@ This mode is useful for:
 
 ---
 
-## Saved Scenarios
+## Divergence Detection
 
-While the Live Scenario is ephemeral by default, it can be **serialized and saved**.
+The Live Scenario compares itself against the currently loaded scenario to detect divergence. This comparison is **snapshot-based**.
 
-A saved scenario is simply a snapshot of Live Scenario state.
+### When Does Divergence Occur?
 
-Example use cases:
+Divergence is only detected when:
 
-- “Chapter 2 – After Library”
-- “Boss Fight Setup”
+1. A scenario is loaded into the Live Scenario
+2. You modify values (manually via the Variables Inspector or via script execution)
+3. The modified values differ from the **loaded scenario's snapshot**
+
+:::warning
+Divergence **only exists when a scenario is loaded**. If no scenario is active, there is no divergence to track.
+:::
+
+### Visual Indicator
+
+When divergence is detected:
+
+- A divergence indicator (an asterisk) appears in the UI
+- The **"Update Source Scenario"** button becomes enabled
+- The **"Discard Changes"** button becomes enabled
+
+### Divergence vs Changes
+
+- **Divergence**: Live state differs from a loaded scenario's snapshot
+- **No divergence + scenario loaded**: Live matches the loaded scenario exactly (clean state)
+- **Changes with no scenario loaded**: Not tracked as divergence; considered a new scenario if saved
+
+---
+
+## Scenarios as Diffs
+
+While the Live Scenario is ephemeral during authoring, you can **save and restore snapshots** of it using scenarios.
+
+:::important
+**Scenarios are diffs, not complete snapshots.**
+
+A scenario stores _only the values that differ from defaults_, not the entire state. This is similar to a patch file.
+:::
+
+### Why Diffs?
+
+- **Smaller files**: Only overridden values are stored
+- **Clearer intent**: You see exactly which defaults were modified
+- **Better version control**: Diffs are easier to review and merge
+
+### Example
+
+If your defaults contain:
+
+```json
+{
+  "player": {
+    "level": 1,
+    "hp": 100,
+    "status": "healthy"
+  }
+}
+```
+
+And during authoring you change only `status` to `"sad"`, the saved scenario will contain:
+
+```json
+{
+  "player": {
+    "status": "sad"
+  }
+}
+```
+
+When you load this scenario, it overwrites only the `status` field while preserving `level: 1` and `hp: 100` from defaults.
+
+### Current Scope
+
+Scenarios currently save **Variable** state only. Support for additional collections (Actors, Quests, Items, etc.) is planned for future releases.
+
+### Use Cases
+
+- "Chapter 2 – After Library"
+- "Boss Fight Setup"
 - Bug reproduction states
 - QA handoff
+- Testing alternative narrative branches
 
-Saved scenarios:
+Scenarios:
 
 - Do not affect defaults
-- Can be restored into the Live Scenario
+- Can be loaded and restored into the Live Scenario
 - Are optional, not required for normal authoring
+
+---
+
+## Live Scenario Buttons
+
+The Live Scenario page provides several buttons for managing scenarios. Here's what each does:
+
+### Save as New Scenario
+
+**Button**: 💾 Save as New Scenario
+
+Serializes the current Live Scenario state and creates a new scenario document.
+
+**What it saves**:
+
+- Compares live state against defaults
+- Stores only the values that differ
+- Creates a new scenario document with a user-provided name
+
+**When to use**:
+
+- After reaching a meaningful narrative checkpoint
+- Before testing alternative branches
+- To create reproducible QA states
+
+:::tip
+You can also open the Live Scenario page by right clicking on the current scenario in the status bar.
+:::
+
+---
+
+### Update Source Scenario
+
+**Button**: 🔄 Update Source Scenario (enabled only when divergence is detected)
+
+Serializes current live divergence and updates the source scenario document in the editor.
+
+**What it does**:
+
+1. Compares current live state against the loaded scenario's snapshot
+2. Serializes only the differences (the new diff)
+3. Opens the scenario document in the editor tab (or focuses existing tab)
+4. Updates the editor buffer with the new content
+5. **Waits for you to explicitly save** (preserves review/approval workflow)
+
+**Multi-user safety**:
+
+- Checks if scenario is locked by another user
+- Prevents automatic overwrites
+- User remains in editor before committing changes
+
+**When to use**:
+
+- You've made changes during scripting that should become the new baseline
+- You want to refine an existing scenario incrementally
+
+---
+
+### Discard Changes
+
+**Button**: 🔄 Discard Changes (enabled only when divergence is detected)
+
+Reloads the original loaded scenario back into the Live Scenario, discarding all modifications.
+
+**What it does**:
+
+1. Clears all live state
+2. Reapplies the loaded scenario's snapshot
+3. Removes the divergence indicator
+
+**When to use**:
+
+- You made experimental changes and want to return to the scenario baseline
+- You want to reset to a known state without reloading from disk
+
+---
+
+### Reset to Defaults
+
+**Button**: 🔄 Reset to Defaults
+
+Clears all live state and unloads any active scenario, returning to the pure authored defaults.
+
+**What it does**:
+
+1. Clears all live variable values
+2. Clears the loaded scenario snapshot
+3. Unsets the active scenario
+4. Removes all divergence tracking
+
+**Differs from "Discard Changes" because**:
+
+- It removes the scenario context entirely
+- You start fresh from authored defaults, not a scenario snapshot
+- Useful for starting a new simulation from baseline
+
+**When to use**:
+
+- Starting a new test or simulation
+- Clearing all runtime state after a session
+- Testing default-only behavior without scenario modifications
 
 ---
 
@@ -181,25 +355,57 @@ Examples:
 
 ```uaf
 variables.player.courage
+variables.player.inventory[0].name
 
 // other collections will be implemented in future updates, but the same resolution applies:
 actors.Aries.mood
 quest.forestTrial.completed
 ```
 
-By default, these resolve to **Live Scenario values**.
+### Resolution Order (Three-Tier Fallback)
 
----
+When you access a value, Drafft resolves it in this order:
+
+1. **Live Scenario** ← Used first if available
+2. **Defaults** ← Used if no live value exists
+3. **Undefined** ← If neither exists
+
+```uaf
+// If live has modified this value:
+${variables.player.mood} → resolves to live value
+
+// If live doesn't have this, falls back to defaults:
+${variables.player.level} → resolves to default value
+
+// If neither exists:
+${variables.nonexistent} → undefined
+```
 
 ### Accessing Defaults Explicitly
 
-To access authored values instead of simulated state, use the `defaults` root:
+To access authored values and bypass any live modifications, use the `defaults` root:
 
 ```uaf
-${defaults.variables.player.courage}
+${defaults.variables.player.courage} → always uses authored default
 ```
 
-This bypasses Live Scenario mutations.
+This is useful for:
+
+- Debugging state divergence
+- Checking what the original value was
+- Exporting context-free content
+
+### Context-Aware Resolution
+
+Dependending on context, resolution behavior changes:
+
+| Context   | Resolution                    | Use Case                   |
+| --------- | ----------------------------- | -------------------------- |
+| Authoring | Live → Defaults               | Script simulation, testing |
+| Export    | Defaults only                 | Pure narrative content     |
+| Runtime   | Engine-defined (script-bound) | Your target platform       |
+
+This separation ensures **your exports remain pure and unaffected by simulation state**.
 
 ---
 
