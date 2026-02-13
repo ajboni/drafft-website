@@ -25,9 +25,9 @@ This page describes how **state exists, changes, and resets** during authoring.
 
 Defaults are the values you author in Drafft documents:
 
+- Variables
 - Quest properties
 - Actor properties
-- Variables
 - Items, flags, and other design data
 
 Defaults represent **authorial intent**.
@@ -45,7 +45,7 @@ They are:
 
 The **Live Scenario** represents the **current simulated world state while authoring**.
 
-It is derived from defaults and then modified by script execution.
+It is derived from defaults and then modified by script execution or manual data entry.
 
 :::tip
 Think of the Live Scenario as:
@@ -73,7 +73,7 @@ At this point, no simulation has occurred.
 When a script is simulated:
 
 ```uaf
-@set actors.Aries.mood = "angry"
+@set variables.aries.mood = "angry"
 ```
 
 - The script runs **against the Live Scenario**
@@ -83,7 +83,7 @@ When a script is simulated:
 Example:
 
 ```uaf
-::Narrator:: Aries looks ${actors.Aries.mood}.
+::Narrator:: Aries looks ${variables.aries.mood}.
 ```
 
 After simulation, this resolves to:
@@ -101,13 +101,13 @@ The Live Scenario **persists across scripts**.
 If Script A sets:
 
 ```uaf
-@set actors.Aries.mood = "angry"
+@set variables.aries.mood = "angry"
 ```
 
 Then Script B, authored later, will observe:
 
 ```uaf
-${actors.Aries.mood} → "angry"
+${variables.aries.mood} → "angry"
 ```
 
 This matches natural author expectations during narrative development.
@@ -116,13 +116,7 @@ This matches natural author expectations during narrative development.
 
 ### 4. Resetting State
 
-At any point, the Live Scenario can be reset:
-
-```
-Reset Live Scenario → Defaults
-```
-
-This clears all simulated mutations and restores the authored baseline.
+At any point, the Live Scenario can be reset . This clears all simulated mutations and restores the authored baseline.
 
 ---
 
@@ -186,9 +180,11 @@ All state access follows the same resolution rule:
 Examples:
 
 ```uaf
+variables.player.courage
+
+// other collections will be implemented in future updates, but the same resolution applies:
 actors.Aries.mood
 quest.forestTrial.completed
-variables.player.courage
 ```
 
 By default, these resolve to **Live Scenario values**.
@@ -200,7 +196,7 @@ By default, these resolve to **Live Scenario values**.
 To access authored values instead of simulated state, use the `defaults` root:
 
 ```uaf
-${defaults.quest.forestTrial.completed}
+${defaults.variables.player.courage}
 ```
 
 This bypasses Live Scenario mutations.
@@ -233,7 +229,7 @@ This bypasses Live Scenario mutations.
 | Simulation | Uses Live Scenario                |
 | Runtime    | Engine defines state behavior     |
 
-The Dialogue Simulator uses the **same rules** described on this page.
+The Dialogue Simulator (aka Script Player) uses the **same rules** described on this page.
 
 ---
 
@@ -246,9 +242,6 @@ This design ensures:
 - Debuggable narrative flow
 - Engine-agnostic exports
 - No hidden side effects
-
-State is always explicit.
-Nothing happens “behind your back.”
 
 ---
 
