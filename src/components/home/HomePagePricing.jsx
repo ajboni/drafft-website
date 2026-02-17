@@ -123,7 +123,7 @@ export default function Example() {
                   key={tier.id}
                   className={classNames(
                     tier.featured ? "bg-dark-background ring-2 ring-primary-color" : "ring-1 ring-white/10",
-                    "rounded-md p-8 xl:p-10"
+                    "rounded-md p-8 xl:p-10",
                   )}
                 >
                   <div className="flex items-center justify-between gap-x-4">
@@ -143,7 +143,7 @@ export default function Example() {
                             <div className="relative">
                               {/* Sale badge */}
                               <div className="absolute -top-4 -right-4 bg-primary-color-darkest text-primary-color-lightest/40 font-bold px-3 py-1 rounded-full text-xs transform rotate-12 shadow-lg border border-primary-color-lightest/60">
-                                🎅🎄 Christmas Sale !
+                                Sale !
                               </div>
                               <div className="flex flex-col items-start">
                                 <span className="text-6xl font-bold text-primary-color-lightest flex items-center">
@@ -209,7 +209,7 @@ export default function Example() {
                       tier.featured
                         ? "bg-primary-color-darkest text-white shadow-sm hover:bg-primary-color-darker focus-visible:bg-primary-color-darkest hover:no-underline hover:text-white"
                         : "bg-white/10 text-white hover:bg-white/20 focus-visible:outline-white",
-                      "mt-6 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:no-underline hover:text-white"
+                      "mt-6 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 hover:no-underline hover:text-white",
                     )}
                   >
                     {tier.cta}
