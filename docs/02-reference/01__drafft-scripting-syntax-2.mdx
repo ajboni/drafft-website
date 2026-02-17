@@ -502,6 +502,8 @@ Example:
 ```uaf
 @if variables.player.courage > 5
 ::Aries:: You seem more confident.
+@else
+::Aries:: Still working on your courage?
 @endif
 ```
 
@@ -516,29 +518,19 @@ Example:
 
 ---
 
-### `@elseif`
+#### Multi-Way Branching
 
-```uaf
-@elseif <expression>
-```
-
-Defines an additional conditional branch within the same `@if` block.
-
-Rules:
-
-- Evaluated only if all previous conditions in the block were false
-- May appear multiple times
-- Must appear before `@else`
-
-Example:
+For 3+ options, use nested `@if` blocks:
 
 ```uaf
 @if variables.player.courage > 7
-::Aries:: You’re fearless now.
-@elseif variables.player.courage > 3
-::Aries:: You’re getting braver.
+::Aries:: You are fearless now.
 @else
-::Aries:: You still seem unsure.
+  @if variables.player.courage > 3
+  ::Aries:: You are getting braver.
+  @else
+  ::Aries:: You still seem unsure.
+  @endif
 @endif
 ```
 
@@ -566,6 +558,14 @@ Defines a fallback branch that applies if no previous condition matched.
 Ends a conditional block.
 
 Every `@if` must have a matching `@endif`.
+
+#### Script Player Feedback
+
+In the Script Player:
+
+- `@if`, `@else`, and `@endif` lines are visible
+- The meta box shows condition results (TRUE/FALSE)
+- Inactive lines are dimmed and show which condition is blocking them
 
 ---
 
