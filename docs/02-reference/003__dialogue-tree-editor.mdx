@@ -33,6 +33,14 @@ Drafft's Dialogue Tree Editor provides a powerful and flexible way to design bra
 - To prevent conflicts, scripts must be **locked** before editing.(Future update may include an **"Auto-lock related scripts"** option).
 - Adding scripts to dialogue nodes is **optional**.
 
+### Output Port Scripts
+
+- Each output port can include **@set directives** that execute when the user follows that path.
+- Perfect for tracking user choices without creating separate script nodes.
+- Only `@set` syntax is processed; helpful console warnings for unsupported directives.
+- Variables are updated before the next node's script runs.
+- Visual `@` badge indicates which ports have attached scripts.
+
 ### Advanced Editing Tools
 
 - **Grid snapping** for precise node alignment.
@@ -48,7 +56,36 @@ Drafft's Dialogue Tree Editor provides a powerful and flexible way to design bra
 - **Start**: Define the beginning of a dialogue.
 - **End**: Mark the conclusion of a dialogue.
 - **Return**: Return to the previous choice point.
-- Nodes can also contain **additional notes and metadata**.
+
+### Output Port Scripts
+
+Each output port (handle) on a dialogue node can include **@set directives** that execute when a user follows that port. This allows you to track user choices and set variables without creating separate script nodes.
+
+**Example Use Case:**
+
+```
+Choice Node with 3 outputs:
+├─ "Approach Cautiously" → @set variables.approach = "cautious"
+├─ "Walk Forward Openly" → @set variables.approach = "bold"
+└─ "Observe From Distance" → @set variables.approach = "observant"
+
+All outputs lead to the same Response Node, which reads variables.approach
+and responds differently based on the player's choice.
+```
+
+**How to Use:**
+
+1. Edit a node and expand an output port
+2. Enter `@set` directives (one per line)
+3. When the user picks that output, the directives execute automatically
+4. A yellow `@` badge indicates ports with scripts
+
+**Features:**
+
+- Supports multiple `@set` directives per output
+- Only `@set` syntax is processed; other lines are ignored
+- Variables update before the next node's script runs
+- Error handling logs issues without blocking navigation
 
 :::tip
 You can shift-click to select multiple nodes at once.
