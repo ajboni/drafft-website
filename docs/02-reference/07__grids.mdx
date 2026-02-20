@@ -27,6 +27,31 @@ The available column types are:
 - image
 - color
 - html
+- document
+
+## Document Column Type
+
+The **Document** column type allows you to link to other documents in your project directly from grid cells. This creates powerful relational connections between your data and other documents.
+
+### How It Works
+
+- Set a column type to "Document" in the column editor
+- Click on any cell in that column to open a document picker
+- Select any document from your project
+- The cell will display the document name as a clickable link
+- Click the link to navigate directly to that document
+
+### Use Cases
+
+- **Item Management**: Link items to their related quests or locations
+- **Character References**: Connect characters to their main dialogue trees or scripts
+- **Quest Dependencies**: Link quests to prerequisite quests or reward items
+- **Location Databases**: Reference description documents or related scenes
+- **Asset Organization**: Build reference tables connecting different document types
+
+### Example
+
+Create an Items grid with a "Related Quest" column of type "Document". Each item can then link to the quest document where it's obtained or used, making it easy to navigate between related content.
 
 ## Cell Formatting
 
