@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://cloud.umami.is">
 <script async defer="defer" src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" data-auto-track></script><link rel="stylesheet" href="/assets/css/styles.2c8981a6.css">
-<script src="/assets/js/runtime~main.1d0cfe98.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.f37cc7b9.js" defer="defer"></script>
 <script src="/assets/js/main.545ebb09.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -25,7 +25,7 @@
 <ol>
 <li>Scripts are read <strong>top to bottom</strong>, one line at a time.</li>
 <li>Each line has a <strong>single, clear purpose</strong> (dialogue, comment, command, or control flow).</li>
-<li>Control flow statements (<code>@if</code>, <code>@elseif</code>, <code>@else</code>, <code>@endif</code>) never produce output on their own.</li>
+<li>Control flow statements (<code>@if</code>, <code>@else</code>, <code>@endif</code>) never produce output on their own.</li>
 <li>Lines inside inactive control blocks are skipped entirely.</li>
 <li>State changes persist forward for the remainder of the script.</li>
 </ol>
@@ -418,7 +418,7 @@ The assignment updates game state as defined by the engine.</li>
 <hr>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="relationship-to-control-flow">Relationship to Control Flow<a href="#relationship-to-control-flow" class="hash-link" aria-label="Direct link to Relationship to Control Flow" title="Direct link to Relationship to Control Flow">​</a></h3>
 <p>Inline interpolation does <strong>not</strong> affect whether a line is included or excluded.</p>
-<p>Control flow is handled exclusively by <code>@if</code>, <code>@elseif</code>, <code>@else</code>, and <code>@endif</code>.</p>
+<p>Control flow is handled exclusively by <code>@if</code>, <code>@else</code>, and <code>@endif</code>.</p>
 <div class="language-uaf codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#C5C8C6;--prism-background-color:#1D1F21"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-uaf codeBlock_bY9V thin-scrollbar" style="color:#C5C8C6;background-color:#1D1F21;font-family:Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;font-size:1em;line-height:1.5;white-space:pre"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token conditionalDirective keyword" style="color:#B294BB">@if</span><span class="token conditionalDirective"> quest.libraryVisit.courage &gt; 2</span><span class="token plain"></span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">  </span><span class="token actor-line italic function actor" style="font-style:italic;color:#81A2BE">::Aries::</span><span class="token plain"> I feel confident (</span><span class="token interpolation variable punctuation string" style="color:#B5BD68">${</span><span class="token interpolation variable expression variable" style="color:#CC6666">quest.libraryVisit.courage</span><span class="token interpolation variable punctuation string" style="color:#B5BD68">}</span><span class="token plain">).</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, &#x27;Andale Mono&#x27;, &#x27;Ubuntu Mono&#x27;, monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain"></span><span class="token structuralDirective keyword" style="color:#B294BB">@endif</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <p>In this example:</p>
 <ul>
