@@ -18,7 +18,7 @@ UAF is intentionally minimal. It is designed to add **structure and meaning** to
 
 1. Scripts are read **top to bottom**, one line at a time.
 2. Each line has a **single, clear purpose** (dialogue, comment, command, or control flow).
-3. Control flow statements (`@if`, `@elseif`, `@else`, `@endif`) never produce output on their own.
+3. Control flow statements (`@if`, `@else`, `@endif`) never produce output on their own.
 4. Lines inside inactive control blocks are skipped entirely.
 5. State changes persist forward for the remainder of the script.
 
@@ -721,7 +721,7 @@ All logic and decision-making must be expressed using `@` directives or handled 
 
 Inline interpolation does **not** affect whether a line is included or excluded.
 
-Control flow is handled exclusively by `@if`, `@elseif`, `@else`, and `@endif`.
+Control flow is handled exclusively by `@if`, `@else`, and `@endif`.
 
 ```uaf
 @if quest.libraryVisit.courage > 2
