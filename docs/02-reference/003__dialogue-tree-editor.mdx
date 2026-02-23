@@ -185,6 +185,8 @@ When this node is reached, the @set line executes, then the dialogue displays, t
 Condition and Switch nodes are evaluated using the **Live Scenario state**, allowing real-time interaction with game variables. ScriptPlayer shows detailed information about expression evaluation in the Meta Box.
 :::
 
+## Dialogue Output Schema
+
 The dialogue system generates structured JSON output that represents the entire dialogue tree. Here's an overview of the schema structure:
 
 ### Root Properties
@@ -202,7 +204,7 @@ The dialogue system generates structured JSON output that represents the entire 
 
 The dialogue content is organized in a tree structure under `content.tree` with two main components:
 
-#### Nodes
+### Nodes
 
 Each node represents a point in the dialogue flow and includes:
 
@@ -215,7 +217,7 @@ Each node represents a point in the dialogue flow and includes:
   - `nodeType`: Type of node ("start", "script", "choice", "end", etc.)
   - `scriptId`: Reference to associated script content
 
-#### Edges
+### Edges
 
 Edges define connections between nodes:
 
