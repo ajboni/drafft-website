@@ -33,19 +33,15 @@ Drafft's Dialogue Tree Editor provides a powerful and flexible way to design bra
 - To prevent conflicts, scripts must be **locked** before editing.(Future update may include an **"Auto-lock related scripts"** option).
 - Adding scripts to dialogue nodes is **optional**.
 
-### Output Port Scripts
-
-- Each output port can include **@set directives** that execute when the user follows that path.
-- Perfect for tracking user choices without creating separate script nodes.
-- Only `@set` syntax is processed; helpful console warnings for unsupported directives.
-- Variables are updated before the next node's script runs.
-- Visual `@` badge indicates which ports have attached scripts.
-
 ### Advanced Editing Tools
 
 - **Grid snapping** for precise node alignment.
 - **Duplicate nodes** to speed up development.
 - **Undo/Redo** support for risk-free experimentation.
+
+:::tip
+You can shift-click to select multiple nodes at once.
+:::
 
 ### Node Types
 
@@ -88,10 +84,6 @@ and responds differently based on the player's choice.
 - Only `@set` syntax is processed; other lines are ignored
 - Variables update before the next node's script runs
 - Error handling logs issues without blocking navigation
-
-:::tip
-You can shift-click to select multiple nodes at once.
-:::
 
 ## Condition and Switch Nodes
 
@@ -192,8 +184,6 @@ When this node is reached, the @set line executes, then the dialogue displays, t
 :::tip
 Condition and Switch nodes are evaluated using the **Live Scenario state**, allowing real-time interaction with game variables. ScriptPlayer shows detailed information about expression evaluation in the Meta Box.
 :::
-
-
 
 The dialogue system generates structured JSON output that represents the entire dialogue tree. Here's an overview of the schema structure:
 
