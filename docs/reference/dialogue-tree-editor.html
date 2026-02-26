@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://cloud.umami.is">
 <script async defer="defer" src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" data-auto-track></script><link rel="stylesheet" href="/assets/css/styles.2c8981a6.css">
-<script src="/assets/js/runtime~main.48ef2a56.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.ed6f53c7.js" defer="defer"></script>
 <script src="/assets/js/main.545ebb09.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -175,6 +175,76 @@
 <li><code>scriptId</code>: Reference to associated script content</li>
 </ul>
 </li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="jump-node">Jump Node<a href="#jump-node" class="hash-link" aria-label="Direct link to Jump Node" title="Direct link to Jump Node">​</a></h4>
+<p>A Jump node redirects dialogue flow to another node without branching.</p>
+<p><strong>Properties:</strong></p>
+<ul>
+<li><code>id</code>: Unique identifier</li>
+<li><code>position</code>: X and Y coordinates in the editor</li>
+<li><code>type</code>: Node type (typically &quot;base&quot;)</li>
+<li><code>data</code>: Contains node-specific information:<!-- -->
+<ul>
+<li><code>label</code>: Display name (e.g., &quot;Jump to Start&quot;)</li>
+<li><code>nodeType</code>: &quot;jump&quot;</li>
+<li><code>targetNodeId</code>: ID of the node to jump to</li>
+<li><code>handles</code>: Input and output connection points</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Properties:</strong></p>
+<ul>
+<li><code>nodeType</code>: &quot;jump&quot;</li>
+<li><code>targetNodeId</code>: ID of the node to jump to</li>
+<li>Single input and output handle (no branching)</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="choice-node">Choice Node<a href="#choice-node" class="hash-link" aria-label="Direct link to Choice Node" title="Direct link to Choice Node">​</a></h4>
+<p>A Choice node presents multiple options to the user, each leading to a different path.</p>
+<p><strong>Properties:</strong></p>
+<ul>
+<li><code>id</code>: Unique identifier</li>
+<li><code>position</code>: X and Y coordinates in the editor</li>
+<li><code>type</code>: Node type (typically &quot;base&quot;)</li>
+<li><code>data</code>: Contains node-specific information:<!-- -->
+<ul>
+<li><code>label</code>: Display name (e.g., &quot;What do you do?&quot;)</li>
+<li><code>nodeType</code>: &quot;choice&quot;</li>
+<li><code>scriptId</code>: Optional reference to dialogue content script</li>
+<li><code>handles</code>: Input handle plus one output handle per choice option</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Properties:</strong></p>
+<ul>
+<li><code>nodeType</code>: &quot;choice&quot;</li>
+<li><code>scriptId</code>: Optional reference to dialogue content script</li>
+<li>Multiple output handles (one per choice option)</li>
+<li>Each output can have port scripts with <code>@set</code> directives</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="condition-node">Condition Node<a href="#condition-node" class="hash-link" aria-label="Direct link to Condition Node" title="Direct link to Condition Node">​</a></h4>
+<p>A Condition node evaluates a boolean expression and branches into True/False paths.</p>
+<p><strong>Properties:</strong></p>
+<ul>
+<li><code>id</code>: Unique identifier</li>
+<li><code>position</code>: X and Y coordinates in the editor</li>
+<li><code>type</code>: Node type (typically &quot;base&quot;)</li>
+<li><code>data</code>: Contains node-specific information:<!-- -->
+<ul>
+<li><code>label</code>: Display name (e.g., &quot;Check Level&quot;)</li>
+<li><code>nodeType</code>: &quot;condition&quot;</li>
+<li><code>expression</code>: Valid UAF boolean expression (evaluated at runtime)</li>
+<li><code>scriptId</code>: Optional reference to dialogue content script</li>
+<li><code>handles</code>: One input handle plus True and False output handles</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Properties:</strong></p>
+<ul>
+<li><code>nodeType</code>: &quot;condition&quot;</li>
+<li><code>expression</code>: Valid UAF boolean expression (evaluated at runtime)</li>
+<li><code>scriptId</code>: Optional reference to dialogue content script</li>
+<li>Exactly 2 output handles: one for True, one for False</li>
+<li>Uses <strong>Live Scenario state</strong> for variable evaluation</li>
 </ul>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="edges">Edges<a href="#edges" class="hash-link" aria-label="Direct link to Edges" title="Direct link to Edges">​</a></h3>
 <p>Edges define connections between nodes:</p>
