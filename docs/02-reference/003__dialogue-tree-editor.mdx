@@ -217,6 +217,73 @@ Each node represents a point in the dialogue flow and includes:
   - `nodeType`: Type of node ("start", "script", "choice", "end", etc.)
   - `scriptId`: Reference to associated script content
 
+#### Jump Node
+
+A Jump node redirects dialogue flow to another node without branching.
+
+**Properties:**
+
+- `id`: Unique identifier
+- `position`: X and Y coordinates in the editor
+- `type`: Node type (typically "base")
+- `data`: Contains node-specific information:
+  - `label`: Display name (e.g., "Jump to Start")
+  - `nodeType`: "jump"
+  - `targetNodeId`: ID of the node to jump to
+  - `handles`: Input and output connection points
+
+**Key Properties:**
+
+- `nodeType`: "jump"
+- `targetNodeId`: ID of the node to jump to
+- Single input and output handle (no branching)
+
+#### Choice Node
+
+A Choice node presents multiple options to the user, each leading to a different path.
+
+**Properties:**
+
+- `id`: Unique identifier
+- `position`: X and Y coordinates in the editor
+- `type`: Node type (typically "base")
+- `data`: Contains node-specific information:
+  - `label`: Display name (e.g., "What do you do?")
+  - `nodeType`: "choice"
+  - `scriptId`: Optional reference to dialogue content script
+  - `handles`: Input handle plus one output handle per choice option
+
+**Key Properties:**
+
+- `nodeType`: "choice"
+- `scriptId`: Optional reference to dialogue content script
+- Multiple output handles (one per choice option)
+- Each output can have port scripts with `@set` directives
+
+#### Condition Node
+
+A Condition node evaluates a boolean expression and branches into True/False paths.
+
+**Properties:**
+
+- `id`: Unique identifier
+- `position`: X and Y coordinates in the editor
+- `type`: Node type (typically "base")
+- `data`: Contains node-specific information:
+  - `label`: Display name (e.g., "Check Level")
+  - `nodeType`: "condition"
+  - `expression`: Valid UAF boolean expression (evaluated at runtime)
+  - `scriptId`: Optional reference to dialogue content script
+  - `handles`: One input handle plus True and False output handles
+
+**Key Properties:**
+
+- `nodeType`: "condition"
+- `expression`: Valid UAF boolean expression (evaluated at runtime)
+- `scriptId`: Optional reference to dialogue content script
+- Exactly 2 output handles: one for True, one for False
+- Uses **Live Scenario state** for variable evaluation
+
 ### Edges
 
 Edges define connections between nodes:
