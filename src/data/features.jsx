@@ -24,7 +24,7 @@ const features = [
     name: "Non-linear Dialogue Tree Editor",
     description:
       "Seamlessly combine branching dialogue trees with linked scripts to craft intricate, non-linear narratives and flow-based logic.",
-    href: "/features/dialogue-tree-editor",
+    href: "/docs/reference/dialogue-tree-editor",
     icon: ChatBubbleOvalLeftEllipsisIcon,
   },
 
@@ -32,14 +32,14 @@ const features = [
     name: "Scripting Editor",
     description:
       "Write scripts for immersive dialogue, scenes or even game logic. Automatically generate standard screenplay documents and add voiceover tags tailored for VO actors.",
-    href: "/features/script-editor",
+    href: "/docs/reference/drafft-scripting-syntax",
     icon: CodeBracketIcon,
   },
   {
     name: "GDD Editor",
     description:
-      "Create, organize, and share comprehensive Game Design Documents (GDDs) with your team. Write in plain markdown, embed media, link to other documents, export to PDF.",
-    href: "/features/gdd",
+      "Create, organize, and share comprehensive Game Design Documents (GDDs) with your team. Write in plain markdown, embed media, link to other documents, export to JSON.",
+    href: "/docs/reference/gdd",
     icon: DocumentTextIcon,
   },
 
@@ -62,7 +62,7 @@ const features = [
     name: "Multi-User Collaboration",
     description:
       "Collaborate in real-time with your team. Sync changes instantly using your own CouchDB server instance.",
-    href: "/features/multi-user",
+    href: "/docs/reference/multiuser",
     icon: UsersIcon,
   },
   {
@@ -97,7 +97,7 @@ const features = [
     name: "Script Logic",
     description:
       "Test narrative flows with simple scripting directives. Use @if conditionals, @set commands, and dynamic variable interpolation to create responsive dialogue.",
-    href: "/docs/reference/script-editor",
+    href: "/docs/reference/drafft-scripting-syntax",
     icon: BeakerIcon,
   },
   // {
@@ -109,26 +109,26 @@ const features = [
   {
     name: "Items Editor",
     description: "Create, organize, and export dynamic items with flexible structure and clean formats.",
-    href: "/features/items",
-    icon: ArchiveBoxIcon, // Replace with appropriate icon
+    href: "/docs/reference/items",
+    icon: ArchiveBoxIcon,
   },
   {
     name: "Quests Editor",
     description: "Define quest properties and conditions with ease in a dual-pane interface.",
-    href: "/features/quests",
-    icon: ChatBubbleBottomCenterTextIcon, // Replace with appropriate icon
+    href: "/docs/reference/quests",
+    icon: ChatBubbleBottomCenterTextIcon,
   },
   {
     name: "Grid Editor",
     description: "Organize data with a simple, user-friendly grid interface that exports to JSON.",
-    href: "/features/grids",
-    icon: TableCellsIcon, // Replace with appropriate icon
+    href: "/docs/reference/grids",
+    icon: TableCellsIcon,
   },
   {
     name: "Kanban Boards",
     description: "Organize tasks and ideas with a simple, user-friendly kanban interface.",
-    // href: "/features/kanban",
-    icon: CheckIcon, // Replace with appropriate icon
+    href: "/docs/reference/kanban",
+    icon: CheckIcon,
   },
   {
     name: "API Access",
