@@ -248,19 +248,6 @@ export default function Example() {
             </a>
           </div>
 
-          {/* Legacy Version */}
-          {/* <div className="mt-8 text-center">
-            <div className="text-lg text-gray-400">
-              Looking for <span className="font-semibold text-white">Drafft Legacy?</span> (it's free!)
-            </div>
-            <a
-              href="https://baj.itch.io/drafft" // Replace with actual legacy version link
-              className="mt-1 inline-block text-primary-color-lightest hover:underline"
-              data-umami-event="cta-legacy"
-            >
-              Download Drafft Legacy
-            </a>
-          </div> */}
         </motion.div>
       </div>
     </>

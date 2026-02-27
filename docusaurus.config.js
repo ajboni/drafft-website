@@ -232,10 +232,6 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Discussion Board",
-                href: "https://community.drafft.dev",
-              },
-              {
                 label: "Discord",
                 href: "https://discord.gg/t7GJXTTqmg",
               },
@@ -244,8 +240,8 @@ const config = {
                 href: "https://store.drafft.dev/affiliates",
               },
               {
-                label: "Drafft Legacy",
-                href: "https://baj.itch.io/drafft",
+                label: "Support",
+                href: "mailto:support@drafft.dev",
               },
             ],
           },
@@ -263,10 +259,6 @@ const config = {
               {
                 label: "Changelog",
                 href: "/changelog",
-              },
-              {
-                label: "Support",
-                href: "mailto:support@drafft.dev",
               },
               // {
               //   label: "GitHub",
