@@ -1,17 +1,19 @@
 import {
   ArchiveBoxIcon,
+  Bars3Icon,
+  BeakerIcon,
+  BookmarkIcon,
   ChatBubbleBottomCenterTextIcon,
-  ChatBubbleLeftEllipsisIcon,
   ChatBubbleOvalLeftEllipsisIcon,
-  ChatBubbleOvalLeftIcon,
-  CheckBadgeIcon,
   CheckCircleIcon,
   CheckIcon,
   CloudIcon,
   CodeBracketIcon,
   Cog6ToothIcon,
   DocumentTextIcon,
+  FilmIcon,
   LockClosedIcon,
+  PlayIcon,
   ServerIcon,
   TableCellsIcon,
   UsersIcon,
@@ -62,6 +64,41 @@ const features = [
       "Collaborate in real-time with your team. Sync changes instantly using your own CouchDB server instance.",
     href: "/features/multi-user",
     icon: UsersIcon,
+  },
+  {
+    name: "Story Variables",
+    description:
+      "Track game state with variables that support default values and live simulation. Use them in conditional logic and dynamic dialogue.",
+    href: "/docs/reference/state-and-simulation-lifecycle",
+    icon: Bars3Icon,
+  },
+  {
+    name: "Scenarios",
+    description:
+      "Create reproducible test states to explore different narrative branches. Save and load specific variable configurations for QA and iterative development.",
+    href: "/docs/reference/state-and-simulation-lifecycle",
+    icon: BookmarkIcon,
+  },
+  {
+    name: "Scenes",
+    description:
+      "Chain multiple dialogues and scripts into organized sequences. Create complex narrative flows by linking related content together.",
+    icon: FilmIcon,
+    href: "/docs/reference/scenes",
+  },
+  {
+    name: "Simulator",
+    description:
+      "Preview and test your narratives with a built-in simulator. Execute scripts, evaluate conditions, and validate variable mutations before deployment.",
+    href: "/docs/reference/state-and-simulation-lifecycle",
+    icon: PlayIcon,
+  },
+  {
+    name: "Script Logic",
+    description:
+      "Test narrative flows with simple scripting directives. Use @if conditionals, @set commands, and dynamic variable interpolation to create responsive dialogue.",
+    href: "/docs/reference/script-editor",
+    icon: BeakerIcon,
   },
   // {
   //   name: "Comprehensive Repositories",

@@ -30,9 +30,9 @@ export default function HomepageFeatures({ maxFeatures }) {
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Narrative Design Tool</h2>
+          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Dialogue Trees & Story Logic</h2>
           <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
-            A workspace for interactive narrative{" "}
+            A workspace for interactive{" "}
             <motion.span
               initial={{ x: 0, y: 0 }}
               animate={{
@@ -48,16 +48,12 @@ export default function HomepageFeatures({ maxFeatures }) {
               }}
               className="inline-block font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]"
             >
-              systems
-            </motion.span>{" "}
-            {/*             
-                      <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
-              
-            </span> */}
+              storytelling
+            </motion.span>
           </p>
           <p className="mt-6 text-lg/8 text-gray-300">
-            From scripting and dialogue design to item databases and GDDs, our tools integrate seamlessly with your
-            workflow. Collaborate in real-time, export in standard JSON, and customize your projects to fit any engine.
+            Design interactive branching dialogue, manage character data, create game design documents, and track
+            narrative variables—all in one editor. Export to any game engine.
           </p>
         </div>
         <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none">

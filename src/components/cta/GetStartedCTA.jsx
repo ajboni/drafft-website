@@ -15,7 +15,7 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
           >
-            Game Development{" "}
+            Narrative Systems{" "}
           </motion.div>
 
           <motion.span
@@ -24,7 +24,7 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
             transition={{ delay: 0.5, duration: 0.6 }}
             className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]"
           >
-            Simplified
+            Organized
           </motion.span>
         </motion.div>
       )}
@@ -36,8 +36,8 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
           transition={{ delay: 1, duration: 1 }}
           className="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8"
         >
-          Drafft is a multi-platform, offline-first, privacy-focused game development tool that centralizes your game
-          content, Dialogue Trees, Scripts, Gdds, and More.
+          Drafft is a multi-platform, offline-first, privacy-focused editor for interactive narrative systems and
+          structured game data.
         </motion.div>
       )}
 
