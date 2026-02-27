@@ -1,0 +1,66 @@
+---
+title: Why Drafft Exists
+description: The reasoning behind Drafft and the editing model it explores for interactive narrative systems.
+tags:
+  - philosophy
+  - narrative-design
+  - interactive-fiction
+  - tooling
+  - product
+---
+
+# Why Drafft Exists
+
+Interactive narrative systems grow in complexity.
+
+They react to player decisions, internal states, and events that may or may not happen. As those systems expand, the writing expands with them. Over time, the challenge shifts from writing content to maintaining structure.
+
+That shift is where friction often appears.
+
+---
+
+## The editing model shapes the work
+
+There are many ways to build interactive narrative:
+
+- Structured files such as JSON or CSV
+- Spreadsheets
+- Node-based visual editors
+- Custom internal tools
+
+Each approach solves real problems. Each also introduces tradeoffs that become more visible as projects scale.
+
+- Large JSON files are manageable at first. Then they aren't.
+- Node graphs look clear in small examples. In real projects, they turn into walls of connections.
+- Opinionated tools feel safe early on, until your project stops fitting their structure.
+- None of this means the tools are bad. It just means their design assumptions eventually show.
+
+---
+
+## Interactive writing sits between text and systems
+
+Narrative design for games is neither pure writing nor pure programming. It sits somewhere in between.
+
+It needs:
+
+- The readability and flow of text
+- The precision and structure of data
+- The flexibility to evolve over time
+
+Many existing tools lean heavily toward one side of that spectrum.
+
+When that happens, workflows adapt. Teams combine tools, introduce formatting conventions, or build small export layers to bridge gaps. This works, but it adds friction over time.
+
+---
+
+## Drafft explores a different balance
+
+Drafft is built around structured text as the core model.
+
+Text remains central, but structure is explicit and intentional. Systems can scale without being reduced to raw data files or fragmented visual graphs. Output remains compatible with existing pipelines.
+
+The goal is not to replace formats like JSON or CSV.
+
+The goal is to improve the editing experience behind them.
+
+Because as interactive systems grow, clarity and maintainability become more important than the format itself.

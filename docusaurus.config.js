@@ -253,8 +253,8 @@ const config = {
             title: "More",
             items: [
               {
-                label: "Pricing",
-                href: "/pricing",
+                label: "Why Drafft Exists",
+                href: "/why",
               },
               {
                 label: "Blog",

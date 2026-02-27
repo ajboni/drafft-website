@@ -249,7 +249,7 @@ export default function Example() {
           </div>
 
           {/* Legacy Version */}
-          <div className="mt-8 text-center">
+          {/* <div className="mt-8 text-center">
             <div className="text-lg text-gray-400">
               Looking for <span className="font-semibold text-white">Drafft Legacy?</span> (it's free!)
             </div>
@@ -260,7 +260,7 @@ export default function Example() {
             >
               Download Drafft Legacy
             </a>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </>
