@@ -30,9 +30,9 @@ export default function HomepageFeatures({ maxFeatures }) {
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Streamline Game Development</h2>
+          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Narrative Design Tool</h2>
           <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
-            Everything you need to bring your game to{" "}
+            A workspace for interactive narrative{" "}
             <motion.span
               initial={{ x: 0, y: 0 }}
               animate={{
@@ -48,7 +48,7 @@ export default function HomepageFeatures({ maxFeatures }) {
               }}
               className="inline-block font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]"
             >
-              life
+              systems
             </motion.span>{" "}
             {/*             
                       <span className="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]">
