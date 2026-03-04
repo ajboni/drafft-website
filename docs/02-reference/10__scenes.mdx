@@ -7,42 +7,106 @@ description: Learn how to chain multiple scripts and dialogues into organized se
 
 ## Overview
 
-Scenes allow you to chain multiple scripts and dialogues together into organized, sequential playlists. Create complex narrative flows by linking related content without cramming logic into single nodes.
+Scenes allow you to chain multiple scripts and dialogues together into organized, sequential playlists. Create complex narrative flows by linking related content without cramming logic into single nodes. Scenes maintain game state throughout playback, making them perfect for multi-part sequences that involve Variables, Scenarios, and dialogue choices.
 
 ## Features
 
 - **Sequential Chaining:** Link multiple scripts and dialogues in order
 - **Flexible References:** Reference any Script or Dialogue document
-- **Custom Labels:** Add display labels to scene items for clarity
-- **Organized Structure:** Group related narrative content together
+- **Drag-and-Drop Reordering:** Organize items by dragging them into the desired sequence
+- **State Persistence:** Variables and game state persist across scene items
+- **Export Support:** Scenes can be included in game content exports via API or manual export
+
+## Scene Item Structure
+
+Each item in a scene playlist contains:
+
+```json
+{
+  "docId": "uuid-of-script-or-dialogue",
+  "docType": "Script" | "Dialogue",
+  "startLine": 0,          // For Scripts: line number to begin playback (default: 0) -- For future use
+  "startNode": null,       // For Dialogues: node ID to start from (null = auto-detect start) -- For future use
+  "label": "Custom Name"   // Optional: display label (defaults to document name)
+}
+```
 
 ## Usage Guide
 
 ### Creating a Scene
 
 1. Create a new Scene document
-2. Add items by selecting a script or dialogue
-3. Define the start point (line number for scripts, node ID for dialogues)
-4. Optionally add a custom display label
-5. Arrange items in the desired sequence
+2. Click **Add Item** to open the document picker
+3. Select a Script or Dialogue to add to the playlist
+4. Repeat to add more items
+5. Drag items up or down to reorder the sequence
+
+### Drag-and-Drop Reordering
+
+Click and hold the grabber icon (⋮⋮) next to any item, then drag it to a new position in the list. The scene playlist updates immediately.
 
 ### Scene Playback
 
-Scenes can be played back using Drafft's built-in scene player, executing the items in order and maintaining game state throughout the sequence.
+Open a scene and click the **Play Scene** button to launch the scene player. The player shows:
 
-### Use Cases
+- **Progress strip:** Visual indicator of your position in the scene
+- **Navigation controls:**
+  - Previous Item (⏮): Jump to the previous script/dialogue
+  - Next Item (⏭): Advance to the next item
+  - Jump to Item: Click any item in the progress strip to jump directly to it
+- **Item counter:** "Item 3 / 7" shows your current position
 
-- Complex narrative sequences spanning multiple dialogues
-- Tutorial sequences combining scripts and dialogue
-- Story chapters or acts
-- Cinematic sequences with multiple components
+**Playback Behavior:**
+
+- Scripts play line-by-line; navigate forward past the last line to advance to the next item
+- Dialogues play node-by-node; reaching an End node does not advance automatically. Use the Next button to proceed to the next item after dialogue completion.
+- Variables modified during playback persist across all scene items if "Write to Live Scenario" is enabled in project settings (default: true)
+
+### Exporting Scenes
+
+Scenes can be included in game content exports:
+
+1. Go to **Project Settings → Export Options**
+2. Check the **Scenes** checkbox
+3. Click **Export Game Content** or use the API endpoint
+
+Exported scenes contain the full item structure, allowing your game engine to reconstruct and play scenes programmatically.
+
+**API Export Example:**
+
+```bash
+GET /game-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
+```
+
+See [API Documentation](/docs/reference/api) for more details.
+
+## Use Cases
+
+- **Complex narrative sequences** spanning multiple dialogues
+- **Tutorial sequences** combining scripts and dialogue
+- **Story chapters or acts** with multiple components
+- **Cinematic sequences** with branching dialogue and variable changes
+- **Multi-stage encounters** where Variables track progression across scenes
+
+## Integration with Variables and Scenarios
+
+Scenes work seamlessly with Variables and Scenarios:
+
+- **Variables:** Modified during scene playback, changes persist across items
+- **Scenarios:** Load a scenario before playing a scene to set up initial state
+- **Scripting:** Use `@set` and `@if` commands in scripts and dialogue port scripts to control flow
+
+Example workflow:
+
+1. Load a Scenario to set initial variable values (e.g., `player.location = "forest"`)
+2. Play a Scene with multiple dialogue branches that modify variables
+3. Variables persist across all scene items, allowing later items to reference earlier choices
+4. After scene completion, save a new Scenario snapshot for testing
 
 ## Related Features
 
 - **[Dialogue Trees](/docs/reference/dialogue-tree-editor)**: Create dialogue content for scenes
 - **[Scripting Syntax](/docs/reference/drafft-scripting-syntax)**: Use scripting within individual scene items
-- **[Simulator](/docs/reference/state-and-simulation-lifecycle)**: Test scene execution with simulation
-
-:::note Work in Progress
-This documentation is being expanded. More detailed examples and workflow guides coming soon.
-:::
+- **[Variables & Scenarios](/docs/reference/state-and-simulation-lifecycle)**: Manage game state during scene playback
+- **[Exporting](/docs/reference/exporting)**: Export scenes for use in your game engine
+- **[API](/docs/reference/api)**: Query scenes programmatically via REST API

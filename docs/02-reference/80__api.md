@@ -35,10 +35,33 @@ GET /game-export
 
 The exported collections will be as defined in the project settings althought they can be specified for further filtering with a `collections` field with comma separated values:
 
-Accepted Values: `ProjectSettings` `GDD` `Scripts` `Dialogues` `Actors` `Quests` `Items` `Misc` `Grids` `Kanban`
+**Accepted Collection Values:**
 
-```
+- `ProjectSettings` - Project configuration and settings
+- `GDD` - Game Design Documents
+- `Scripts` - Script documents with dialogue lines and commands
+- `Dialogues` - Dialogue tree structures with nodes and connections
+- `Actors` - Character definitions with properties and expressions
+- `Quests` - Quest structures with properties and conditions
+- `Items` - Item definitions and properties
+- `Variables` - State definitions with default values (JSON format)
+- `Scenarios` - Variable state snapshots (JSON format)
+- `Scenes` - Sequential playlists of Scripts and Dialogues
+- `Misc` - Miscellaneous custom data structures
+- `Grids` - Spreadsheet data
+- `Kanban` - Kanban board cards and columns
+
+**Example Queries:**
+
+```rest
+# Export specific collections
 GET /game-export?collections=Scripts,Items,Actors
+
+# Export full game state including variables and scenarios
+GET /game-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
+
+# Export all data structures
+GET /game-export?collections=ProjectSettings,GDD,Scripts,Dialogues,Actors,Quests,Items,Variables,Scenarios,Scenes,Misc,Grids,Kanban
 ```
 
 <!-- ![](/img/api-game-export.webp) -->
