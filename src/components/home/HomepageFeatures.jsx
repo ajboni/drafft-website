@@ -30,7 +30,7 @@ export default function HomepageFeatures({ maxFeatures }) {
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Dialogue Trees & Story Logic</h2>
+          <h2 className="text-base/7 font-semibold text-primary-color-lightest">Narrative Systems & Game Data</h2>
           <p className="mt-2 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-balance">
             A workspace for interactive{" "}
             <motion.span
@@ -52,8 +52,8 @@ export default function HomepageFeatures({ maxFeatures }) {
             </motion.span>
           </p>
           <p className="mt-6 text-lg/8 text-gray-300">
-            Design interactive branching dialogue, manage character data, create game design documents, and track
-            narrative variables—all in one editor. Export to any game engine.
+            Build branching dialogue, manage story state, and organize the narrative systems behind your game. Export
+            structured JSON for use with any game engine.
           </p>
         </div>
         <div className="mx-auto mt-16 mb-16 max-w-2xl sm:mt-20 lg:mt-24 lg:mb-24 lg:max-w-none">

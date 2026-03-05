@@ -102,7 +102,7 @@ export default function Example() {
                 }}
                 className="inline-block font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]"
               >
-                toolkit
+                editor
               </motion.span>{" "}
               for game developers.
             </div>
@@ -247,7 +247,6 @@ export default function Example() {
               Start Free Trial
             </a>
           </div>
-
         </motion.div>
       </div>
     </>

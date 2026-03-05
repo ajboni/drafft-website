@@ -36,8 +36,9 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
           transition={{ delay: 1, duration: 1 }}
           className="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8"
         >
-          Drafft is a multi-platform, offline-first, privacy-focused editor for interactive narrative systems and
-          structured game data.
+          Drafft is a multi-platform, offline-first editor for interactive narrative systems and game design data.
+          Design and structure dialogue trees, scripts, variables, quests, items, game design documents, and more — all
+          in one place, fully under your control.
         </motion.div>
       )}
 
