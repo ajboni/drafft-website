@@ -15,7 +15,7 @@ function GetStartedCTA({ showLearnMore = false, showDescription = true, showTitl
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
           >
-            Narrative Systems{" "}
+            Your Game Data{" "}
           </motion.div>
 
           <motion.span
