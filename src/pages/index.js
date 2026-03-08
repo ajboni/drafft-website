@@ -4,6 +4,7 @@ import HomePagePricing from "@site/src/components/home/HomePagePricing";
 import HomepageFeatures from "@site/src/components/home/HomepageFeatures";
 import HomePageWhy from "@site/src/components/home/HomePageWhy";
 import HomePageFAQ from "../components/home/HomePageFAQ";
+import HomePageCentralizedData from "@site/src/components/home/HomePageCentralizedData";
 
 export default function Home() {
   return (
