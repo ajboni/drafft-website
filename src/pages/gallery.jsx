@@ -15,15 +15,17 @@ function MediaGallery() {
     const scriptImages = importAll(require.context("@site/static/img/scripts/", false, /\.(png|webp)$/));
     const gddImages = importAll(require.context("@site/static/img/gdd/", false, /\.(png|webp)$/));
     const dialogueTreeImages = importAll(
-      require.context("@site/static/img/dialogue-tree-editor/", false, /\.(png|webp)$/)
+      require.context("@site/static/img/dialogue-tree-editor/", false, /\.(png|webp)$/),
     );
     const engineAgnosticImages = importAll(
-      require.context("@site/static/img/engine-agnostic/", false, /\.(png|webp)$/)
+      require.context("@site/static/img/engine-agnostic/", false, /\.(png|webp)$/),
     );
     const privacyImages = importAll(require.context("@site/static/img/privacy/", false, /\.(png|webp)$/));
     const otherImages = importAll(require.context("@site/static/img/gallery/", false, /\.(png|webp)$/));
+    const featuredImages = importAll(require.context("@site/static/img/featured/", false, /\.(png|webp)$/));
 
     setPhotos([
+      ...featuredImages,
       ...scriptImages,
       ...gddImages,
       ...dialogueTreeImages,
