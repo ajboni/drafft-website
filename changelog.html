@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://cloud.umami.is">
 <script async defer="defer" src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" data-auto-track></script><link rel="stylesheet" href="/assets/css/styles.27c3b2c1.css">
-<script src="/assets/js/runtime~main.833066b8.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.3522b2f6.js" defer="defer"></script>
 <script src="/assets/js/main.7b8789ba.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -25,9 +25,17 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="v245---to-be-released">v2.4.5 - To be Released<a href="#v245---to-be-released" class="hash-link" aria-label="Direct link to v2.4.5 - To be Released" title="Direct link to v2.4.5 - To be Released">​</a></h2>
 <ul>
 <li>feat: Choice port labels in dialogue player now support <code>${variables...}</code> interpolation for dynamic choice text. (thanks @Reverend)</li>
+<li>feat: Variables Inspector visibility toggle (show all vs. overridden only) now persists globally across all instances.</li>
+<li>feat: Multi-step variable interpolation autocomplete in script editor — type <code>${</code> to see available collections, then select a collection (e.g., <code>variables</code>), then a document (e.g., <code>player</code>), then the variable path (e.g., <code>mood</code>). Supports aliases (<code>${v.</code> for variables, <code>${i.</code> for items, etc.).</li>
+<li>feat: Dialogue node editor now supports variable autocomplete for output port <code>@set</code> directives and Condition/Switch expressions, including multi-step collection → document → path suggestions.</li>
+<li>feat: Added a new Error Log tab in Help with a local support log you can copy on demand.</li>
+<li>feat: Error page now includes a collapsible &quot;Collect Support Log&quot; section with opt-in copy-to-clipboard support diagnostics. (thanks @Ira)</li>
+<li>feat: App now force-exits after 10 failed close attempts, preventing hangs when the close dialog is unresponsive.</li>
 <li>fix: Dialogue editor no longer shows modified indicator while dragging nodes; only persists changes when drag completes.</li>
 <li>fix: Attempt to reduce Kanban board horizontal scroll stutter when click-dragging and moving the pointer outside the board area. (thanks @MrFrips)</li>
 <li>fix: Out ports not right aligned.</li>
+<li>fix: Variables Inspector now updates immediately after deleting Variable documents (thanks @Fauron)</li>
+<li>fix: Script editor now refreshes immediately after using Generate Tags, so new tags appear without needing to save or reload.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="v244---2026-03-04">v2.4.4 - 2026-03-04<a href="#v244---2026-03-04" class="hash-link" aria-label="Direct link to v2.4.4 - 2026-03-04" title="Direct link to v2.4.4 - 2026-03-04">​</a></h2>
 <ul>
