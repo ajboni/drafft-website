@@ -35,15 +35,7 @@ I described rooms using plain text:
 - `.` = floor
 - `#` = wall
 
-It felt great. Fast, visual, no tooling required.
-
-Until it didn’t.
-
-Problems showed up immediately:
-
-- No metadata (what room is this? what’s special here?)
-- No structure (everything is just characters)
-- No scalability (copy-pasting maps is not a system)
+It felt great. Fast, visual, no tooling required. However, the charm quickly faded as I realized this method lacked essential features: metadata for rooms, structured data management, and scalability.
 
 So I did what everyone does next.
 
@@ -51,19 +43,13 @@ So I did what everyone does next.
 
 ## Stage 2 — Bargaining (Excel)
 
-I moved everything into a spreadsheet.
-
-Each cell = a tile.
+I moved everything into a spreadsheet. Each cell now represented a tile, allowing me to introduce structure and coordinates into my designs
 
 - `.` floor
 - `#` wall
 - maybe `$01` for some special marker
 
-Now I had:
-
-- structure ✅
-- coordinates ✅
-- the illusion of a system ✅
+Now I had structure, metadata, and a clear grid. I could easily annotate rooms, define coordinates, and even add properties to specific tiles. It felt like I had finally found the right approach.
 
 And it _worked_… for a bit.
 
@@ -156,14 +142,7 @@ Which means I’ve already lost control of my own data.
 
 ## Stage 3 — Realization (Walls Are Not Tiles)
 
-The breakthrough was simple, but annoying:
-
-> Walls are not tiles.
-> Walls are edges.
-
-This changes everything.
-
-Instead of this:
+The turning point came with an unexpected realization: walls aren't tiles; they are edges. This fundamental shift meant rethinking my entire approach. Instead of thinking in terms of filled spaces, I began to consider the boundaries between them.
 
 ```
 [#]
@@ -219,11 +198,7 @@ This model matches how spaces actually behave:
 - Cells = spaces you can occupy
 - Edges = boundaries between spaces
 
-Once I made that shift:
-
-- corridors made sense
-- rooms connected cleanly
-- doors stopped being weird hacks
+This model allowed for a more intuitive representation of spaces and their connections, making corridors and rooms logical and cohesive
 
 ---
 
@@ -304,7 +279,7 @@ Still waiting.
 
 If your data is wrong, everything downstream becomes a workaround.
 
-This is something I’ve been thinking a lot about while building Drafft. Not just for maps, but for any kind of game data. Items, quests, dialogue, levels — the structure you choose early on defines how painful everything else becomes.
+This is something I’ve been thinking a lot about while building Drafft. Not just for maps but for any game-related data such as items or dialogue.
 
 ### 2. Tiles are intuitive, but misleading
 
@@ -329,33 +304,10 @@ The only question is whether you admit it early or after 3 rewrites.
 
 ## Where I Ended Up
 
-I didn’t set out to build a level editor.
-
-I set out to make a game.
-
-But along the way I learned something more valuable:
-
-> How you structure your data defines how you think about your game.
-
-Right now I have:
-
-- a grid of cells (spaces)
-- a set of edges (boundaries)
-
-And for the first time…
-
-it actually feels like a world instead of a spreadsheet.
+II started with the intention of creating a game, not an editor. Yet, this path revealed a deeper truth: how we structure our data shapes our entire approach to game design. What began as a spreadsheet-like representation has now transformed into a world I can explore and expand upon—a true testament to the power of thoughtful data modeling.
 
 ---
 
 ## Closing Thought
 
-I still don’t have much experience in game development.
-
-I just wanted to make a game.
-
-Which, in hindsight… was already suspicious.
-
-Now I have a level editor.
-
-And a slightly better understanding of why walls shouldn’t be tiles.
+In retrospect, my initial suspicion about making a game wasn't unfounded. However, it led me to an editor that not only serves its purpose but also enriches my understanding of game development's intricate dance between logic and creativity.
