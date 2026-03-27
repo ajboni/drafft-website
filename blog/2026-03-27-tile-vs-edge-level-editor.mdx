@@ -1,0 +1,361 @@
+---
+slug: tile-vs-edge-level-editor
+title: From Tiles to Edges: Getting Lost Building a Level Editor
+authors: drafft
+date: 2026-03-27
+tags: [gamedev, level-design, tools, data-modeling, dungeon-crawler]
+description: A real story about trying to build a simple level editor, getting lost in walls, tiles, and edges, and learning why data modeling matters more than rendering.
+draft: true
+---
+
+# From Tiles to Edges: Getting Lost Building a Level Editor
+
+I started making a game.
+
+Which is already suspicious. It’s been ages since I last made a game. I’ve been pretty busy working on Drafft.  But I had an idea, some momentum, and the dangerous thought:
+
+> “I just need a simple level editor.”
+
+That sentence should come with a warning label.
+
+---
+
+## Stage 1 — Denial (Plain Text Everything)
+
+The first version was as naive as it gets.
+
+I described rooms using plain text:
+
+```
+..###..
+..#.#..
+..###..
+```
+
+- `.` = floor
+- `#` = wall
+
+It felt great. Fast, visual, no tooling required.
+
+Until it didn’t.
+
+Problems showed up immediately:
+
+- No metadata (what room is this? what’s special here?)
+- No structure (everything is just characters)
+- No scalability (copy-pasting maps is not a system)
+
+So I did what everyone does next.
+
+---
+
+## Stage 2 — Bargaining (Excel)
+
+I moved everything into a spreadsheet.
+
+Each cell = a tile.
+
+- `.` floor
+- `#` wall
+- maybe `$01` for some special marker
+
+Now I had:
+
+- structure ✅
+- coordinates ✅
+- the illusion of a system ✅
+
+And it _worked_… for a bit.
+
+Then the cracks started showing.
+
+### The Wall Problem
+
+Walls were tiles.
+
+Which means this:
+
+```
+. # .
+```
+
+The wall **occupies a full tile**.
+
+That sounds fine until you think about what a wall actually is.
+
+In a dungeon crawler (or even a hotel corridor):
+
+- walls are **boundaries**, not spaces
+- you don’t _stand_ on a wall tile
+- you stand **next to it**
+
+So now I had:
+
+- fake geometry
+- weird spacing
+- rooms that didn’t feel right
+
+And worse…
+
+### The "Thick Walls" Problem
+
+At some point I started questioning the walls themselves.
+
+If walls are tiles, they’re _thick_.
+
+Which means:
+
+- doors live inside tiles
+- walking through a door means stepping into a “wall cell”
+
+That felt wrong.
+
+In something like a corridor:
+
+- you walk **through** a doorway
+- you don’t step _into_ a wall tile and then out again
+
+I tried a few mental gymnastics to justify it:
+
+- special door tiles
+- invisible transitions
+- pretending the wall tile isn’t really there
+
+None of it felt right.
+
+It always came back to the same issue:
+
+> I was modeling space incorrectly.
+
+### The Gap Problem
+
+If I remove wall tiles:
+
+```
+(2,2) floor
+(2,3) wall
+(2,4) floor
+```
+
+If I drop the wall tile:
+
+```
+(2,2) floor
+(2,4) floor
+```
+
+Now rendering at `y * tileSize` creates a **gap**.
+
+So the grid is no longer truthful.
+
+Which means I need a _derived grid_.
+
+Which means I’ve already lost control of my own data.
+
+---
+
+## Stage 3 — Realization (Walls Are Not Tiles)
+
+The breakthrough was simple, but annoying:
+
+> Walls are not tiles.
+> Walls are edges.
+
+This changes everything.
+
+Instead of this:
+
+```
+[#]
+```
+
+You think like this:
+
+```
+[cell] | [cell]
+```
+
+The wall lives **between cells**.
+
+---
+
+## Stage 4 — Acceptance (Edges, Not Tiles)
+
+So I rebuilt the model.
+
+Cells became:
+
+```ts
+Cell = {
+  label?: string
+}
+```
+
+Edges became:
+
+```ts
+Edge = {
+  type: "wall" | "door" | "window",
+};
+```
+
+And the key idea:
+
+```ts
+edges["6,6:S"] = { type: "door" };
+```
+
+Meaning:
+
+- cell (6,6) south edge has a door
+- that same edge is shared with the cell below
+
+A single source of truth for boundaries.
+
+---
+
+This model matches how spaces actually behave:
+
+- Cells = spaces you can occupy
+- Edges = boundaries between spaces
+
+Once I made that shift:
+
+- corridors made sense
+- rooms connected cleanly
+- doors stopped being weird hacks
+
+---
+
+## The Hidden Win: Data Starts Making Sense
+
+This is where things got interesting.
+
+With tiles, everything was visual-first.
+
+With edges + cells, it became **data-first**.
+
+Now I can ask questions like:
+
+- “Can I move from A to B?”
+- “Is there a door here?”
+- “What defines this room?”
+
+And answer them cleanly.
+
+Example:
+
+```ts
+function canMove(x, y, dir) {
+  const edge = getEdge(x, y, dir);
+  return edge?.type !== "wall";
+}
+```
+
+Clean logic, fewer special cases.
+
+---
+
+## Stage 5 — Scope Creep (The Editor Appears)
+
+At this point I had:
+
+- spreadsheets
+- parsing logic
+- edge reconstruction
+
+And I thought:
+
+> “I should just build a simple editor.”
+
+That was a mistake.
+
+---
+
+## Stage 6 — Acceptance 2.0 (It’s an Editor Now)
+
+Inside my own app.
+
+With:
+
+- a grid
+- cell annotations
+- edge painting (walls, doors, etc)
+
+What started as:
+
+> “just enough to test maps”
+
+Turned into:
+
+- a custom data format
+- rendering logic
+- interaction systems
+
+The game?
+
+Still waiting.
+
+---
+
+## What I Learned (The Hard Way)
+
+### 1. Your data model matters more than your rendering
+
+If your data is wrong, everything downstream becomes a workaround.
+
+This is something I’ve been thinking a lot about while building Drafft. Not just for maps, but for any kind of game data. Items, quests, dialogue, levels — the structure you choose early on defines how painful everything else becomes.
+
+### 2. Tiles are intuitive, but misleading
+
+They’re great for visuals.
+They’re bad at representing relationships.
+
+### 3. Edges unlock clarity
+
+The moment you treat boundaries as first-class data:
+
+- things simplify
+- logic becomes predictable
+- systems compose better
+
+### 4. Tools will emerge whether you want them or not
+
+If your workflow is painful, you _will_ build tooling.
+
+The only question is whether you admit it early or after 3 rewrites.
+
+---
+
+## Where I Ended Up
+
+I didn’t set out to build a level editor.
+
+I set out to make a game.
+
+But along the way I learned something more valuable:
+
+> How you structure your data defines how you think about your game.
+
+Right now I have:
+
+- a grid of cells (spaces)
+- a set of edges (boundaries)
+
+And for the first time…
+
+it actually feels like a world instead of a spreadsheet.
+
+---
+
+## Closing Thought
+
+I still don’t have much experience in game development.
+
+I just wanted to make a game.
+
+Which, in hindsight… was already suspicious.
+
+Now I have a level editor.
+
+And a slightly better understanding of why walls shouldn’t be tiles.
