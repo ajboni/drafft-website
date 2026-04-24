@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://cloud.umami.is">
 <script async defer="defer" src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" data-auto-track></script><link rel="stylesheet" href="/assets/css/styles.27c3b2c1.css">
-<script src="/assets/js/runtime~main.0c4ccf6c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.41a5a9c4.js" defer="defer"></script>
 <script src="/assets/js/main.7b8789ba.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -33,6 +33,9 @@
 <li>feat: Attachment documents now support uploading multiple file types (images, video, audio, pdf, and other binary files).</li>
 <li>fix: Ensure only folders can own children and fix error message when attempting to add a child to a non-folder document via the context menu. (Thanks @KaosCryptid)</li>
 <li>fix: Clear attachment image cache when closing or switching projects, preventing stale previews when different projects reuse the same attachment IDs.</li>
+<li>fix: Importing a project backup now resets document locks so transferred projects stay editable on a different computer.</li>
+<li>fix: Game content export now strips internal lock fields from exported documents to avoid leaking editor-only lock metadata.</li>
+<li>feat: Prevent user dragging/moving locked (by other user) tree items.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="v246---2026-03-21">v2.4.6 - 2026-03-21<a href="#v246---2026-03-21" class="hash-link" aria-label="Direct link to v2.4.6 - 2026-03-21" title="Direct link to v2.4.6 - 2026-03-21">​</a></h2>
 <ul>
