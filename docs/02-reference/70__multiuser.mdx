@@ -8,7 +8,7 @@ caption: Multi user feature
 
 With the power of [Apache CouchDB](https://couchdb.apache.org/), Drafft supports realtime multiuser sync to a remote database.
 
-Every time a user make a change it will sync the changes to the remote server. Now each client will poll this server for changes in “Remote sync interval” seconds, merging the changes on their local database.
+Every time a user make a change it will sync the changes to the remote server. Now each client will poll this server for changes in "Remote sync interval" seconds, merging the changes on their local database.
 
 That’s why the lock/unlock mechanism was added. We can replicate in real-time, but with the condition that no 2 users are modifying the same item to prevent conflicts and data loss.
 
