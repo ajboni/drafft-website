@@ -1,3 +1,8 @@
+---
+title: API Documentation
+description: Drafft comes with an optional REST API for querying a loaded project.
+---
+
 # API Documentation
 
 Drafft comes with an optional REST API for querying on a loaded project.
@@ -12,8 +17,6 @@ For now, this will only work if Drafft is running and a project is loaded.
 - `Enable API`: If true a REST API will be started when opening a project.
 - `API Key`: This API key will need to be present in the request header as `x-api-key`
 - `API Port`: The port where the server will listen to connections. Default 9001
-
-<!-- ![Api Options](/img/api-options-01.webp) -->
 
 ## API Reference
 
@@ -50,6 +53,8 @@ The exported collections will be as defined in the project settings althought th
 - `Misc` - Miscellaneous custom data structures
 - `Grids` - Spreadsheet data
 - `Kanban` - Kanban board cards and columns
+- `Canvas` - Canvas documents
+- `Maps` - Map documents
 
 **Example Queries:**
 
@@ -61,10 +66,8 @@ GET /game-export?collections=Scripts,Items,Actors
 GET /game-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
 
 # Export all data structures
-GET /game-export?collections=ProjectSettings,GDD,Scripts,Dialogues,Actors,Quests,Items,Variables,Scenarios,Scenes,Misc,Grids,Kanban
+GET /game-export?collections=ProjectSettings,GDD,Scripts,Dialogues,Actors,Quests,Items,Variables,Scenarios,Scenes,Misc,Grids,Kanban,Canvas,Maps
 ```
-
-<!-- ![](/img/api-game-export.webp) -->
 
 ### Get Database Dump
 
@@ -76,7 +79,3 @@ GET /db-dump
 GET /db-dump
 GET /db-dump?include_docs=false&attachments=false&descending=true
 ```
-
-<!-- ![Database Dump](/img/api-db-dump.webp) -->
-
-http://localhost:3000/docs/reference/exporting

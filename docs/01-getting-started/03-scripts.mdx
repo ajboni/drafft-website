@@ -1,13 +1,36 @@
 ---
-title: Scripts
-description: Understanding the scripts section of the app.
-caption: Scripts
+title: First Script
+description: Write and simulate your first script using the sample project.
+caption: First Script
 ---
 
-This is one of the main sections of the app. A script is data that you will provide to your game, and it can be written in any language.  
-A script could be a standalone document or be part of a dialogue tree. Instead of writing in each dialogue tree node, each node will have its own script attached, but more on that later.  
-You will notice two items in the file tree: `goToLibrary` is a really simple script executing a **command** and a special read-only "Dialogues" folder which contains all scripts that are part of a dialogue. Let's ignore that for now.
+This is one of the main sections of the app. A script is authored content that your game runtime can interpret, and it can be written in different editor modes.
 
-- Select `goToLibrary` and double-click on the text area. You will notice that `<PlayDialogueByAlias(area)>` and `::Narrator::` are highlighted differently, and that is because they are part of the really small [Drafft Scripting Syntax](/docs/reference/drafft-scripting-syntax). Go have a read on that page document for a quick overview. I'll wait...
+A script can be standalone or linked to dialogue nodes. In modern workflows, standalone scripts are great for reusable logic while dialogue-linked scripts keep branching graphs readable.
+
+Try this in your sample project:
+
+- Open a script document and add a line like `::Narrator:: Hello from Drafft.`
+- Add one command line such as `<PlayDialogueByAlias(intro)>`
+- Save and preview to validate formatting
+
+The highlighting you see (`::Actor::`, `<Command()>`, etc.) comes from [Drafft Scripting Syntax](/docs/reference/drafft-scripting-syntax).
 
 Also note that this script has an `id` and an `alias` shown in the script editor footer.
+
+## State-Aware Scripting
+
+Modern Drafft workflows commonly use script directives that interact with Variables and Scenarios.
+
+Example:
+
+```uaf
+@set variables.player.mood = "curious"
+::Narrator:: Player mood is now ${variables.player.mood}.
+```
+
+Read next:
+
+- [Variables Reference](/docs/reference/variables)
+- [Scenarios Reference](/docs/reference/scenarios)
+- [State & Simulation Lifecycle](/docs/reference/state-and-simulation-lifecycle)

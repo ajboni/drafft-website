@@ -1,0 +1,37 @@
+---
+title: Variables and Scenarios
+description: Learn the state model used by scripts and simulation in Drafft.
+---
+
+# Variables and Scenarios
+
+This page gives you the practical state model you need for authoring and testing.
+
+## Variables
+
+Variables define your authored defaults (baseline state).
+
+- Store values like player mood, progression flags, or counters
+- Use them in scripts and interpolation
+- Keep them stable as your source of truth
+
+## Scenarios
+
+Scenarios let you save and reload state overrides for testing.
+
+- Scenarios are diffs, not full snapshots
+- Load a scenario to set a known test state
+- Use scenarios to reproduce branches quickly
+
+## Practical Flow
+
+1. Author defaults in Variables
+2. Load a Scenario (or start from defaults)
+3. Run scripts/dialogues to modify live state
+4. Save a new Scenario if you want to preserve that setup
+
+Read next:
+
+- [State & Simulation Lifecycle](/docs/reference/state-and-simulation-lifecycle)
+- [Variables Reference](/docs/reference/variables)
+- [Scenarios Reference](/docs/reference/scenarios)

@@ -51,6 +51,7 @@ You can shift-click to select multiple nodes at once.
 - **Choice**: Create branching paths with multiple options.
 - **Condition**: Branch dialogue based on a single boolean expression (true/false).
 - **Switch**: Branch dialogue based on an expression matching multiple case values.
+- **Event**: Trigger a game event by calling a function name with arguments.
 - **Start**: Define the beginning of a dialogue.
 - **End**: Mark the conclusion of a dialogue.
 - **Return**: Return to the previous choice point.
@@ -85,104 +86,99 @@ and responds differently based on the player's choice.
 - Variables update before the next node's script runs
 - Error handling logs issues without blocking navigation
 
-## Condition and Switch Nodes
+## Node Reference
 
-Condition and Switch nodes enable powerful dialogue branching based on game state using [UAF expressions](https://drafft.dev/docs/reference/drafft-scripting-syntax). They evaluate variables in real-time and automatically route the dialogue to the appropriate path.
+This section summarizes each default node type as a peer section, so behavior is easier to scan in the sidebar.
 
-### Condition Nodes
+### Start Node
 
-A Condition node evaluates a boolean expression and branches into exactly two paths: **True** and **False**.
+Defines the entry point of a dialogue flow.
 
-**Use Case:** Check a single variable condition to determine dialogue direction.
+- Typical handles: output only
+- Use it to mark where playback should begin
 
-```
-Example: If player level >= 10
-├─ True  → "Wow, you're quite experienced!"
-└─ False → "You're still learning, aren't you?"
-```
+### Script Node
 
-**How to Use:**
+Runs dialogue or logic content via a linked script.
 
-1. Create a Condition node in the dialogue editor
-2. Edit the node and enter a UAF expression (e.g., `variables.player.level >= 10`)
-3. Connect two output ports: one for True, one for False
-4. Optional: Attach a script to the node for dialogue content
-5. If no script is attached, the dialogue will auto-advance when **Game Simulation** is ON
+- Typical handles: one input, one output
+- Best for linear dialogue and command sequences
 
-**Properties:**
+### Choice Node
 
-- `Expression`: Any valid UAF boolean comparison (e.g., `variables.health > 50`)
-- `True Output`: Path taken when expression evaluates to true
-- `False Output`: Path taken when expression evaluates to false
-- `Script`: Optional dialogue content to display before branching
+Branches into multiple player-facing options.
 
-### Switch Nodes
+- Typical handles: one input, multiple outputs
+- Output handles can carry `@set` port scripts
 
-A Switch node evaluates an expression and matches it against multiple case values, allowing complex multi-path branching.
+### Condition Node
 
-**Use Case:** Route dialogue based on player choice or state matching multiple possible values.
+Evaluates a boolean expression and routes to **True** or **False**.
 
-```
-Example: Check player.status
-├─ "happy"    → "Great to see you smiling!"
-├─ "angry"    → "You seem upset..."
-├─ "tired"    → "You look exhausted."
-└─ Default    → "How are you feeling today?"
-```
+- Expression example: `variables.player.level >= 10`
+- Uses live scenario state during simulation
+- Supports optional linked script before branching
 
-**How to Use:**
+### Switch Node
 
-1. Create a Switch node in the dialogue editor
-2. Edit the node and enter a switch expression (e.g., `variables.player.status`)
-3. Add case values that the expression might match
-4. Connect output ports for each case plus a Default output
-5. Optional: Attach a script to the node for dialogue content
-6. If no script is attached, the dialogue will auto-advance when **Game Simulation** is ON
+Evaluates an expression and matches against multiple cases.
 
-**Properties:**
+- Expression example: `variables.player.status`
+- Supports case outputs plus a default output
+- Supports optional linked script before branching
 
-- `Switch Expression`: Expression to evaluate (e.g., `variables.player.status`)
-- `Cases`: List of possible values to match against
-- `Default Output`: Fallback path if no cases match
-- `Script`: Optional dialogue content to display before branching
+### Event Node
 
-### Game Simulation Mode
+Triggers runtime/game hooks from dialogue flow.
+
+- Main fields: `functionName`, `arguments`
+- Typical handles: one input, one output
+- Keep naming aligned with your runtime integration contract
+
+### Jump Node
+
+Redirects to another node in the same graph.
+
+- Main field: target node ID
+- Useful for reuse and loop-like flow
+
+### Note Node
+
+Adds author annotations in the graph.
+
+- Not executed during gameplay/simulation
+- Useful for team comments and design notes
+
+### End Node
+
+Marks a terminal branch point.
+
+- Typical handles: input only
+
+### Return Node
+
+Returns control to a previous branch context.
+
+- Typical handles: input only
+- Useful for cleaner graphs with fewer back-link edges
+
+### Simulation Behavior
 
 When **Game Simulation** is enabled in the dialogue player:
 
-- Condition and Switch nodes **automatically evaluate** and take the appropriate path without user interaction
-- Scriptless nodes **auto-advance** to the next dialogue
-- Only speech lines are displayed (non-speech content is hidden)
-- Perfect for testing dialogue flow with variable conditions
+- Condition and Switch nodes evaluate automatically
+- Scriptless nodes can auto-advance
+- Only speech lines are shown
 
 When **Game Simulation** is disabled:
 
-- Nodes behave like manual exploration
-- You can navigate backward to explore different branches
-- Useful for reviewing all possible dialogue paths during development
-
-### Scripting on Condition/Switch Nodes
-
-Condition and Switch nodes support optional scripts for dialogue content:
-
-- The script runs **before** branching occurs
-- You can use @set directives to track player interactions
-- Control-flow blocks (@if/@else/@endif) work normally
-- If the script has @set lines at the start, they execute when the node is reached
-
-**Example with Script:**
-
-```
-@set variables.branch_taken = "condition"
-Let me think about this for a moment...
-```
-
-When this node is reached, the @set line executes, then the dialogue displays, then the condition branches based on the expression.
+- Nodes are explored manually
+- Backward navigation is available for branch review
 
 [Learn more about UAF scripting](https://drafft.dev/docs/reference/drafft-scripting-syntax)
 
 :::tip
-Condition and Switch nodes are evaluated using the **Live Scenario state**, allowing real-time interaction with game variables. ScriptPlayer shows detailed information about expression evaluation in the Meta Box.
+Condition and Switch evaluation uses **Live Scenario state**.
 :::
 
 ## Dialogue Output Schema
@@ -217,72 +213,7 @@ Each node represents a point in the dialogue flow and includes:
   - `nodeType`: Type of node ("start", "script", "choice", "end", etc.)
   - `scriptId`: Reference to associated script content
 
-#### Jump Node
-
-A Jump node redirects dialogue flow to another node without branching.
-
-**Properties:**
-
-- `id`: Unique identifier
-- `position`: X and Y coordinates in the editor
-- `type`: Node type (typically "base")
-- `data`: Contains node-specific information:
-  - `label`: Display name (e.g., "Jump to Start")
-  - `nodeType`: "jump"
-  - `targetNodeId`: ID of the node to jump to
-  - `handles`: Input and output connection points
-
-**Key Properties:**
-
-- `nodeType`: "jump"
-- `targetNodeId`: ID of the node to jump to
-- Single input and output handle (no branching)
-
-#### Choice Node
-
-A Choice node presents multiple options to the user, each leading to a different path.
-
-**Properties:**
-
-- `id`: Unique identifier
-- `position`: X and Y coordinates in the editor
-- `type`: Node type (typically "base")
-- `data`: Contains node-specific information:
-  - `label`: Display name (e.g., "What do you do?")
-  - `nodeType`: "choice"
-  - `scriptId`: Optional reference to dialogue content script
-  - `handles`: Input handle plus one output handle per choice option
-
-**Key Properties:**
-
-- `nodeType`: "choice"
-- `scriptId`: Optional reference to dialogue content script
-- Multiple output handles (one per choice option)
-- Each output can have port scripts with `@set` directives
-
-#### Condition Node
-
-A Condition node evaluates a boolean expression and branches into True/False paths.
-
-**Properties:**
-
-- `id`: Unique identifier
-- `position`: X and Y coordinates in the editor
-- `type`: Node type (typically "base")
-- `data`: Contains node-specific information:
-  - `label`: Display name (e.g., "Check Level")
-  - `nodeType`: "condition"
-  - `expression`: Valid UAF boolean expression (evaluated at runtime)
-  - `scriptId`: Optional reference to dialogue content script
-  - `handles`: One input handle plus True and False output handles
-
-**Key Properties:**
-
-- `nodeType`: "condition"
-- `expression`: Valid UAF boolean expression (evaluated at runtime)
-- `scriptId`: Optional reference to dialogue content script
-- Exactly 2 output handles: one for True, one for False
-- Uses **Live Scenario state** for variable evaluation
+For per-node behavior and usage guidance, see **Node Reference** above.
 
 ### Edges
 
@@ -293,7 +224,3 @@ Edges define connections between nodes:
 - `sourceHandle`/`targetHandle`: IDs of specific connection points
 - `points`: Array of coordinate points defining the edge path
 - Visual properties like `width`, `color`, `curvyness`
-
-## Learn More
-
-For a detailed breakdown of how to use the Dialogue Tree Editor, check out our blog post: [Easier Ways to Write Game Dialogue](https://drafft.dev/blog/easier-ways-to-write-game-dialogue).

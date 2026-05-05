@@ -1,0 +1,40 @@
+---
+title: Variables
+description: Author and organize default game state values used by scripts, dialogues, and simulations.
+---
+
+# Variables
+
+## Overview
+
+Variables are the authored default state for your project. Scripts and dialogue logic can read and update variable values during simulation.
+
+## What Variables Are Used For
+
+- Tracking player state (`mood`, `health`, `trust`, flags)
+- Driving branching dialogue and conditions
+- Interpolating values in script text via `${variables...}`
+- Defining a clean baseline for Scenarios
+
+## Authoring Model
+
+- Variables are authored as document content
+- Defaults are stable project data
+- Simulation writes happen against Live state, not authored defaults
+
+See [State & Simulation Lifecycle](/docs/reference/state-and-simulation-lifecycle) for the deeper mental model.
+
+## Script Integration
+
+Variables can be modified during simulation with `@set`:
+
+```uaf
+@set variables.player.mood = "curious"
+::Narrator:: Current mood is ${variables.player.mood}.
+```
+
+## Export Behavior
+
+When game export includes Variables, they are serialized as parsed JSON content.
+
+See [Drafft Output Schema](/docs/reference/exporting/exporting_schema) for export details.

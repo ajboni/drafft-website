@@ -16,9 +16,14 @@ The application consists of the following primary collections:
 - **Scripts**: Contains script files and folders for code components
 - **Dialogues**: Contains dialogue trees and conversation structures
 - **Actors**: Contains character definitions and their properties
-- **Quests**: Available in future versions
-- **Items**: Available in future versions
-- **Misc**: Available in future versions
+- **Quests**: Contains quest definitions and condition/property data
+- **Items**: Contains item definitions and custom data payloads
+- **Variables**: Contains author-defined state defaults
+- **Scenarios**: Contains scenario diffs used for simulation state setup
+- **Scenes**: Contains playlist-style chains of scripts and dialogues
+- **Canvas**: Contains canvas documents for visual note/workflow authoring
+- **Maps**: Contains tile/edge map data (WIP)
+- **Misc**: Contains miscellaneous design data documents
 - **Grids**: Contains spreadsheet-like data structures
 - **Kanban**: Contains kanban board task management structures
 
@@ -127,7 +132,7 @@ The actors collection contains character definitions and their properties.
 
 ## Quests Collection
 
-_Available in future versions_
+Quests are exported when enabled in project export settings. Quest properties and conditions are parsed based on the editor language (JSON/HJSON/TOML/YAML) when possible.
 
 ## Items Collection
 
@@ -157,9 +162,29 @@ Here’s the schema table for the exported JSON structure:
 | `_id`            | `string (UUID)`              | Unique identifier for the item.                                |
 | `_rev`           | `string`                     | Revision identifier for tracking changes.                      |
 
+## Variables Collection
+
+Variables are exported as parsed JSON content and represent default authored state.
+
+## Scenarios Collection
+
+Scenarios are exported as parsed JSON diffs. They are intended to represent overrides relative to authored defaults.
+
+## Scenes Collection
+
+Scenes export as ordered playlists of script/dialogue references.
+
+## Canvas Collection
+
+Canvas documents export as node/edge content payloads.
+
+## Maps Collection
+
+Maps export as cell and edge data. Internal editing-only metadata is stripped from map cells/edges during export.
+
 ## Misc Collection
 
-_Available in future versions_
+Misc documents are exported with parsed content when supported by editor language.
 
 ## Grids Collection
 

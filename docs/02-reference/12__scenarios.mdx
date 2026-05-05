@@ -1,0 +1,40 @@
+---
+title: Scenarios
+description: Save and reuse simulation state overrides as scenario diffs for testing and iteration.
+---
+
+# Scenarios
+
+## Overview
+
+Scenarios store simulation state as diffs. They are ideal for testing narrative branches and reproducing specific game states.
+
+:::important
+A Scenario is a diff, not a full state snapshot.
+:::
+
+## Core Behavior
+
+- Loading a Scenario creates a snapshot baseline for divergence tracking
+- Live state is populated from the Scenario diff
+- Authored defaults remain unchanged
+- Divergence is tracked by comparing Live state to the loaded Scenario snapshot
+
+## Benefits
+
+- Smaller scenario files
+- Clear intent (only changed values are stored)
+- Reliable branch testing without mutating authored defaults
+
+## Typical Workflow
+
+1. Author Variables defaults
+2. Load or create a Scenario
+3. Simulate scripts/dialogues and modify state
+4. Save as new Scenario, or update the source Scenario after review
+
+See [State & Simulation Lifecycle](/docs/reference/state-and-simulation-lifecycle) for lifecycle details.
+
+## Export Behavior
+
+When included in game export, Scenario content is exported as parsed JSON diff data.
