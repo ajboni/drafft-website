@@ -76,6 +76,36 @@ Default options are `include_docs: true` and `options.attachments: true`
 
 ```rest
 GET /db-dump
-GET /db-dump
 GET /db-dump?include_docs=false&attachments=false&descending=true
+```
+
+### Navigate to Document
+
+Navigates Drafft to a specific document route and focuses it in tabs.
+
+This endpoint only supports document navigation. System/virtual routes are not supported.
+
+```rest
+GET /navigate?id=DOCUMENT_ID
+```
+
+**Required Query Parameters:**
+
+- `id` - Document id (for example `abc123...`)
+
+**Example Query:**
+
+```rest
+GET /navigate?id=doc_123
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "id": "doc_123",
+  "collection": "Gdd",
+  "route": "/gdd/doc_123"
+}
 ```
