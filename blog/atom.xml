@@ -2,11 +2,140 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://drafft.dev/blog</id>
     <title>Drafft Blog</title>
-    <updated>2025-09-04T00:00:00.000Z</updated>
+    <updated>2026-06-10T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://drafft.dev/blog"/>
     <subtitle>Drafft Blog</subtitle>
     <icon>https://drafft.dev/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Dialogue Trees vs. Branching Scripts: Which Should You Use for Your Game?]]></title>
+        <id>https://drafft.dev/blog/dialogue-trees-vs-branching-scripts</id>
+        <link href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts"/>
+        <updated>2026-06-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Dialogue trees are visual, branching scripts are scalable — but both break at scale. Learn the tradeoffs and discover the hybrid approach that keeps your dialogue manageable.]]></summary>
+        <content type="html"><![CDATA[<p>You're six weeks into writing your game's dialogue. Your node graph has 400 boxes connected by a web of arrows you can barely follow. Or your script file has grown to 3,000 lines and finding where a particular branch leads now takes ten minutes of scrolling. Neither feels right, and neither scales the way you hoped.</p>
+<p>Sound familiar?</p>
+<p>If you've spent any time building a story-driven game, you've probably wrestled with this choice: <strong>use a visual dialogue tree editor, or write branching scripts in text?</strong> The answer matters more than most people realize — because the wrong choice doesn't just slow you down, it can make your dialogue system genuinely painful to maintain over months of development.</p>
+<p>This article breaks down both approaches honestly, explains where each one breaks down, and makes the case for a third option that most developers overlook.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-are-dialogue-trees">What Are Dialogue Trees?<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#what-are-dialogue-trees" class="hash-link" aria-label="Direct link to What Are Dialogue Trees?" title="Direct link to What Are Dialogue Trees?">​</a></h2>
+<p>A <strong>dialogue tree</strong> is a visual, graph-based representation of your game's conversations. Every line of dialogue, every choice, every NPC response gets its own node. Nodes connect to each other with arrows that represent flow: "after this line, the player sees these choices; after they choose, the conversation continues here."</p>
+<p>Tools like Twine, Yarn Spinner, and most node-based dialogue editors use this model. It's intuitive at first glance — you can literally <em>see</em> the shape of your narrative as a flowchart.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="where-dialogue-trees-shine">Where Dialogue Trees Shine<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#where-dialogue-trees-shine" class="hash-link" aria-label="Direct link to Where Dialogue Trees Shine" title="Direct link to Where Dialogue Trees Shine">​</a></h3>
+<ul>
+<li><strong>Small projects</strong>: A visual novel with 15–20 key choice points is perfectly manageable as a tree. You can hold the entire structure in your head.</li>
+<li><strong>Communicating structure to your team</strong>: Showing a programmer or designer how a quest's dialogue flows is easy when there's a literal diagram.</li>
+<li><strong>Early prototyping</strong>: Want to sketch out a conversation to test pacing? A quick node graph is faster than writing a script.</li>
+<li><strong>Writers who aren't technical</strong>: No code, no markup, just drag boxes and connect lines.</li>
+</ul>
+<p>That's a strong case. And for small or early-stage projects, a dialogue tree is often the right call.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="where-dialogue-trees-fall-apart">Where Dialogue Trees Fall Apart<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#where-dialogue-trees-fall-apart" class="hash-link" aria-label="Direct link to Where Dialogue Trees Fall Apart" title="Direct link to Where Dialogue Trees Fall Apart">​</a></h3>
+<p>Here's the thing nobody mentions until you're already deep in a project: <strong>dialogue trees scale terribly when you put linear dialogue in them.</strong></p>
+<p>Most tree-based tools treat every line of dialogue as a node. So an NPC introduction that goes like this:</p>
+<blockquote>
+<p>"Welcome to the village, traveler. I haven't seen your face before."</p>
+<p>"I'm passing through."</p>
+<p>"Are you now? Stay a while. There's trouble on the road ahead."</p>
+<p>"What kind of trouble?"</p>
+<p><strong>[Choice: Ask about the road / Ask about the village / Leave]</strong></p>
+</blockquote>
+<p>...becomes five nodes before you even hit the first real choice. And that's a <em>short</em> exchange.</p>
+<p>A 5-minute conversation with 8 choice moments can easily balloon to 40–50 nodes in a pure tree tool — most of which are single lines of dialogue that don't actually branch. Your graph becomes a sprawling mess of boxes and arrows, and finding <em>anything</em> requires zooming, panning, and scrolling through visual noise.</p>
+<p>This is what developers call <strong>node spaghetti</strong>: a graph that's technically correct but visually overwhelming. At this point, your "visual" tool has stopped being visual in any useful sense.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-are-branching-scripts">What Are Branching Scripts?<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#what-are-branching-scripts" class="hash-link" aria-label="Direct link to What Are Branching Scripts?" title="Direct link to What Are Branching Scripts?">​</a></h2>
+<p>A <strong>branching script</strong> is a text-based approach to the same problem. Instead of a visual graph, you write dialogue in a specialized format — like <a href="https://www.inklestudios.com/ink/" target="_blank" rel="noopener noreferrer">Ink</a>, Yarn, or a custom YAML/JSON structure — that uses markup to indicate choices, conditions, and branching.</p>
+<p>An Ink-style script for the same NPC exchange might look like this:</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#C5C8C6;--prism-background-color:#1D1F21"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#C5C8C6;background-color:#1D1F21;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">Welcome to the village, traveler. I haven't seen your face before.</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">I'm passing through.</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">Are you now? Stay a while. There's trouble on the road ahead.</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">What kind of trouble?</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">* [Ask about the road] -&gt; road_trouble</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">* [Ask about the village] -&gt; village_info</span><br></span><span class="token-line" style="color:#C5C8C6;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;line-height:1.5;white-space:pre"><span class="token plain">* [Leave] -&gt; leave_scene</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>It's compact. It reads like a real script. And it scales <em>much</em> better than a tree for large projects.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="where-branching-scripts-shine">Where Branching Scripts Shine<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#where-branching-scripts-shine" class="hash-link" aria-label="Direct link to Where Branching Scripts Shine" title="Direct link to Where Branching Scripts Shine">​</a></h3>
+<ul>
+<li><strong>Large projects</strong>: An RPG with hundreds of scenes, thousands of lines, and complex variable-driven dialogue is far more manageable as text than as a graph.</li>
+<li><strong>Version control</strong>: Text files work beautifully with Git. You can diff, merge, and track history in ways you simply can't with a visual tool's proprietary format.</li>
+<li><strong>Complex conditions</strong>: Variables, flags, counters — scripting languages handle these elegantly in text.</li>
+<li><strong>Technical writers and programmers</strong>: If your narrative designer thinks in code, a script format often feels more natural than a drag-and-drop interface.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="where-branching-scripts-fall-apart">Where Branching Scripts Fall Apart<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#where-branching-scripts-fall-apart" class="hash-link" aria-label="Direct link to Where Branching Scripts Fall Apart" title="Direct link to Where Branching Scripts Fall Apart">​</a></h3>
+<p>The problem with pure scripts is the inverse of the problem with pure trees: <strong>you lose the ability to see the structure.</strong></p>
+<p>When your script is 3,000 lines long, finding where a particular branch leads requires either a deep mental model of the entire file or a lot of manual searching. The visual overview is gone entirely. You're navigating blind.</p>
+<p>New team members — especially writers without a technical background — often struggle significantly with this. "Where does the 'refuse quest' option lead?" becomes a real question that takes 20 minutes to answer. Onboarding gets harder. Collaboration gets harder. And when you need to show someone the shape of a conversation — a director, a playtester, a publisher — you have nothing to show them.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-real-problem-one-tool-for-every-kind-of-dialogue">The Real Problem: One Tool for Every Kind of Dialogue<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#the-real-problem-one-tool-for-every-kind-of-dialogue" class="hash-link" aria-label="Direct link to The Real Problem: One Tool for Every Kind of Dialogue" title="Direct link to The Real Problem: One Tool for Every Kind of Dialogue">​</a></h2>
+<p>Here's the insight that both camps miss: <strong>not all dialogue is the same.</strong></p>
+<p>Some dialogue is genuinely branching. A player makes a choice, and the story diverges meaningfully. These moments <em>benefit</em> from visual representation. You want to see the branches. You want to see what connects to what.</p>
+<p>But most dialogue is <em>linear</em>. It's an exchange — NPC talks, player responds, NPC replies. There's no branch. It's just conversation. And putting every line of it in its own graph node, or annotating it with markup syntax in a script, is overkill in opposite directions.</p>
+<p>The mismatch is the root cause of both failure modes:</p>
+<ul>
+<li><strong>Trees fail</strong> because you're using a branching structure to represent non-branching content. Everything becomes a node, the graph explodes.</li>
+<li><strong>Scripts fail</strong> because you're reading branching structure as linear text. The structure is there, but invisible.</li>
+</ul>
+<p>The question isn't <em>trees or scripts</em>. The question is: <strong>what's the right tool for each part of the dialogue?</strong></p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-hybrid-approach-nodes-for-branches-text-for-flow">The Hybrid Approach: Nodes for Branches, Text for Flow<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#the-hybrid-approach-nodes-for-branches-text-for-flow" class="hash-link" aria-label="Direct link to The Hybrid Approach: Nodes for Branches, Text for Flow" title="Direct link to The Hybrid Approach: Nodes for Branches, Text for Flow">​</a></h2>
+<p>The answer most projects eventually arrive at — usually after suffering through one of the two failure modes — is a <strong>hybrid approach</strong>:</p>
+<ol>
+<li><strong>Use nodes only for structural moments</strong>: choices, divergences, scene transitions, conditional branches. The moments where the story actually forks.</li>
+<li><strong>Write linear dialogue as plain text inside each node</strong>: no new node for every line — just write the exchange naturally, like a script.</li>
+</ol>
+<p>This keeps your graph clean and meaningful. A conversation with 8 genuine choice points gets 8–10 nodes, not 80. You can see the narrative shape at a glance without drowning in single-line boxes. And each node's internal dialogue is readable and writable without fighting a GUI — because it's just text.</p>
+<p>A simple quest structure in this model might look like:</p>
+<ul>
+<li><strong>Node 1</strong>: Guard intro scene (plain text, 6 lines of dialogue, no branches)</li>
+<li><strong>Node 2</strong>: Choice — "Bribe guard / Use stealth / Confront them" (3 output ports)</li>
+<li><strong>Node 3</strong>: Bribe outcome (plain text, 4 lines)</li>
+<li><strong>Node 4</strong>: Stealth outcome (plain text, 3 lines)</li>
+<li><strong>Node 5</strong>: Confrontation with variable check (conditional, 2 outcomes)</li>
+</ul>
+<p>Five nodes for a full quest conversation that would take 40+ nodes in a pure tree tool. Clean, readable, maintainable — and the graph actually tells you something useful.</p>
+<p>This is the design philosophy behind <a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">Drafft</a>. Nodes represent divergence. Everything inside a node is a script. You don't pay the cognitive overhead of a tree editor for linear content, and you don't lose the visual overview for the moments that matter.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="picking-the-right-approach-for-your-project">Picking the Right Approach for Your Project<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#picking-the-right-approach-for-your-project" class="hash-link" aria-label="Direct link to Picking the Right Approach for Your Project" title="Direct link to Picking the Right Approach for Your Project">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="use-a-pure-dialogue-tree-if">Use a Pure Dialogue Tree if:<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#use-a-pure-dialogue-tree-if" class="hash-link" aria-label="Direct link to Use a Pure Dialogue Tree if:" title="Direct link to Use a Pure Dialogue Tree if:">​</a></h3>
+<ul>
+<li>Your project is small scope (under 50 nodes total)</li>
+<li>You're a solo dev who's comfortable with visual editors</li>
+<li>You're in early prototyping or a game jam</li>
+<li>Your narrative is a simple visual novel with few, clear choice moments</li>
+</ul>
+<p><em>Watch out for:</em> Node spaghetti appearing around the 100-node mark.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="use-a-branching-script-if">Use a Branching Script if:<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#use-a-branching-script-if" class="hash-link" aria-label="Direct link to Use a Branching Script if:" title="Direct link to Use a Branching Script if:">​</a></h3>
+<ul>
+<li>Your team is technical (programmers, technical designers)</li>
+<li>You're building a large project with thousands of lines</li>
+<li>Your game requires version control and diff-ability</li>
+<li>You're handling very complex variable-driven logic</li>
+</ul>
+<p><em>Watch out for:</em> Losing the narrative overview as the file grows.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="use-a-hybrid-approach-if">Use a Hybrid Approach if:<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#use-a-hybrid-approach-if" class="hash-link" aria-label="Direct link to Use a Hybrid Approach if:" title="Direct link to Use a Hybrid Approach if:">​</a></h3>
+<ul>
+<li>You're building a mid-to-large project where writers and programmers both touch dialogue</li>
+<li>You're an indie team maintaining dialogue over months of development</li>
+<li>You've already hit the limits of a pure tree or pure script approach</li>
+<li>You want a system that scales without forcing you to start over</li>
+</ul>
+<p>The hybrid approach is less common in the ecosystem, which is partly why it's underserved. <a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">Drafft</a> is specifically designed around this model — built by indie developers for indie developers, as a practical alternative to expensive enterprise tools.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="a-note-on-enterprise-tools">A Note on Enterprise Tools<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#a-note-on-enterprise-tools" class="hash-link" aria-label="Direct link to A Note on Enterprise Tools" title="Direct link to A Note on Enterprise Tools">​</a></h2>
+<p>The honest version of this conversation includes acknowledging that enterprise-grade tools like Articy<!-- -->:draft<!-- --> do handle the hybrid approach well. They're powerful, flexible, and used on AAA titles. They're also expensive, complex, and built for teams with dedicated narrative tooling budgets and onboarding time to spare.</p>
+<p>For indie developers — especially solo devs or small teams — that overhead is a real cost. <a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">Drafft</a> was built to fill that gap: the hybrid approach, accessible and affordable, without the enterprise price tag or the steep learning curve. Built by indie developers who ran into these exact problems and couldn't find a tool that solved them without requiring a corporate budget.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion">​</a></h2>
+<p>The "dialogue trees vs. branching scripts" debate is a bit of a false binary. Both approaches are genuinely good at something, and both genuinely break down at something else.</p>
+<p>The real insight is simpler than it sounds: <strong>use nodes for the moments that actually branch, and write everything else as text.</strong></p>
+<p>That's not a compromise — it's the right tool for each job. And it's the approach that keeps dialogue manageable whether your game has 50 scenes or 500, and whether you're working alone or with a team.</p>
+<p>If you want to see what that looks like in practice, <a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">Drafft</a> is worth a look.</p>
+<div class="mx-auto max-w-3xl text-center"><div class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl"><div style="opacity:0;transform:translateY(-25px)">Your Game Data<!-- --> </div><span class="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]" style="opacity:0;transform:translateY(25px)">Organized</span></div><div class="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8" style="opacity:0;transform:translateY(-25px)">Drafft is a multi-platform, offline-first editor for interactive narrative systems and game design data. Design and structure dialogue trees, scripts, variables, quests, items, game design documents, and more — all in one place, fully under your control.</div><div class="mt-10 flex gap-y-4 flex-col md:flex-row items-center justify-center gap-x-6" style="opacity:0;transform:translateY(-25px)"><div data-umami-event="download" class="gap-1 flex items-center justify-center px-4 h-10 font-semibold text-white bg-primary rounded-md bg-primary-color-darkest hover:bg-primary-color-darker cursor-pointer hover:no-underline hover:text-white">   <!-- -->Download<!-- --> <!-- -->for<span class="capitalize">unknown</span></div></div></div>]]></content>
+        <author>
+            <name>Drafft</name>
+            <email>baj@drafft.dev</email>
+            <uri>https://drafft.dev</uri>
+        </author>
+        <category label="dialogue trees" term="dialogue trees"/>
+        <category label="branching narrative" term="branching narrative"/>
+        <category label="game writing" term="game writing"/>
+        <category label="narrative design" term="narrative design"/>
+        <category label="indie game development" term="indie game development"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[The Ultimate Branching Dialogue Tool for Game Developers]]></title>
         <id>https://drafft.dev/blog/branching-dialogue-tool</id>
