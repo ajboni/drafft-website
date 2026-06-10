@@ -48,7 +48,7 @@ The exported collections will be as defined in the project settings althought th
 - `Quests` - Quest structures with properties and conditions
 - `Items` - Item definitions and properties
 - `Variables` - State definitions with default values (JSON format)
-- `Scenarios` - Variable state snapshots (JSON format)
+- `Scenarios` - Variable state diffs (overrides relative to authored defaults)
 - `Scenes` - Sequential playlists of Scripts and Dialogues
 - `Misc` - Miscellaneous custom data structures
 - `Grids` - Spreadsheet data
@@ -68,6 +68,24 @@ GET /game-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
 # Export all data structures
 GET /game-export?collections=ProjectSettings,GDD,Scripts,Dialogues,Actors,Quests,Items,Variables,Scenarios,Scenes,Misc,Grids,Kanban,Canvas,Maps
 ```
+
+### Get JSON Schema Export
+
+Gets a JSON Schema (Draft 2020-12) for the same payload shape produced by game export.
+
+This endpoint supports the same `collections` query filter as `/game-export`.
+
+```rest
+GET /schema-export
+GET /schema-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
+```
+
+**Response:**
+
+- Returns a Draft 2020-12 JSON Schema object.
+- Collections with dedicated schema modules (Maps, Variables, Scenarios) produce typed, rule-driven schemas.
+- Remaining collections fall back to the `BaseDocument` shape with common fields.
+- Variable documents each get their own typed `$defs` entry, with property types inferred from authored default values.
 
 ### Get Database Dump
 

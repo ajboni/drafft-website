@@ -34,6 +34,22 @@ The result will be something like this:
 
 Note how the 'content' property was rewritten according to our needs.
 
+## Schema Export
+
+Drafft can now infer a JSON Schema from the same payload used by game export.
+
+In Project Settings > Export Options you have two ways to use it:
+
+- Include inferred JSON schema sidecar on export: when enabled, every game export also writes a sibling file with the same name plus `.schema.json`.
+- Export Schema Now: generates only the inferred schema and lets you choose where to save it.
+
+Important notes:
+
+- Maps, Variables, and Scenarios use typed rule-driven schemas. Other collections fall back to the common document shape.
+- Variable documents each get a typed `$defs` entry with property types inferred from authored default values.
+- The schema reflects the currently selected export sections.
+- Collections without a dedicated schema module produce a broad base-document shape.
+
 ## Inline JSON
 
 Since v1.0.13 it is possible to inline standard JSON in both speech and commands lines. `%json` variable will contain parsed content.

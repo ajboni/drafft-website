@@ -9,6 +9,15 @@ This document describes the structure of the output schema for Drafft, including
 
 > Work in progress!
 
+## Schema Export
+
+Beyond the exported data payload itself, Drafft can generate and export a JSON Schema (Draft 2020-12) representation of the current payload:
+
+- Automatic sidecar mode: enable **Include JSON schema sidecar on export** in Project Settings > Export Options. Every game export will also write a sibling `.schema.json` file.
+- On-demand mode: click **Export Schema Now** in the same Export Options section to generate only the schema and choose where to save it.
+
+The schema is generated from the current exported data and selected sections. Collections with dedicated schema modules (Maps, Variables, Scenarios) produce typed, rule-driven schemas. Collections without a dedicated module fall back to the common `BaseDocument` shape.
+
 ## Collections Overview
 
 The application consists of the following primary collections:
@@ -22,7 +31,7 @@ The application consists of the following primary collections:
 - **Scenarios**: Contains scenario diffs used for simulation state setup
 - **Scenes**: Contains playlist-style chains of scripts and dialogues
 - **Canvas**: Contains canvas documents for visual note/workflow authoring
-- **Maps**: Contains tile/edge map data (WIP)
+- **Maps**: Contains tile/edge map data
 - **Misc**: Contains miscellaneous design data documents
 - **Grids**: Contains spreadsheet-like data structures
 - **Kanban**: Contains kanban board task management structures
@@ -43,11 +52,12 @@ All objects in every collection share these common properties:
 | `isRemovable` | boolean        | Whether the object can be removed                                |
 | `isReadOnly`  | boolean        | Whether the object is read-only                                  |
 | `collection`  | string         | The collection this object belongs to                            |
-| `locked`      | boolean        | Whether the object is currently locked for editing               |
-| `lockedBy`    | string         | Username of who locked the object                                |
 | `modified`    | string         | Timestamp of last modification                                   |
 | `_id`         | string         | Unique identifier for the object                                 |
-| `_rev`        | string         | Revision identifier for the object                               |
+
+:::note
+`locked`, `lockedBy`, and `_rev` are stripped from all exported documents and will not appear in the export payload.
+:::
 
 ## Scripts Collection
 
@@ -155,16 +165,15 @@ Here’s the schema table for the exported JSON structure:
 | `modified`       | `string (ISO 8601 datetime)` | Timestamp of the last modification.                            |
 | `comments`       | `string`                     | User comments associated with the item.                        |
 | `collection`     | `string`                     | Collection name to which the item belongs.                     |
-| `locked`         | `boolean`                    | Whether the item is locked for editing.                        |
-| `lockedBy`       | `string \| null`             | User ID of the person who locked the item, if applicable.      |
 | `alias`          | `string`                     | Alternative name or alias for the item.                        |
 | `editorLanguage` | `string`                     | The language mode used in the editor (e.g., "yaml").           |
 | `_id`            | `string (UUID)`              | Unique identifier for the item.                                |
-| `_rev`           | `string`                     | Revision identifier for tracking changes.                      |
 
 ## Variables Collection
 
-Variables are exported as parsed JSON content and represent default authored state.
+Variables are exported as parsed JSON content and represent default authored state. Each Variable document carries a `_sid` field (normalized state identifier) in its content, which acts as a unique key for state resolution.
+
+When schema export is enabled, each Variable document gets its own typed `$defs` entry (e.g. `Variable_player`, `Variable_world`) with property types inferred recursively from the authored default values. The `variables` array in the schema uses a `oneOf` discriminated union keyed on `content._sid`.
 
 ## Scenarios Collection
 
