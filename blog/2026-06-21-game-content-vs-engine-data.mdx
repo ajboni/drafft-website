@@ -1,0 +1,166 @@
+---
+slug: game-content-vs-engine-data
+title: "Game Content vs Engine Data: The Distinction That Changes Your Workflow"
+authors: drafft
+date: 2026-06-21
+tags: [game content management, narrative data, indie game development, game dev workflow, game data]
+description: "Most indie devs store game content inside their engine. That works — until it doesn't. Here's the distinction between engine data and game content, and why separating them changes everything."
+---
+
+import GetStartedCTA from "@site/src/components/cta/GetStartedCTA";
+
+# Game Content vs Engine Data: The Distinction That Changes Your Workflow
+
+Aarimous is a solo indie developer who has been making games for about five years — Chess Survivors, Hexagod, and now _A Game About a Black Hole_, which he's building with a collaborator named Corey. In [a recent video](https://www.youtube.com/watch?v=O2oDw8D9HyI), he talks through something he's learned across those three projects: how he manages the data layer of his games, and how his approach has changed each time.
+
+He didn't set out to solve a data management problem. He just kept hitting the same friction, project after project, until he understood what was causing it.
+
+His story is a useful map — not because he's unique, but because the path he took is one that a lot of indie developers take independently, often without realizing it has a name.
+
+{/* truncate */}
+
+---
+
+## Three Approaches, One Problem
+
+In Chess Survivors, Aarimous handled all his relics — around 60 of them — by defining them directly in code. Each relic was a function that returned a configured resource object: its rarity, its effects, its icon, its type. All of this lived in a single file that eventually grew to over a thousand lines.
+
+It wasn't pretty, but it was functional. Ctrl+F found anything. The structure was self-evident. It grew naturally as the game did. And because everything was text, there was nothing stopping him from searching across the whole file at once.
+
+For Hexagod, he moved to Custom Resources — Godot's native data container pattern. Instead of defining relics in code, he defined them in the engine's inspector UI: dropdowns for rarity, arrays for effects, structured fields for all the relevant data. It felt cleaner. You could see your data. You could edit it without touching a script file.
+
+The problem was searchability. _"You can't Ctrl+F your resources,"_ he says. With code, every relic was plain text you could search. With Custom Resources, each relic was a binary `.tres` file — editable in the inspector, but not in a text editor. Finding all the relics that affected a specific stat meant opening each one individually. At 20 relics that's annoying. At 200 it's genuinely unworkable.
+
+So for _A Game About a Black Hole_, he went external. He and Corey define the entire upgrade tree — every node, every modifier, every cost value — in a spreadsheet. A script exports it to JSON. The game loads the JSON and responds to whatever the data says.
+
+The insight Aarimous arrives at is worth quoting directly: _"This is the game. This is the balance of it."_ The engine code doesn't define what the tech tree looks like or what each upgrade does. The data does. The engine just listens.
+
+There's one telling detail he mentions: Corey needed to see the tech tree _visually_ — positioned on a grid, not as a spreadsheet — so they had to build a custom Godot editor plugin from scratch just for that. A bespoke tool to bridge the gap between a spreadsheet and something a designer can actually work in.
+
+That detail is the point. Not as a criticism — building that tool was the right move for their project. But as evidence that the gap exists, and that devs are constantly building bridges over it.
+
+---
+
+## The Web Already Solved This
+
+In web development, the separation Aarimous arrived at has been standard practice for decades. It's the reason content management systems exist.
+
+Nobody stores blog posts inside React components. Nobody embeds the text of a news article directly in the JSX that renders it. The content — what's written — lives in a database or a CMS. The code — how it's displayed — lives in the application. The two are developed, maintained, and updated independently.
+
+CMSes (WordPress, Contentful, Sanity, and dozens of others) exist for one reason: content authors shouldn't need to deploy code changes to publish text. A writer shouldn't need a developer to fix a typo in an article. An editor shouldn't need to understand React to schedule a post.
+
+The same logic applies to games — it's just not as widely understood yet.
+
+> _CMS : Website :: Content tool : Game engine_
+
+A narrative designer shouldn't need to open Godot to fix a typo in a quest description. A writer shouldn't need Unity access to revise a character's dialogue. A balance lead shouldn't need the whole engine project on their machine to adjust an upgrade cost.
+
+The game engine is the renderer. The game content is what it renders. These are different jobs, done by different people, on different schedules — and conflating them creates the exact friction Aarimous kept hitting.
+
+---
+
+## Two Different Jobs, Two Different Formats
+
+Let's be precise about the distinction.
+
+**Engine data** is everything the engine needs to run your game: transforms, components, materials, scene hierarchies, physics parameters, shaders, rendering hints. It's the stuff that tells the engine how to display and execute things. It lives in `.tscn` files, `.prefab` files, engine assets — whatever format your engine of choice uses. This is the engine's territory, and it makes sense for it to be there.
+
+**Game content** is everything that describes what's _in_ your game: what characters say, who they are, what quests require, what items do, what upgrades cost, what variables track player state. It's the authored material that writers, narrative designers, and game designers produce. It describes the intent — not the implementation.
+
+These two things have different authors, different change frequencies, and different consumers. Engine data is touched by programmers and technical artists. Game content is authored by writers and designers. Engine data changes when you're building a feature. Game content changes whenever you iterate on your narrative or your balance — which is constantly.
+
+Mixing them isn't a mistake exactly — it's just the path of least resistance. When you start small, the fastest move is to put everything in the engine. And it works fine. Until the content layer grows large enough that its weight becomes friction, which is what Aarimous kept discovering with each new project.
+
+---
+
+## What This Doesn't Mean
+
+It's worth being explicit about scope, because "separate your content from your engine" can sound broader than it is.
+
+This is not an argument for storing 3D models, spritesheets, textures, audio files, or any other binary asset outside your engine. Those are engine assets in the full sense — the engine processes, optimizes, compresses, and renders them. They need to be there. Moving them out would create more problems than it solves.
+
+The distinction being made here is specifically about **authored text and structured data**: what characters say, what they are, what quests require, what variables track, what items cost. Content that a human writes and another human might need to edit — without opening the engine.
+
+This data has a specific character: it's small, it's human-readable in plain text, and it changes on a writer's or designer's schedule rather than an artist's or programmer's. It doesn't need to be compiled. It doesn't need the engine's asset pipeline. It just needs to exist in a form the engine can load at runtime.
+
+That's the narrow, useful definition. Not "take everything out of the engine." Just: recognize which part of your game is authored content and give it a home that matches how it's actually used.
+
+---
+
+## What a Content Layer Actually Looks Like
+
+The practical form of this is simpler than it sounds.
+
+Your content lives in plain text or structured JSON files, outside the engine project. They can be opened in any text editor, shared over email, reviewed in a browser, edited by someone who has never installed a game engine in their life. No recompile needed to "see what you wrote." No inspector to navigate. No binary format to decode.
+
+The engine loads these files at runtime — either from disk or from a structured export — and responds to whatever they say. The game logic doesn't define the content; it implements the response to content. Aarimous's phrasing captures it well: the engine's job is to notice that the upgrade says the click AoE is now 250%, and make that true. The number itself lives in the data.
+
+Aarimous's spreadsheet was already partway there — the content was external, the engine loaded it. The gap was the authoring experience: a raw spreadsheet is hard to read, hard to navigate, has no concept of relationships between data types, and can't enforce structure. Which is why they ended up building that custom visual tool.
+
+The full version of a content layer isn't just a file format — it's an authoring environment that understands the structure of your game content and gives the right affordances to the people editing it.
+
+---
+
+## The Collaboration That Becomes Possible
+
+One of the clearest signals that this separation is working is what happens to the division of labor.
+
+In _A Game About a Black Hole_, Aarimous and Corey work in parallel. Corey manages the balance — adjusting the tech tree, iterating on upgrade costs, designing new modifier combinations. Aarimous implements the game logic that responds to whatever the data says. Neither of them blocks the other.
+
+That's the concrete collaboration benefit: when content lives outside the engine, non-technical contributors become first-class collaborators. They don't need engine access. They don't need a programmer to make changes on their behalf. They can iterate at their own pace, and the programmer just needs to make sure the engine responds correctly to whatever the data layer says.
+
+Scale this to a narrative game and the same pattern holds. A writer can edit dialogue, revise quest text, adjust character notes — all without opening the engine, without a recompile, without filing a request to a programmer who has to go find the right scene and edit strings in an inspector. A narrative designer can review the complete text of every quest in one place. A localization team can work from a JSON export without needing access to the project at all.
+
+This isn't a workflow optimization. It's a structural change in who can contribute to the game and how quickly changes can happen.
+
+---
+
+## One Source of Truth
+
+There's a compounding problem with content that lives scattered across engine files: it has no canonical location.
+
+A character's name appears in every scene they're in. Every quest that mentions them. Every piece of dialogue that references them. If you rename that character, you're making N edits across N files — in binary formats, in inspector strings, in places that Ctrl+F won't reliably reach.
+
+A variable that tracks player state might be initialized in one scene, modified in three others, and checked as a quest condition in a fourth. Whether those four places are using the same name, spelled consistently, with the same type — there's nothing enforcing that. It works if you're careful. It breaks if you're not.
+
+These problems don't exist when content lives in one place. A character is defined once, as a document, and referenced everywhere else. A variable has one definition and one set of defaults; anything that uses it references the same definition. A quest's completion conditions point to the same variable namespace as the scripts that set those variables.
+
+The content layer is the source of truth. The engine reads from it. Nothing else needs to be in sync because there's only one place to look.
+
+---
+
+## Where Drafft Fits
+
+Drafft is built specifically to be this content layer for narrative-heavy games.
+
+The things you author in Drafft — dialogue scripts, dialogue trees, character actors, variables, quests, items — live outside your engine as structured documents. When you're ready to ship, you export to JSON. Export mappings let you define exactly how that JSON is shaped for your engine's expected format, so the output integrates without a post-processing step. If your engine can read JSON (most can), the pipeline is: write in Drafft, export, load in engine.
+
+The authoring experience is designed around how this content is actually used. Scripts are text-based — Drafft's scripting syntax is plain text with structure, not a GUI you click through. Actors are first-class documents: a character has a page, a bio, expressions, and all their dialogue references that document. Variables have typed defaults. Quests can reference those same variables in their completion conditions. Everything is connected in the way that game content is actually connected — not in the way a spreadsheet or a collection of `.tres` files happens to be connected.
+
+The bridge Aarimous and Corey had to build from scratch for their tech tree — a custom visual authoring tool that sits between the data and the engine — is what Drafft is, purpose-built, for dialogue and narrative content. The work of building that bridge has already been done.
+
+One practical note: Drafft covers narrative content specifically — dialogue, characters, quests, variables, items, and the supporting structure around them. It's not a general-purpose data warehouse for every number in your game. If you're making an incremental game with a complex upgrade tree like Aarimous, a spreadsheet-to-JSON pipeline for the balance data is a completely reasonable choice. These approaches aren't in conflict — you can use Drafft for the narrative layer and a separate data file for the balance layer. Most content-heavy games have both.
+
+---
+
+## Getting There Without a Big Migration
+
+The switching cost anxiety is real, and it deserves an honest answer.
+
+Aarimous didn't go back and migrate Chess Survivors when he figured this out. He learned what he'd learned, and he applied it differently in Hexagod — and then differently again in _A Game About a Black Hole_. The knowledge compounds; the old project stays as it is.
+
+The same approach works here. You don't need to take a running project and move all its content out of the engine in a weekend. The practical path is: start new content in a content layer. New quests, new characters, new dialogue — author those in a dedicated tool and load them from JSON. Leave the old content where it is for now. Migrate it opportunistically when you're already touching it for another reason.
+
+The goal isn't a perfect architecture from day one. It's a direction of travel: toward a setup where the engine is a consumer of content, not its container. Each step in that direction makes the next iteration faster — because the writer doesn't need the programmer, the programmer doesn't need the engine open to edit a string, and neither of them is maintaining a custom bridge that nobody else understands.
+
+_"This isn't anything new,"_ Aarimous says in his video. _"But this is something that has really shown me how the production side of this is going to ramp really quickly."_
+
+That's the payoff. Not a cleaner architecture for its own sake. Faster iteration because the right people can change the right things without depending on each other to do it.
+
+---
+
+_For more on how to structure dialogue specifically — whether to use dialogue trees, branching scripts, or a hybrid approach — see [Dialogue Trees vs. Branching Scripts: Which Should You Use for Your Game?](/blog/dialogue-trees-vs-branching-scripts). And if your current dialogue workflow involves spreadsheets, [The Easiest Way to Organize Game Dialogue Without Spreadsheets](/blog/organize-game-dialogue-without-spreadsheets) covers what that transition actually looks like._
+
+<div className="bg-dark-background-darker-3 py-2 p-8 pb-8 rounded-lg">
+  <GetStartedCTA showTitle={false} showDescription={true} />
+</div>
