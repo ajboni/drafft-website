@@ -4,10 +4,116 @@
         <title>Drafft Blog</title>
         <link>https://drafft.dev/blog</link>
         <description>Drafft Blog</description>
-        <lastBuildDate>Sun, 21 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jul 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[How to Write a Game Design Document in 4 Hours]]></title>
+            <link>https://drafft.dev/blog/write-game-design-document-4-hours</link>
+            <guid>https://drafft.dev/blog/write-game-design-document-4-hours</guid>
+            <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A time-boxed framework for writing a minimum viable GDD — four sections, one hour each, and a stopping rule that actually works.]]></description>
+            <content:encoded><![CDATA[<p>The blank page is not the real problem.</p>
+<p>Most developers who struggle with a Game Design Document don't get stuck at the beginning — they get stuck somewhere in the middle, usually around the point where the document stops being a tool and starts being a project. They meant to write a roadmap. They ended up with a 40-page wiki that describes mechanics they haven't decided to build yet, characters who don't exist yet, and a world history nobody will ever read. The game still hasn't started.</p>
+<p>Writing a GDD that actually helps you ship a game requires doing something counterintuitive: <strong>deciding in advance what you will not write</strong>.</p>
+<p>This post is a framework for doing exactly that. Four sections. A time budget for each. A stopping rule. No theory — if you want the foundational "what is a GDD and why does it matter," that's covered well in <a href="https://drafft.dev/blog/game-design-document-guide" target="_blank" rel="noopener noreferrer">What Is a Game Design Document?</a>. This post assumes you've made the decision to write one, and you want to be done by the end of the day.</p>
+<!-- -->
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-minimum-viable-gdd">The Minimum Viable GDD<a href="https://drafft.dev/blog/write-game-design-document-4-hours#the-minimum-viable-gdd" class="hash-link" aria-label="Direct link to The Minimum Viable GDD" title="Direct link to The Minimum Viable GDD">​</a></h2>
+<p>The idea behind a minimum viable GDD is the same idea behind a minimum viable product: figure out the smallest version that actually does the job, build that first, and expand only when the evidence demands it.</p>
+<p>A GDD's job is to answer the questions your future self — or your collaborators — will have when they sit down to build the game. It doesn't need to answer every question. It needs to answer the questions that block the first three months of work.</p>
+<p>Four sections do this for almost every indie game:</p>
+<ol>
+<li><strong>Vision</strong> — what the game is and who it's for</li>
+<li><strong>Core Mechanics</strong> — what the player does and how the game works</li>
+<li><strong>Characters and Story Beats</strong> — who's in the game and why</li>
+<li><strong>Scope Fence</strong> — what's in v1.0 and what isn't</li>
+</ol>
+<p>That's it. Anything not in those four sections is a decision you don't have enough information to make yet. Write it in the margin as a question, not in the document as an answer.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="section-1-vision-45-minutes">Section 1: Vision (45 minutes)<a href="https://drafft.dev/blog/write-game-design-document-4-hours#section-1-vision-45-minutes" class="hash-link" aria-label="Direct link to Section 1: Vision (45 minutes)" title="Direct link to Section 1: Vision (45 minutes)">​</a></h2>
+<p>The Vision section has one job: make the game legible to someone who knows nothing about it.</p>
+<p>Write three things:</p>
+<p><strong>A one-sentence description.</strong> Not a marketing tagline — a factual description of what the game is. Include the genre, the core mechanic, and the tonal register. Example: <em>"A 2D puzzle platformer about rewinding time to solve environmental obstacles, with a melancholy atmosphere and no combat."</em> If you can't write this sentence in under five minutes, your concept isn't clear enough yet. That's useful information — it means you need another day of thinking, not another day of writing.</p>
+<p><strong>A short paragraph on what makes it different.</strong> One to three sentences. What's the one thing this game does that the obvious comparison games don't? You're not writing marketing copy here — you're answering the question that will come up in every design decision for the next year: <em>is this consistent with what this game is trying to be?</em></p>
+<p><strong>Target player and platform.</strong> Broad is fine. "PC, players who liked Celeste and Braid" is enough. This isn't market research — it's a calibration tool. When you're deciding whether a feature is worth building, "would the person who loved Celeste care about this?" is a surprisingly useful filter.</p>
+<p>Nothing else belongs in the Vision section right now. No lore. No world history. No backstory for the protagonist's childhood. All of that is optional until the game tells you it needs it.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="section-2-core-mechanics-1-hour">Section 2: Core Mechanics (1 hour)<a href="https://drafft.dev/blog/write-game-design-document-4-hours#section-2-core-mechanics-1-hour" class="hash-link" aria-label="Direct link to Section 2: Core Mechanics (1 hour)" title="Direct link to Section 2: Core Mechanics (1 hour)">​</a></h2>
+<p>The Core Mechanics section has a precise test: <strong>if a programmer who had never spoken to you read this section, could they build a prototype?</strong></p>
+<p>Not the full game. A prototype. Something that demonstrates the core loop and lets you play with the primary mechanic for five minutes.</p>
+<p>Write the following:</p>
+<p><strong>The core loop.</strong> One paragraph or a simple flowchart. What does the player do on a moment-to-moment basis? What triggers the next action? Where does the loop begin and end? For a puzzle platformer: move through levels, solve environmental puzzles using the time-rewind mechanic, reach the exit. Clear.</p>
+<p><strong>The primary mechanic.</strong> A plain-language description of the main interactive system. How does it work? What are its inputs and outputs? What does it feel like to use? Don't write feature specs — write enough that someone can make a testable version.</p>
+<p><strong>Secondary mechanics, if any.</strong> One sentence each. You're not designing them yet — you're naming them so they exist as distinct things in the document rather than implicit assumptions.</p>
+<p>What doesn't belong in this section yet: upgrade systems, progression curves, specific level designs, edge cases, exceptions, failure states, or anything that only becomes relevant after the core loop is proven. Those details are decisions you can't make well until you have something to playtest.</p>
+<p>If you're tempted to keep writing here — and you will be — ask yourself the prototype test. Once the answer is yes, stop.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="section-3-characters-and-story-beats-45-minutes">Section 3: Characters and Story Beats (45 minutes)<a href="https://drafft.dev/blog/write-game-design-document-4-hours#section-3-characters-and-story-beats-45-minutes" class="hash-link" aria-label="Direct link to Section 3: Characters and Story Beats (45 minutes)" title="Direct link to Section 3: Characters and Story Beats (45 minutes)">​</a></h2>
+<p>This section scales with your game. For a pure mechanics game, it might be a paragraph. For a narrative RPG, it might be the most important part of the document. Neither is wrong.</p>
+<p><strong>For every character:</strong> one sentence on who they are, one sentence on what function they serve (narrative, mechanical, or both). Cut anyone who fails the second sentence. If a character doesn't change the gameplay or move the story, they don't need to be in the GDD yet.</p>
+<p><strong>For the story:</strong> three to five beats that form the spine of the game. Not a full plot — a skeleton. Opening state. First major change. Rising tension. Climax. Resolution. That's enough to start building.</p>
+<p>The test here isn't comprehensiveness — it's whether a level designer or writer could start working without asking you ten questions first.</p>
+<p>One note on scope: <strong>don't write dialogue in the GDD.</strong> Don't write character backstory deeper than what directly affects gameplay. Don't write lore. This section describes the shape of the narrative, not the narrative itself. A five-minute conversation your protagonist has with the mentor character is not a GDD entry — it's a script. Keep those things separate, or this section becomes a different project.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="section-4-scope-fence-30-minutes">Section 4: Scope Fence (30 minutes)<a href="https://drafft.dev/blog/write-game-design-document-4-hours#section-4-scope-fence-30-minutes" class="hash-link" aria-label="Direct link to Section 4: Scope Fence (30 minutes)" title="Direct link to Section 4: Scope Fence (30 minutes)">​</a></h2>
+<p>This is the most important section for solo developers, and the one most people skip.</p>
+<p>Two lists:</p>
+<p><strong>In scope for v1.0:</strong> everything you are committing to build for the initial release. Be specific. Not "levels" but "10 levels, each introducing a new environmental use of the time-rewind mechanic." Not "characters" but "protagonist + 4 NPCs."</p>
+<p><strong>Out of scope:</strong> everything you're tempted to add but won't build for v1.0. This list is not a trash can — it's a backlog. Writing something here doesn't mean killing it. It means acknowledging it formally and setting it aside so it stops taking up mental space and design discussion time.</p>
+<p>No maybe pile. Every feature is either In or Out. "Maybe" is where games go to never ship.</p>
+<p>The Scope Fence protects you from yourself. The game idea is always growing. The document, the schedule, and your available hours are not. Every item you put on the Out list is a decision you won't have to make again until you're actually ready to make it.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-hour-by-hour-breakdown">The Hour-by-Hour Breakdown<a href="https://drafft.dev/blog/write-game-design-document-4-hours#the-hour-by-hour-breakdown" class="hash-link" aria-label="Direct link to The Hour-by-Hour Breakdown" title="Direct link to The Hour-by-Hour Breakdown">​</a></h2>
+<p>Set a timer. When it goes off, move to the next section — even if you're not finished.</p>
+<table><thead><tr><th>Time block</th><th>Section</th><th>What to produce</th></tr></thead><tbody><tr><td>0:00–0:45</td><td>Vision</td><td>1 sentence, 1 paragraph, target player/platform</td></tr><tr><td>0:45–1:45</td><td>Core Mechanics</td><td>Core loop + primary mechanic + secondary mechanic list</td></tr><tr><td>1:45–2:30</td><td>Characters + Story</td><td>Character list with functions + 3–5 story beats</td></tr><tr><td>2:30–3:00</td><td>Scope Fence</td><td>In-scope list + out-of-scope list</td></tr><tr><td>3:00–4:00</td><td>Review</td><td>Read aloud, cut anything that doesn't answer a concrete question, mark gaps as TBD</td></tr></tbody></table>
+<p><strong>The stopping rule:</strong> when you can read the entire document and answer every question a collaborator would have about their first month of work, you're done. Not when it's comprehensive. Not when it covers every scenario. When it's clear enough to start.</p>
+<p>Anything unresolved at the end of the review hour gets marked as TBD and tagged with the question it needs to answer: <em>"TBD: does the time rewind mechanic reset NPC positions or only environmental objects? Decide in prototype."</em> That's a better outcome than writing two paragraphs of speculation that will be wrong anyway.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-your-game-actually-needs">What Your Game Actually Needs<a href="https://drafft.dev/blog/write-game-design-document-4-hours#what-your-game-actually-needs" class="hash-link" aria-label="Direct link to What Your Game Actually Needs" title="Direct link to What Your Game Actually Needs">​</a></h2>
+<p>The four sections above are the baseline. Some games need more in specific areas — and some need significantly less. Here's a rough guide:</p>
+<table><thead><tr><th>Section</th><th>Solo 2D platformer</th><th>Narrative RPG</th><th>Small team (2–5)</th></tr></thead><tbody><tr><td>Vision</td><td>Required</td><td>Required</td><td>Required</td></tr><tr><td>Core Mechanics</td><td>Required</td><td>Required</td><td>Required</td></tr><tr><td>Characters + Story</td><td>1 paragraph</td><td>Full section</td><td>Full section</td></tr><tr><td>Scope Fence</td><td>Required</td><td>Required</td><td>Required</td></tr><tr><td>Art / audio style</td><td>Link a mood board</td><td>Link a mood board</td><td>Recommended</td></tr><tr><td>Technical / engine notes</td><td>Skip</td><td>Skip</td><td>Recommended</td></tr><tr><td>Level design details</td><td>Skip until prototyped</td><td>Skip until prototyped</td><td>Optional</td></tr></tbody></table>
+<p>The general rule: a section earns its place in the GDD when someone will block on the work without it. A programmer building a prototype doesn't need your art direction notes. An artist starting on character concepts does need to know who those characters are. Write what unblocks work; defer everything else.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-time-sink-trap">The Time Sink Trap<a href="https://drafft.dev/blog/write-game-design-document-4-hours#the-time-sink-trap" class="hash-link" aria-label="Direct link to The Time Sink Trap" title="Direct link to The Time Sink Trap">​</a></h2>
+<p>The most dangerous GDD is one you never finish writing.</p>
+<p>Here's how to recognize it:</p>
+<ul>
+<li>You've written 20 pages but haven't opened your game engine.</li>
+<li>You keep discovering new sections the document "needs" before you can start.</li>
+<li>You're writing detailed specifications for systems you haven't decided to build.</li>
+<li>You've revised the Vision section four times this week.</li>
+</ul>
+<p>This is not a research phase. This is avoidance. The document has become a second game you're also not finishing.</p>
+<p>It happens for understandable reasons. Writing feels productive. It looks like work. You can spend an entire day writing about your game without making a single decision that might turn out to be wrong. Compared to opening the engine and building something that might not work, a document is safe.</p>
+<p>But a GDD that's never done serves no one. A 40-page document you spent three weeks writing is not more useful than the 4-hour version — it's usually less useful, because it contains more decisions made too early, before you understood what the game actually needed.</p>
+<p>The time box is the solution. Four hours is enough to capture everything you need to start. When the time is up, the document is done. Not perfect — done. Move to the engine.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="when-characters-and-dialogue-outgrow-the-gdd">When Characters and Dialogue Outgrow the GDD<a href="https://drafft.dev/blog/write-game-design-document-4-hours#when-characters-and-dialogue-outgrow-the-gdd" class="hash-link" aria-label="Direct link to When Characters and Dialogue Outgrow the GDD" title="Direct link to When Characters and Dialogue Outgrow the GDD">​</a></h2>
+<p>For narrative-heavy games, the Characters and Story section will eventually hit a ceiling.</p>
+<p>A one-sentence bio per character is fine in a GDD. Twelve characters with branching dialogue trees, variable relationships, and conditional story states are not. At some point, the narrative layer of your game becomes a system unto itself — and systems don't live in a document, they live in dedicated tools.</p>
+<p>The GDD's job at that point changes: instead of containing your character work, it describes it. Who the characters are, what role they serve, how the narrative connects to the mechanics — but not the dialogue itself, not the branching logic, not the individual scene scripts. Those go somewhere else.</p>
+<p>This is the threshold where most narrative developers hit friction. The GDD is too broad for detailed dialogue work, but the dialogue is too interconnected to manage in scattered files. Keeping character arcs, dialogue scripts, and story logic consistent across a large cast usually requires something more structured than a document — a system where characters are first-class objects that dialogue scenes can reference, where you can pull up every line a character speaks without manually searching through files.</p>
+<p><em>When you hit that point, <a href="https://drafft.dev/blog/organize-game-dialogue-without-spreadsheets">The Easiest Way to Organize Game Dialogue Without Spreadsheets</a> covers exactly this transition: what to do when the spreadsheet (or the document) stops being enough.</em></p>
+<p>The practical upshot: when your narrative complexity reaches that level, the GDD becomes the index — a concise overview that links out to the detailed character and dialogue work, not the place where that work lives.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="a-living-document-not-a-finished-one">A Living Document, Not a Finished One<a href="https://drafft.dev/blog/write-game-design-document-4-hours#a-living-document-not-a-finished-one" class="hash-link" aria-label="Direct link to A Living Document, Not a Finished One" title="Direct link to A Living Document, Not a Finished One">​</a></h2>
+<p>Once you start prototyping, parts of the GDD will be wrong. A mechanic that seemed obvious on paper doesn't work when you can actually play it. A character who felt essential turns out to serve the same purpose as another character. A feature on the Out list suddenly belongs in v1.0 because the game turns out to need it.</p>
+<p>That's expected. That's why you built a minimum viable version instead of a comprehensive one — changes are cheap when the document is four pages, expensive when it's forty.</p>
+<p>The maintenance rule is simple: when you change something in the game, update the GDD. Not in detail — just enough that anyone reading it would understand the current state. Ten seconds of maintenance per decision prevents the document from drifting out of sync with the actual game.</p>
+<p>What the GDD becomes after release is a different kind of useful: the foundation for a sequel, the reference document for post-launch content, and the fastest onboarding tool you have if the project ever grows beyond its current team.</p>
+<hr>
+<p>Four hours. Four sections. A stopping rule.</p>
+<p>That's the whole framework. The game starts after.</p>
+<div class="mx-auto max-w-3xl text-center"><div class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl"><div style="opacity:0;transform:translateY(-25px)">Your Game Data<!-- --> </div><span class="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]" style="opacity:0;transform:translateY(25px)">Organized</span></div><div class="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8" style="opacity:0;transform:translateY(-25px)">Drafft is a multi-platform, offline-first editor for interactive narrative systems and game design data. Design and structure dialogue trees, scripts, variables, quests, items, game design documents, and more — all in one place, fully under your control.</div><div class="mt-10 flex gap-y-4 flex-col md:flex-row items-center justify-center gap-x-6" style="opacity:0;transform:translateY(-25px)"><div data-umami-event="download" class="gap-1 flex items-center justify-center px-4 h-10 font-semibold text-white bg-primary rounded-md bg-primary-color-darkest hover:bg-primary-color-darker cursor-pointer hover:no-underline hover:text-white">   <!-- -->Download<!-- --> <!-- -->for<span class="capitalize">unknown</span></div></div></div>]]></content:encoded>
+            <author>baj@drafft.dev (Drafft)</author>
+            <category>GDD</category>
+            <category>Game Design</category>
+            <category>Game Development</category>
+            <category>Workflow</category>
+            <category>Documentation</category>
+        </item>
         <item>
             <title><![CDATA[Game Content vs Engine Data: The Distinction That Changes Your Workflow]]></title>
             <link>https://drafft.dev/blog/game-content-vs-engine-data</link>
