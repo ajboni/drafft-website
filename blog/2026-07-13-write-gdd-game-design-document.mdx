@@ -1,0 +1,198 @@
+---
+slug: write-game-design-document-4-hours
+title: "How to Write a Game Design Document in 4 Hours"
+authors: drafft
+date: 2026-07-13
+tags: [GDD, game-design, game-development, workflow, documentation]
+description: "A time-boxed framework for writing a minimum viable GDD — four sections, one hour each, and a stopping rule that actually works."
+---
+
+import GetStartedCTA from "@site/src/components/cta/GetStartedCTA";
+
+# How to Write a Game Design Document in 4 Hours
+
+The blank page is not the real problem.
+
+Most developers who struggle with a Game Design Document don't get stuck at the beginning — they get stuck somewhere in the middle, usually around the point where the document stops being a tool and starts being a project. They meant to write a roadmap. They ended up with a 40-page wiki that describes mechanics they haven't decided to build yet, characters who don't exist yet, and a world history nobody will ever read. The game still hasn't started.
+
+Writing a GDD that actually helps you ship a game requires doing something counterintuitive: **deciding in advance what you will not write**.
+
+This post is a framework for doing exactly that. Four sections. A time budget for each. A stopping rule. No theory — if you want the foundational "what is a GDD and why does it matter," that's covered well in [What Is a Game Design Document?](https://drafft.dev/blog/game-design-document-guide). This post assumes you've made the decision to write one, and you want to be done by the end of the day.
+
+{/* truncate */}
+
+---
+
+## The Minimum Viable GDD
+
+The idea behind a minimum viable GDD is the same idea behind a minimum viable product: figure out the smallest version that actually does the job, build that first, and expand only when the evidence demands it.
+
+A GDD's job is to answer the questions your future self — or your collaborators — will have when they sit down to build the game. It doesn't need to answer every question. It needs to answer the questions that block the first three months of work.
+
+Four sections do this for almost every indie game:
+
+1. **Vision** — what the game is and who it's for
+2. **Core Mechanics** — what the player does and how the game works
+3. **Characters and Story Beats** — who's in the game and why
+4. **Scope Fence** — what's in v1.0 and what isn't
+
+That's it. Anything not in those four sections is a decision you don't have enough information to make yet. Write it in the margin as a question, not in the document as an answer.
+
+---
+
+## Section 1: Vision (45 minutes)
+
+The Vision section has one job: make the game legible to someone who knows nothing about it.
+
+Write three things:
+
+**A one-sentence description.** Not a marketing tagline — a factual description of what the game is. Include the genre, the core mechanic, and the tonal register. Example: _"A 2D puzzle platformer about rewinding time to solve environmental obstacles, with a melancholy atmosphere and no combat."_ If you can't write this sentence in under five minutes, your concept isn't clear enough yet. That's useful information — it means you need another day of thinking, not another day of writing.
+
+**A short paragraph on what makes it different.** One to three sentences. What's the one thing this game does that the obvious comparison games don't? You're not writing marketing copy here — you're answering the question that will come up in every design decision for the next year: _is this consistent with what this game is trying to be?_
+
+**Target player and platform.** Broad is fine. "PC, players who liked Celeste and Braid" is enough. This isn't market research — it's a calibration tool. When you're deciding whether a feature is worth building, "would the person who loved Celeste care about this?" is a surprisingly useful filter.
+
+Nothing else belongs in the Vision section right now. No lore. No world history. No backstory for the protagonist's childhood. All of that is optional until the game tells you it needs it.
+
+---
+
+## Section 2: Core Mechanics (1 hour)
+
+The Core Mechanics section has a precise test: **if a programmer who had never spoken to you read this section, could they build a prototype?**
+
+Not the full game. A prototype. Something that demonstrates the core loop and lets you play with the primary mechanic for five minutes.
+
+Write the following:
+
+**The core loop.** One paragraph or a simple flowchart. What does the player do on a moment-to-moment basis? What triggers the next action? Where does the loop begin and end? For a puzzle platformer: move through levels, solve environmental puzzles using the time-rewind mechanic, reach the exit. Clear.
+
+**The primary mechanic.** A plain-language description of the main interactive system. How does it work? What are its inputs and outputs? What does it feel like to use? Don't write feature specs — write enough that someone can make a testable version.
+
+**Secondary mechanics, if any.** One sentence each. You're not designing them yet — you're naming them so they exist as distinct things in the document rather than implicit assumptions.
+
+What doesn't belong in this section yet: upgrade systems, progression curves, specific level designs, edge cases, exceptions, failure states, or anything that only becomes relevant after the core loop is proven. Those details are decisions you can't make well until you have something to playtest.
+
+If you're tempted to keep writing here — and you will be — ask yourself the prototype test. Once the answer is yes, stop.
+
+---
+
+## Section 3: Characters and Story Beats (45 minutes)
+
+This section scales with your game. For a pure mechanics game, it might be a paragraph. For a narrative RPG, it might be the most important part of the document. Neither is wrong.
+
+**For every character:** one sentence on who they are, one sentence on what function they serve (narrative, mechanical, or both). Cut anyone who fails the second sentence. If a character doesn't change the gameplay or move the story, they don't need to be in the GDD yet.
+
+**For the story:** three to five beats that form the spine of the game. Not a full plot — a skeleton. Opening state. First major change. Rising tension. Climax. Resolution. That's enough to start building.
+
+The test here isn't comprehensiveness — it's whether a level designer or writer could start working without asking you ten questions first.
+
+One note on scope: **don't write dialogue in the GDD.** Don't write character backstory deeper than what directly affects gameplay. Don't write lore. This section describes the shape of the narrative, not the narrative itself. A five-minute conversation your protagonist has with the mentor character is not a GDD entry — it's a script. Keep those things separate, or this section becomes a different project.
+
+---
+
+## Section 4: Scope Fence (30 minutes)
+
+This is the most important section for solo developers, and the one most people skip.
+
+Two lists:
+
+**In scope for v1.0:** everything you are committing to build for the initial release. Be specific. Not "levels" but "10 levels, each introducing a new environmental use of the time-rewind mechanic." Not "characters" but "protagonist + 4 NPCs."
+
+**Out of scope:** everything you're tempted to add but won't build for v1.0. This list is not a trash can — it's a backlog. Writing something here doesn't mean killing it. It means acknowledging it formally and setting it aside so it stops taking up mental space and design discussion time.
+
+No maybe pile. Every feature is either In or Out. "Maybe" is where games go to never ship.
+
+The Scope Fence protects you from yourself. The game idea is always growing. The document, the schedule, and your available hours are not. Every item you put on the Out list is a decision you won't have to make again until you're actually ready to make it.
+
+---
+
+## The Hour-by-Hour Breakdown
+
+Set a timer. When it goes off, move to the next section — even if you're not finished.
+
+| Time block | Section | What to produce |
+|---|---|---|
+| 0:00–0:45 | Vision | 1 sentence, 1 paragraph, target player/platform |
+| 0:45–1:45 | Core Mechanics | Core loop + primary mechanic + secondary mechanic list |
+| 1:45–2:30 | Characters + Story | Character list with functions + 3–5 story beats |
+| 2:30–3:00 | Scope Fence | In-scope list + out-of-scope list |
+| 3:00–4:00 | Review | Read aloud, cut anything that doesn't answer a concrete question, mark gaps as TBD |
+
+**The stopping rule:** when you can read the entire document and answer every question a collaborator would have about their first month of work, you're done. Not when it's comprehensive. Not when it covers every scenario. When it's clear enough to start.
+
+Anything unresolved at the end of the review hour gets marked as TBD and tagged with the question it needs to answer: _"TBD: does the time rewind mechanic reset NPC positions or only environmental objects? Decide in prototype."_ That's a better outcome than writing two paragraphs of speculation that will be wrong anyway.
+
+---
+
+## What Your Game Actually Needs
+
+The four sections above are the baseline. Some games need more in specific areas — and some need significantly less. Here's a rough guide:
+
+| Section | Solo 2D platformer | Narrative RPG | Small team (2–5) |
+|---|---|---|---|
+| Vision | Required | Required | Required |
+| Core Mechanics | Required | Required | Required |
+| Characters + Story | 1 paragraph | Full section | Full section |
+| Scope Fence | Required | Required | Required |
+| Art / audio style | Link a mood board | Link a mood board | Recommended |
+| Technical / engine notes | Skip | Skip | Recommended |
+| Level design details | Skip until prototyped | Skip until prototyped | Optional |
+
+The general rule: a section earns its place in the GDD when someone will block on the work without it. A programmer building a prototype doesn't need your art direction notes. An artist starting on character concepts does need to know who those characters are. Write what unblocks work; defer everything else.
+
+---
+
+## The Time Sink Trap
+
+The most dangerous GDD is one you never finish writing.
+
+Here's how to recognize it:
+
+- You've written 20 pages but haven't opened your game engine.
+- You keep discovering new sections the document "needs" before you can start.
+- You're writing detailed specifications for systems you haven't decided to build.
+- You've revised the Vision section four times this week.
+
+This is not a research phase. This is avoidance. The document has become a second game you're also not finishing.
+
+It happens for understandable reasons. Writing feels productive. It looks like work. You can spend an entire day writing about your game without making a single decision that might turn out to be wrong. Compared to opening the engine and building something that might not work, a document is safe.
+
+But a GDD that's never done serves no one. A 40-page document you spent three weeks writing is not more useful than the 4-hour version — it's usually less useful, because it contains more decisions made too early, before you understood what the game actually needed.
+
+The time box is the solution. Four hours is enough to capture everything you need to start. When the time is up, the document is done. Not perfect — done. Move to the engine.
+
+---
+
+## When Characters and Dialogue Outgrow the GDD
+
+For narrative-heavy games, the Characters and Story section will eventually hit a ceiling.
+
+A one-sentence bio per character is fine in a GDD. Twelve characters with branching dialogue trees, variable relationships, and conditional story states are not. At some point, the narrative layer of your game becomes a system unto itself — and systems don't live in a document, they live in dedicated tools.
+
+The GDD's job at that point changes: instead of containing your character work, it describes it. Who the characters are, what role they serve, how the narrative connects to the mechanics — but not the dialogue itself, not the branching logic, not the individual scene scripts. Those go somewhere else.
+
+This is the threshold where most narrative developers hit friction. The GDD is too broad for detailed dialogue work, but the dialogue is too interconnected to manage in scattered files. Keeping character arcs, dialogue scripts, and story logic consistent across a large cast usually requires something more structured than a document — a system where characters are first-class objects that dialogue scenes can reference, where you can pull up every line a character speaks without manually searching through files.
+
+_When you hit that point, [The Easiest Way to Organize Game Dialogue Without Spreadsheets](/blog/organize-game-dialogue-without-spreadsheets) covers exactly this transition: what to do when the spreadsheet (or the document) stops being enough._
+
+The practical upshot: when your narrative complexity reaches that level, the GDD becomes the index — a concise overview that links out to the detailed character and dialogue work, not the place where that work lives.
+
+---
+
+## A Living Document, Not a Finished One
+
+Once you start prototyping, parts of the GDD will be wrong. A mechanic that seemed obvious on paper doesn't work when you can actually play it. A character who felt essential turns out to serve the same purpose as another character. A feature on the Out list suddenly belongs in v1.0 because the game turns out to need it.
+
+That's expected. That's why you built a minimum viable version instead of a comprehensive one — changes are cheap when the document is four pages, expensive when it's forty.
+
+The maintenance rule is simple: when you change something in the game, update the GDD. Not in detail — just enough that anyone reading it would understand the current state. Ten seconds of maintenance per decision prevents the document from drifting out of sync with the actual game.
+
+What the GDD becomes after release is a different kind of useful: the foundation for a sequel, the reference document for post-launch content, and the fastest onboarding tool you have if the project ever grows beyond its current team.
+
+---
+
+Four hours. Four sections. A stopping rule.
+
+That's the whole framework. The game starts after.
+
+<GetStartedCTA />
