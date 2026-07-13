@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://cloud.umami.is">
 <script async defer="defer" src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" data-auto-track></script><link rel="stylesheet" href="/assets/css/styles.51a4501a.css">
-<script src="/assets/js/runtime~main.9570eda3.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.7b9338e1.js" defer="defer"></script>
 <script src="/assets/js/main.e29485ff.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -24,10 +24,12 @@
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="v249---to-be-released">v2.4.9 - To be released<a href="#v249---to-be-released" class="hash-link" aria-label="Direct link to v2.4.9 - To be released" title="Direct link to v2.4.9 - To be released">​</a></h2>
 <ul>
+<li>feat: Kanban board now supports auto-sorting completed cards — move them to the top or bottom of each column, or hide them entirely. Controlled per-board via the settings menu.</li>
 <li>feat: add Related Docs Panel in GDD editor.</li>
 <li>feat: (preview) Game export can now optionally generate an inferred <code>.schema.json</code> sidecar file for the exported payload.</li>
 <li>feat: (preview) Project Settings Export options now include an <code>Export Schema Now</code> button to generate schema files on demand.</li>
 <li>feat: (preview) Add API endpoint <code>/schema-export</code> for authenticated programmatic JSON Schema export (supports <code>collections</code> filter).</li>
+<li>feat: Dialogue and Canvas editors now have an auto-layout button that arranges nodes cleanly left-to-right using a hierarchical layout. Select specific nodes first to only rearrange those, or click with nothing selected to layout the full graph. Fully undoable.</li>
 <li>fix: Canvas crash on some node connections.</li>
 <li>fix: Canvas now remembers its zoom level and view position per tab, so switching between canvas tabs no longer resets the view.</li>
 </ul>
@@ -878,7 +880,7 @@ these settings include: dbName, remoteDbEnabled, remoteDbUrl, remoteDbName, remo
 <li>Closing /Deleting different projects now &quot;de-init&quot; database.</li>
 </ul>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="0126---2018-11-20">[0.1.26] - 2018-11-20<a href="#0126---2018-11-20" class="hash-link" aria-label="Direct link to [0.1.26] - 2018-11-20" title="Direct link to [0.1.26] - 2018-11-20">​</a></h4>
-<h5 class="anchor anchorWithStickyNavbar_LWe7" id="added-2">Added<a href="#added-2" class="hash-link" aria-label="Direct link to Added" title="Direct link to Added"> ​</a></h5>
+<h5 class="anchor anchorWithStickyNavbar_LWe7" id="added-2">Added<a href="#added-2" class="hash-link" aria-label="Direct link to Added" title="Direct link to Added">​</a></h5>
 <ul>
 <li>Locking/Unlocking Mechanism for remote sync operations.</li>
 <li>Double click to unlock script / GDD</li>
