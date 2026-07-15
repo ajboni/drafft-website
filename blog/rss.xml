@@ -4,10 +4,112 @@
         <title>Drafft Blog</title>
         <link>https://drafft.dev/blog</link>
         <description>Drafft Blog</description>
-        <lastBuildDate>Mon, 13 Jul 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 15 Jul 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[7 Dialogue Branching Mistakes That Kill Player Choice (And How to Fix Them)]]></title>
+            <link>https://drafft.dev/blog/dialogue-branching-mistakes-player-choice</link>
+            <guid>https://drafft.dev/blog/dialogue-branching-mistakes-player-choice</guid>
+            <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Players complain about feeling railroaded even in games with 80+ choices. These 7 dialogue branching mistakes are usually why — and each one has a practical fix.]]></description>
+            <content:encoded><![CDATA[<p>Players complain about feeling railroaded even in games with 80+ choices. The problem is almost never the <em>number</em> of choices — it's how the dialogue branching is written.</p>
+<p>This is the part of dialogue design that doesn't get enough attention. There's plenty of advice on the technical side: how to avoid nested if/else hell, how to separate dialogue data from game logic, how to pick the right architecture. All of it is valuable. But you can solve every one of those technical problems and still ship a game where players feel like their choices don't matter — because the writing mistakes that hollow out branches are different from the code mistakes.</p>
+<p>This post is about the seven writing and structural mistakes that kill player choice in practice. Each one is common, each one is fixable, and each one is the kind of problem you can only see clearly when you step back from the code and look at your dialogue as a narrative system.</p>
+<!-- -->
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-player-choice-breaks-down">Why Player Choice Breaks Down<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#why-player-choice-breaks-down" class="hash-link" aria-label="Direct link to Why Player Choice Breaks Down" title="Direct link to Why Player Choice Breaks Down">​</a></h2>
+<p>Before getting into the list, it's worth naming the root cause: <strong>player choice feels meaningful when it changes the experience, and hollow when it doesn't.</strong></p>
+<p>That sounds obvious. But the gap between "technically branching" and "meaningfully branching" is where most dialogue systems quietly fail. A conversation can have four response options, each leading to a distinct node, each eventually reconnecting — and players will still feel like nothing they did mattered. The structure is correct. The writing broke it.</p>
+<p>Here are the seven most common reasons why.</p>
+<p><img decoding="async" loading="lazy" alt="A complex dialogue branching tree in Drafft showing multiple paths and decision points" src="https://drafft.dev/assets/images/big-dialogue-tree-29bf86b29d82cd70e99d1fb89fef6c68.webp" width="1880" height="965" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-1-all-branches-collapse-to-the-same-outcome">Mistake 1: All Branches Collapse to the Same Outcome<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-1-all-branches-collapse-to-the-same-outcome" class="hash-link" aria-label="Direct link to Mistake 1: All Branches Collapse to the Same Outcome" title="Direct link to Mistake 1: All Branches Collapse to the Same Outcome">​</a></h2>
+<p><strong>The problem:</strong> Your player chooses to threaten the merchant, reason with them, or bribe them — and three scenes later, the merchant gives them the same quest either way. The choice existed; the consequence didn't.</p>
+<p>This is sometimes called the "branch and bottleneck" pattern, and when used intentionally, it's one of the most effective tools in game narrative. <em>Mass Effect</em> and <em>Dragon Age</em> built entire trilogies on it: your choices affect how you get to the story beat, not whether you get there, and that's fine because the journey is rich enough to feel distinct.</p>
+<p>The mistake isn't reconverging — it's reconverging <em>too fast</em>, before the branch has had time to establish its own texture. If aggressive and diplomatic options produce identical outcomes in the next three exchanges, the player learns quickly that their choices are decoration.</p>
+<p><strong>The fix:</strong> Before you write the convergence point, ask: <em>what is unique about this path that the other paths miss?</em> It doesn't have to be a different quest or a different ending. It can be a different piece of information. A different NPC reaction. One line that only appears on this path, that the player will notice and feel rewarded for. The gap between paths doesn't need to be wide — it needs to be real.</p>
+<p>The branch-and-bottleneck pattern is powerful <em>because</em> you're not promising full narrative divergence. Honor that promise by making each path distinct enough that players on different branches have genuinely different memories of the same scene.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-2-too-many-choices-not-enough-stakes">Mistake 2: Too Many Choices, Not Enough Stakes<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-2-too-many-choices-not-enough-stakes" class="hash-link" aria-label="Direct link to Mistake 2: Too Many Choices, Not Enough Stakes" title="Direct link to Mistake 2: Too Many Choices, Not Enough Stakes">​</a></h2>
+<p><strong>The problem:</strong> Your dialogue node has six response options. Three are variations of "agree," two are variations of "push back," and one changes the subject. Players stare at the list and pick the one that sounds vaguely least embarrassing.</p>
+<p>More choices aren't the same as more agency. The psychologist Barry Schwartz documented this in consumer behavior research, and it applies equally to dialogue design: when you present too many options, decision quality drops, satisfaction drops, and the act of choosing starts to feel like a chore rather than an expression of character.</p>
+<p>Choice-heavy games that work — <em>Disco Elysium</em>, <em>Planescape: Torment</em>, <em>80 Days</em> — aren't successful because they have the most options. They're successful because each option carries genuine weight. You choose an option and something changes. An NPC remembers. A skill check fires. A relationship shifts. The scarcity of the choice is part of what makes it matter.</p>
+<p><strong>The fix:</strong> Audit your busiest dialogue nodes. For each option, ask: <em>what does choosing this reveal about the player character, and what changes because they chose it?</em> Options that reveal nothing and change nothing should be cut or merged. A node with two genuinely distinct, consequential choices will create a stronger sense of agency than a node with six superficial ones.</p>
+<p>A useful rule of thumb: <strong>fewer, heavier choices over more, lighter ones.</strong> Each option should feel like it costs something — time, information, relationship, moral stance — even if the cost is small.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-3-characters-who-never-remember-anything">Mistake 3: Characters Who Never Remember Anything<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-3-characters-who-never-remember-anything" class="hash-link" aria-label="Direct link to Mistake 3: Characters Who Never Remember Anything" title="Direct link to Mistake 3: Characters Who Never Remember Anything">​</a></h2>
+<p><strong>The problem:</strong> Your player spent twenty minutes last session helping this NPC's brother escape the city. Now they're back, and the NPC greets them with the same line they'd get if they'd just arrived in town for the first time.</p>
+<p>Persistent memory is the foundation of meaningful choice. If NPCs don't remember what the player did, then the player didn't really do anything — they generated a temporary local state that the game forgot. Branching that doesn't persist into subsequent scenes isn't branching; it's dead ends with better art.</p>
+<p>This is a problem that lives at the boundary of writing and systems design, but writers encounter it first. It shows up as: a companion who never mentions the time you saved their life, a villain who addresses you as a stranger when you've already met, a quest giver who offers the same favor you declined two hours ago.</p>
+<p><strong>The fix:</strong> Every significant player choice should leave a trace that at least one subsequent conversation can reference. This doesn't require a massive state machine — it requires deliberately wiring choices to flags and then actually writing the lines that use those flags.</p>
+<p>When you design a branch, ask: <em>who in this world should know about what happened here, and when will they next mention it?</em> Write that follow-up line. One callback is enough to make the choice feel real. Ballur's Gate 3 does this constantly — small lines from companions acknowledging decisions you made hours earlier — and it's one of the main reasons the game's choices feel like they matter.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-4-binary-morality-only-good-or-evil">Mistake 4: Binary Morality (Only Good or Evil)<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-4-binary-morality-only-good-or-evil" class="hash-link" aria-label="Direct link to Mistake 4: Binary Morality (Only Good or Evil)" title="Direct link to Mistake 4: Binary Morality (Only Good or Evil)">​</a></h2>
+<p><strong>The problem:</strong> Every choice in your game is secretly a morality check. The kind player response earns "good" points. The aggressive response earns "bad" points. The player figures out the system in the first hour and spends the rest of the game optimizing toward one end.</p>
+<p>Binary alignment systems were a reasonable design heuristic in the early 2000s. In 2026, players recognize them immediately and they tend to flatten characterization. When your only axis is good/evil, every NPC interaction becomes a morality pop quiz rather than a genuine relationship. And once a player has committed to an alignment, there's no reason to consider alternatives — the "correct" choice is always the one that scores the most points on their axis.</p>
+<p>More importantly: real moral complexity doesn't live on a line. A character can be loyal and ruthless. Generous and deceptive. Brave and vindictive. None of those combinations fit cleanly on a single good-evil axis, which is why forcing your choices through that lens tends to strip out anything interesting.</p>
+<p><strong>The fix:</strong> Track multiple values instead of one. <em>Disco Elysium</em> is the reference here: it tracks dozens of skill dimensions simultaneously, each representing a facet of your character that evolves independently. You don't need that level of granularity — but consider at least two or three axes that matter to your story. Reputation with a faction. Trust with a specific NPC. A personal value (pragmatism vs. idealism, for instance) that colors how characters perceive you.</p>
+<p>Integer or float values beat booleans for nuanced relationships. <code>guard_trust = 47</code> gives you gradations that <code>guard_is_friendly = true</code> never can. And gradations let you write reactions that feel earned and specific, not just toggled on or off.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-5-the-dead-branch">Mistake 5: The Dead Branch<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-5-the-dead-branch" class="hash-link" aria-label="Direct link to Mistake 5: The Dead Branch" title="Direct link to Mistake 5: The Dead Branch">​</a></h2>
+<p><strong>The problem:</strong> Your dialogue tree has a branch. It forks visually. The player picks an option that looks meaningful — they're defying the NPC, or pressing them for information, or challenging their assumptions. The branch leads to two or three lines of reaction and then rejoins the main path. Nothing in those lines is different from what the main path would have shown. The player notices, even if they can't articulate why.</p>
+<p>This is the "dead branch" — structurally present, narratively empty. It's different from Mistake 1 (where branches collapse too fast) because the problem here is that the branch was never distinct in the first place. The fork is cosmetic.</p>
+<p>Dead branches are often the result of time pressure. You needed to write dialogue for an option so you wrote <em>something</em>, intending to come back later and make it meaningful. Later arrived and you were on to the next scene.</p>
+<p><strong>The fix:</strong> The fix is surprisingly small. Every branch needs at least <em>one thing the other branches don't have</em>. That thing can be:</p>
+<ul>
+<li>A unique line of NPC dialogue that acknowledges how you got here</li>
+<li>A piece of information available only via this path</li>
+<li>A different emotional register in the NPC's response — warmer, colder, confused, impressed</li>
+<li>A single callback opportunity in a later scene</li>
+</ul>
+<p>The unique element doesn't need to be large. A single line that says "you came in hard, and I respect that" — something that only exists on the aggressive path — is enough to make the fork feel real. Players are paying attention. They notice even small differences. They just need evidence that the branch was worth taking.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-6-tonal-inconsistency-across-branches">Mistake 6: Tonal Inconsistency Across Branches<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-6-tonal-inconsistency-across-branches" class="hash-link" aria-label="Direct link to Mistake 6: Tonal Inconsistency Across Branches" title="Direct link to Mistake 6: Tonal Inconsistency Across Branches">​</a></h2>
+<p><strong>The problem:</strong> You have an NPC confrontation with three player options: aggressive, diplomatic, and avoidant. All three options are written well in isolation. But they were written at different times, or by different writers, or simply in different mental states — and the NPC's reactions across the three branches don't sound like the same person responding to three different approaches. They sound like three slightly different scenes that happen to share an NPC portrait.</p>
+<p>Tonal inconsistency is one of the subtler dialogue branching mistakes, but players feel it even when they can't name it. It creates a vague sense that the NPC is a prop rather than a person — because a real person would have a consistent <em>baseline</em> that changes under pressure, not three entirely separate personalities.</p>
+<p><strong>The fix:</strong> Before writing the branches on any significant choice node, write the NPC's <strong>baseline voice</strong> first. What does this character sound like when they're neutral? What are their verbal tics, their level of formality, their emotional defaults? That baseline should be present in all three branches — modified by the player's approach, not replaced by it.</p>
+<p>An aggressive player doesn't transform the NPC into a different character; they shift the NPC's expression of their existing character toward defensiveness, anger, or calculation. A diplomatic player draws out openness or warmth that was already there. Write the person first, then write how they respond to pressure.</p>
+<p>When you're working with multiple writers, tonal guides help. But even for solo developers, the habit of establishing a character voice before writing their reactions makes branch consistency dramatically easier to maintain.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="mistake-7-variable-overload-boolean-creep">Mistake 7: Variable Overload (Boolean Creep)<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#mistake-7-variable-overload-boolean-creep" class="hash-link" aria-label="Direct link to Mistake 7: Variable Overload (Boolean Creep)" title="Direct link to Mistake 7: Variable Overload (Boolean Creep)">​</a></h2>
+<p><strong>The problem:</strong> You started with five flags to track which quests the player had completed. Then you added relationship tracking, so five more. Then you needed to track which NPCs the player had spoken to, which items they'd declined, which factions they'd helped. You now have 80 booleans spread across a dozen scripts, named things like <code>talkedToMerchant</code>, <code>merchantAngry</code>, <code>merchantAngry_v2</code>, and <code>merchantAngryOverride</code>.</p>
+<p>You don't remember which ones are still in use. You're afraid to change anything because you don't know what it'll break. And because writing the conditions to use them is now a research task, you've quietly stopped adding consequences to new choices — which means new branches are dead branches by default.</p>
+<p>This is boolean creep, and it's the state management version of the spaghetti code problem. It starts in the writing, not the code: every time a writer adds a branch without a clear system for what state it should create or modify, a new boolean appears somewhere, named inconsistently and wired inconsistently.</p>
+<p><strong>The fix:</strong> Two things help here. First, prefer <strong>numeric values over booleans</strong> for any relationship or state that should evolve over time. <code>merchant_trust = 40</code> is more flexible than <code>merchantLikedPlayer = true</code>, lets you write gradations, and makes the system's state readable without archaeology.</p>
+<p>Second, <strong>group related state into structured objects</strong>. Instead of ten separate merchant booleans, a single <code>merchant</code> object that tracks their trust level, what they know, and what they've offered tells a clearer story and is far easier to reason about.</p>
+<p>This is the kind of structural decision that pays off during the writing phase, not just the coding phase — because when variables are coherent and named legibly, writers can use them confidently without fear that they're overwriting something unknown.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="how-the-right-tools-surface-these-problems">How the Right Tools Surface These Problems<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#how-the-right-tools-surface-these-problems" class="hash-link" aria-label="Direct link to How the Right Tools Surface These Problems" title="Direct link to How the Right Tools Surface These Problems">​</a></h2>
+<p>Most of the mistakes above share a common feature: they're invisible in a flat list of dialogue strings and only visible when you can see the shape of your narrative.</p>
+<p>Dead branches are obvious on a visual graph — a fork that leads nowhere distinctive stands out immediately. Tonal inconsistency is easiest to catch when you can jump between branches of the same node and read them side by side. Variable overload is most apparent when your state is organized somewhere visible, not scattered across a dozen scripts.</p>
+<p>This is part of what a dialogue tool should actually do for writers: not just store dialogue, but make the structure legible. A visual tree that shows you the shape of a conversation — which paths are dense, which are thin, which reconverge too fast — is a writing aid as much as a technical one. The moment you can see your branching structure spatially, the problems in this list tend to surface on their own.</p>
+<p><a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">Drafft</a> is built around this principle. The dialogue tree gives you the spatial view — nodes for genuine branch points, with the full conversation text written inside each node so your graph doesn't turn into spaghetti. The script view lets you read branches side by side to catch voice inconsistency. And the variables system lets you define and track the state your choices create, so you know what you're working with before you write the next scene.</p>
+<p>If you're dealing with any of the seven mistakes in this list, the first step is usually the same: get your dialogue into a tool that lets you <em>see</em> it. Once it's visible, the fixes tend to be straightforward.</p>
+<p>For a deeper look at how dialogue tree tools and text-based scripting approaches compare, <a href="https://drafft.dev/blog/dialogue-trees-vs-branching-scripts">this post on dialogue trees vs. branching scripts</a> covers the tradeoffs in more detail. And if you're managing a broader content workflow beyond just dialogue, <a href="https://drafft.dev/blog/organize-game-dialogue-without-spreadsheets">organizing your game dialogue without spreadsheets</a> covers how to keep the rest of your writing infrastructure from creating the same problems.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="frequently-asked-questions">Frequently Asked Questions<a href="https://drafft.dev/blog/dialogue-branching-mistakes-player-choice#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions">​</a></h2>
+<p><strong>How many choices should a dialogue node have?</strong></p>
+<p>Two to three meaningful choices typically outperform five to six lighter ones. The goal isn't volume — it's that each option reveals something about the player character and changes something in the world or relationship. When you find yourself writing four options that are all variations of "agree," you almost certainly have too many. Cut to the two or three that are genuinely distinct and give each one real weight.</p>
+<p><strong>What makes player choices feel meaningful?</strong></p>
+<p>A choice feels meaningful when it changes something the player cares about. That change can be small — one unique line of NPC dialogue, one piece of exclusive information, one relationship value shifting — but it has to be real. Choices that feel meaningful also tend to have clear costs: you gain something by choosing this path that you can't get on the other path. Mutual exclusivity is what makes choices feel like choices.</p>
+<p><strong>How do I fix a dialogue system that's already full of dead branches?</strong></p>
+<p>Start with an audit, not a rewrite. Go through your existing branches and mark each one: does this branch have at least one element the other paths don't? For branches that fail that test, write one unique line for each — something that acknowledges specifically how the player got here. That's usually enough to make the branch feel real. Once you've patched the most visible dead ends, build a habit: for every new branch you write, establish what's unique about it before you write the reconvergence.</p>
+<p><strong>What's the difference between a dialogue tree and a state machine?</strong></p>
+<p>A dialogue tree holds the structure of a conversation — which nodes exist, which connect to which, what the player options are at each fork. A state machine holds the variables that gate which branches appear and change as a result of player choices. Both are necessary. Most first dialogue implementations focus on the tree and underinvest in the state machine — which is why NPCs forget things, binary morality takes over, and variable overload sets in. The tree is the shape; the state is the memory. You need both to build meaningful choice.</p>
+<p><strong>Can I add meaningful branching to a game that's already in development?</strong></p>
+<p>Yes, and you don't need to rebuild. The highest-leverage fix is usually: identify the five to ten most significant player choices in your game, and make sure each one has a visible callback at least once in a subsequent scene. That doesn't require restructuring your dialogue system — it just requires writing the lines and wiring the flags. Players weight callbacks heavily; a single NPC line that says "I heard about what you did at the crossroads" can retroactively make an earlier choice feel weighty even if it had no other consequence.</p>
+<hr>
+<div class="mx-auto max-w-3xl text-center"><div class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl"><div style="opacity:0;transform:translateY(-25px)">Your Game Data<!-- --> </div><span class="font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary-color-lightest to-[#ffd9f8]" style="opacity:0;transform:translateY(25px)">Organized</span></div><div class="mt-8 text-pretty text-xl font-medium text-gray-400 sm:text-xl/8" style="opacity:0;transform:translateY(-25px)">Drafft is a multi-platform, offline-first editor for interactive narrative systems and game design data. Design and structure dialogue trees, scripts, variables, quests, items, game design documents, and more — all in one place, fully under your control.</div><div class="mt-10 flex gap-y-4 flex-col md:flex-row items-center justify-center gap-x-6" style="opacity:0;transform:translateY(-25px)"><div data-umami-event="download" class="gap-1 flex items-center justify-center px-4 h-10 font-semibold text-white bg-primary rounded-md bg-primary-color-darkest hover:bg-primary-color-darker cursor-pointer hover:no-underline hover:text-white">   <!-- -->Download<!-- --> <!-- -->for<span class="capitalize">unknown</span></div></div></div>]]></content:encoded>
+            <author>baj@drafft.dev (Drafft)</author>
+            <category>branching narrative</category>
+            <category>player choice</category>
+            <category>game writing</category>
+            <category>dialogue design</category>
+            <category>narrative design</category>
+            <category>indie game development</category>
+        </item>
         <item>
             <title><![CDATA[How to Write a Game Design Document in 4 Hours]]></title>
             <link>https://drafft.dev/blog/write-game-design-document-4-hours</link>
@@ -1082,7 +1184,7 @@
             <content:encoded><![CDATA[<p>Visual novels have captivated audiences for years, and today's developers have a range of tools at their disposal. Traditional engines such as Ren'Py, Twine, Godot with Dialogic, and Ink have long been the go-to solutions for crafting interactive narratives. While each of these tools offers out-of-the-box integration, they come with their own set of limitations—especially when it comes to handling complex narrative structures, collaboration, and asset management.</p>
 <!-- -->
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="the-landscape-of-visual-novel-development">The Landscape of Visual Novel Development<a href="https://drafft.dev/blog/visual-novel-developers-consider-drafft-alternative#the-landscape-of-visual-novel-development" class="hash-link" aria-label="Direct link to The Landscape of Visual Novel Development" title="Direct link to The Landscape of Visual Novel Development">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="renpy">Ren’Py<a href="https://drafft.dev/blog/visual-novel-developers-consider-drafft-alternative#renpy" class="hash-link" aria-label="Direct link to Ren’Py" title="Direct link to Ren’Py">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="renpy">Ren’Py<a href="https://drafft.dev/blog/visual-novel-developers-consider-drafft-alternative#renpy" class="hash-link" aria-label="Direct link to Ren�’Py" title="Direct link to Ren’Py">​</a></h3>
 <ul>
 <li><strong>Strengths:</strong>
 <ul>
@@ -1383,37 +1485,6 @@ That’s when I decided to build <strong>Drafft</strong>: a tool designed <stron
             <category>Dialogue Writing</category>
             <category>Narrative Design</category>
             <category>Tools</category>
-        </item>
-        <item>
-            <title><![CDATA[Introducing Drafft's New Site, Blog, and Version 2]]></title>
-            <link>https://drafft.dev/blog/introducing-drafft-v2-and-new-blog</link>
-            <guid>https://drafft.dev/blog/introducing-drafft-v2-and-new-blog</guid>
-            <pubDate>Mon, 13 Jan 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Discover Drafft's new website, blog, and updates about Drafft 2, our upcoming version with enhanced features. Join the waitlist for exclusive updates and early access.]]></description>
-            <content:encoded><![CDATA[<p>We're excited to introduce Drafft's new website and blog, now live at <a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">drafft.dev</a>. This platform is dedicated to enhancing your game development experience by providing centralized tools for scripting, dialogue trees, Game Design Documents (GDDs), and more.</p>
-<!-- -->
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-new">What's New<a href="https://drafft.dev/blog/introducing-drafft-v2-and-new-blog#whats-new" class="hash-link" aria-label="Direct link to What's New" title="Direct link to What's New">​</a></h2>
-<ul>
-<li>
-<p><strong>New Domain</strong><br>
-<!-- -->We've transitioned to <a href="https://drafft.dev/" target="_blank" rel="noopener noreferrer">drafft.dev</a> to better reflect our commitment to the developer community.</p>
-</li>
-<li>
-<p><strong>Blog Launch</strong><br>
-<!-- -->Our new blog will feature articles, tutorials, and updates related to game development, offering insights and tips to streamline your workflow. You can also stay up-to-date with the latest posts by subscribing to our <a href="https://drafft.dev/blog/rss.xml" target="_blank" rel="noopener noreferrer">RSS feed</a>.</p>
-</li>
-<li>
-<p><strong>Drafft 2 in Development</strong><br>
-<!-- -->We're actively working on Drafft 2, aiming to bring you enhanced features and improved performance. While it's still a work in progress, we encourage you to stay tuned for updates.</p>
-</li>
-</ul>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="join-the-waitlist">Join the Waitlist<a href="https://drafft.dev/blog/introducing-drafft-v2-and-new-blog#join-the-waitlist" class="hash-link" aria-label="Direct link to Join the Waitlist" title="Direct link to Join the Waitlist">​</a></h2>
-<p>Be among the first to experience Drafft 2 by <a href="https://drafft.dev/download">joining our waitlist</a>. Sign up on our website to receive exclusive updates and early access opportunities.</p>
-<hr>
-<p>We appreciate your continued support and look forward to bringing you the next evolution of Drafft!</p>]]></content:encoded>
-            <author>baj@drafft.dev (Drafft)</author>
-            <category>Version 2</category>
-            <category>Announcements</category>
         </item>
     </channel>
 </rss>
