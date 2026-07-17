@@ -19,13 +19,55 @@ Maps provide an early tile-and-edge editing workflow for level topology experime
 
 - Cell painting and deletion modes
 - Edge painting/deletion modes
+- Bucket fill mode for enclosed regions
+- Paintbrush toggle for direct cell and edge painting
+- Rectangle multiselect in Select mode
+- Cell copy/paste with internal edge preservation
+- Bulk editing for selected cells in the inspector (mixed values supported)
 - Basic map options (labels, inspector, auto-edge behavior)
 - Grid configuration and map-type-driven styling
+
+## Controls And Shortcuts
+
+- `1`: Cell mode
+- `2`: Edge mode
+- `3`: Select mode
+- `4`: Delete mode
+- `5`: Bucket mode
+- `B`: Toggle Paintbrush mode (Cell/Edge modes)
+- `Shift+1..9`: Select active type for current mode (cell or edge)
+- `Shift+click` in Select mode: Add/remove one cell from selection
+- `Shift+drag` in Select mode: Add a rectangle to current selection
+- `Ctrl+C` / `Cmd+C`: Copy selected cells (or focused inspector cell)
+- `Ctrl+V` / `Cmd+V`: Paste copied cells near current hover/focus cell
+- `Delete` or `Backspace`: Remove currently selected inspector target
+- `Arrow keys`: Move selected cell focus in inspector workflow
+
+### Paint Behavior
+
+- Paintbrush **OFF** (default):
+  - Cell mode: click-drag paints rectangles, `Alt+drag` erases via Delete-style area erase
+  - Edge mode: click-drag paints edge regions, `Alt+drag` erases edge regions
+- Paintbrush **ON**:
+  - Cell mode: drag paints cells directly, `Alt+drag` erases cells directly
+  - Edge mode: drag paints edges directly, `Alt+drag` erases edges directly
+- Bucket mode:
+  - Click to fill only contiguous cells matching the clicked source cell type
+  - Fill only applies to closed regions
+  - Any existing edge type blocks spread
+  - Regions connected to the map border are considered open and are not filled
+
+:::note
+Maps is pre-alpha. Controls and interaction details may still change.
+:::
 
 ## Current Limitations
 
 - Feature scope is still evolving
 - UX and schema are not finalized
+- Copy/paste targets selected cells and includes edges touching that selection (including boundary walls)
+- Bulk inspector edits currently apply to selected cells only (edge bulk editing is not included yet)
+- Bucket does not create cells; it only recolors existing contiguous same-type cells in closed regions
 - Future updates may alter document compatibility
 
 ## Safe Usage Guidance
