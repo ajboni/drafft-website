@@ -232,7 +232,7 @@ export default function Example() {
 
           {/* Free Trial Section */}
           <div className="mt-12 text-center">
-            <h3 className="text-2xl font-semibold text-white">Not sure yet? Try Drafft free for 30 days!</h3>
+            <h3 className="text-2xl font-semibold text-white">Not sure yet? Try Drafft free for 7 days!</h3>
             <p className="mt-2 text-lg text-gray-400">Full access to all features. No credit card required.</p>
             <a
               href="https://store.drafft.dev/buy/43bcb39c-0d63-4dd0-83c7-db02eb3bf4fd?enabled=718870"
