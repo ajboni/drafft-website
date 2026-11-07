@@ -1,53 +1,29 @@
 const tiers = [
   {
     name: "Drafft",
-    id: "subscription",
-    href: "/download-beta",
-    price: {
-      monthly: {
-        price: "$6",
-        lemonCheckoutHref: "https://store.drafft.dev/buy/a25407e8-3ac9-4e48-97b2-7834cc8a6cb9?enabled=718868",
-      },
-      yearly: {
-        price: "$3",
-        lemonCheckoutHref: "https://store.drafft.dev/buy/2911b6c6-f1f7-4d1d-b0ca-d8916ee47668?enabled=718869",
-      },
-    },
-    description: "Simple Pricing. All of Drafft features",
-    features: [
-      "All Drafft Features",
-      "Lifetime updates",
-      "Offline First, Private Data",
-      "Optional Multiuser (Bring your own database)",
-      "3 personal devices",
-    ],
-    featured: true,
-    cta: "Get Started",
-    umamiEvent: "cta-purchase-subscription",
-  },
-  {
-    name: "Pay Once",
     id: "perpetual",
+    href: "/download",
     price: {
       once: {
-        price: "$50",
+        price: "$39.90",
         lemonCheckoutHref: "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867",
-        discountedPrice: "$39.90",
-        discountedNote: "💎 Lifetime License Discount — 20% Off",
+        discountedPrice: "$29.90",
+        discountedNote: "Launch sale — $10 off, ends Nov 21",
         discountedCheckoutHref:
-          "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867&checkout[discount_code]=20OFF",
+          "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867&checkout[discount_code]=LAUNCH10",
       },
     },
-    description: "Your copy forever",
+    description: "One payment. Yours forever.",
     features: [
-      "All Drafft Features",
+      "All Drafft features",
       "Lifetime updates",
-      "Offline First, Private Data",
-      "Optional Multiuser (Bring your own database)",
-      "5 personal devices",
+      "Offline-first, private data",
+      "Optional multiuser (bring your own database)",
+      "Up to 5 personal devices",
+      "Commercial use allowed",
     ],
-    featured: false,
-    cta: "Get Started",
+    featured: true,
+    cta: "Get Drafft",
     umamiEvent: "cta-purchase-perpetual",
   },
 ];

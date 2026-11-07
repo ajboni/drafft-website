@@ -111,7 +111,7 @@ export default function Example() {
             Create branching stories, dialogue trees, and game design documents with Drafft.
           </p>
 
-          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 md:grid-cols-2 gap-8 md:max-w-4xl">
+          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8">
             {scriptsLoaded &&
               tiers.map((tier) => (
                 <div
