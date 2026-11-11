@@ -1,34 +1,390 @@
 ---
 title: API Documentation
-description: Drafft comes with an optional REST API for querying a loaded project.
+description: Drafft comes with an optional local REST API for reading a loaded project.
 ---
 
 # API Documentation
 
-Drafft comes with an optional REST API for querying on a loaded project.
-It is an App Setting and can be enabled in options.
+Drafft includes an optional local REST API for reading a loaded project. It is designed for integrations, tooling, and agents that need document-level access without clicking through the app.
 
 :::tip
-For now, this will only work if Drafft is running and a project is loaded.
+The API only works while Drafft is running and a project is loaded. The server listens on `127.0.0.1` only.
 :::
 
-## APP Options
+## App Options
 
-- `Enable API`: If true a REST API will be started when opening a project.
-- `API Key`: This API key will need to be present in the request header as `x-api-key`
-- `API Port`: The port where the server will listen to connections. Default 9001
+- `Enable API`: Starts the local REST API when a project is opened.
+- `API Key`: Required for read requests. Send it as `x-api-key`, or as `Authorization: Bearer <key>`.
+- `API Port`: The local port to listen on. Default `9001`.
+- `Enable Write API` (preview): Enables write-capable endpoints.
+- `Write API Key`: Required for write requests. A read key cannot write.
 
-## API Reference
+Base URL:
 
-### Get Info, and Project settings
+```text
+http://127.0.0.1:9001
+```
 
-Currently Drafft API only works if a project is loaded. This endpoint will return the project settings.and Some metadata about the user and app.
+## Discovery
+
+These endpoints do not require a key.
+
+```rest
+GET /
+GET /v1/health
+GET /v1/openapi.json
+```
+
+`GET /` returns the app version, API version, and whether the write API is enabled. `GET /v1/openapi.json` returns the full OpenAPI description.
+
+### Readiness
+
+```rest
+GET /v1/ready
+```
+
+Returns the current readiness flags:
+
+```json
+{
+  "ready": true,
+  "dbLoaded": true,
+  "variablesReady": true,
+  "searchReady": true,
+  "writesEnabled": false,
+  "writesReady": false
+}
+```
+
+`searchReady` is `false` while the search index is being built. `GET /v1/search` returns `425` until it is ready.
+
+### Project info
+
+```rest
+GET /v1/info
+```
+
+Returns the project name/version/description, app version, current user, capabilities, and readiness.
+
+## Documents
+
+### Get one document
+
+```rest
+GET /v1/documents/:id
+```
+
+Returns the raw database document, including `_rev`. Optional query parameters:
+
+- `fields` - comma-separated top-level fields to return, for example `_id,name,type,collection,parent,path`.
+- `include` - `content`, `revs`, or `attachments`.
+
+```rest
+GET /v1/documents/abc123?fields=_id,name,type,collection,parent,path
+```
+
+### Bulk fetch
+
+```rest
+GET /v1/documents?ids=id1,id2,id3
+```
+
+Returns `{ items, missing }`. Maximum 100 ids per request.
+
+### List collections
+
+```rest
+GET /v1/collections
+GET /v1/collections?includeInternal=true
+```
+
+Returns collection names with total and per-type counts:
+
+```json
+{
+  "items": [
+    { "collection": "Dialogue", "total": 12, "types": { "Dialogue": 10, "Folder": 2 } }
+  ]
+}
+```
+
+Internal collections such as `User` are excluded by default. Pass `includeInternal=true` to include them.
+
+### List documents in a collection
+
+```rest
+GET /v1/collections/:name/documents?limit=50&offset=0&type=Dialogue&parent=<folderId>&q=aria
+```
+
+- `limit` - 1 to 500, default 50.
+- `offset` - zero-based result offset, default 0.
+- `type` - filter by document type.
+- `parent` - filter by parent document id.
+- `q` - case-insensitive name/alias filter.
+- `fields` - field projection. Lists return a summary by default.
+- `include=content` (or `fields=*`) - return full documents, including `content`.
+
+Returns `{ items, offset, limit, count, nextOffset, hasMore }`. Use `nextOffset` for the next page while `hasMore` is `true`.
+
+The default summary fields are `_id`, `name`, `type`, `collection`, `parent`, `path`, `modified`, `locked`, `lockedBy`, and `alias`. This keeps list responses small and usable in an LLM context; request `include=content` only when you need the document body.
+
+Date fields in v1 read responses are normalized to ISO 8601. Bundles and exports keep the stored values.
+
+Use the `collection` values returned by `GET /v1/collections` (for example `Dialogue`, `Script`, `Actor`). These are the database collection names, not the plural export-section names used by `/game-export`.
+
+### Folder children and ancestors
+
+```rest
+GET /v1/documents/:id/children
+GET /v1/documents/:id/ancestors
+```
+
+`children` returns direct children for a folder. `ancestors` returns the parent chain, root first.
+
+### Document state probe
+
+```rest
+GET /v1/documents/:id/state
+```
+
+Reports the state a client needs before writing:
+
+```json
+{
+  "id": "abc123",
+  "exists": true,
+  "collection": "Dialogue",
+  "type": "Dialogue",
+  "rev": "3-...",
+  "locked": false,
+  "lockedBy": null,
+  "lockOwnerType": null,
+  "tabOpen": true,
+  "tabKind": "main",
+  "wasModified": false,
+  "hasSemanticEdits": false,
+  "dirtyKind": null,
+  "selected": true,
+  "ready": true
+}
+```
+
+`wasModified` is the raw buffer diff. `hasSemanticEdits` ignores runtime-only layout fields (`measured`, `dragging`, `selected`) and reflects authored changes. `dirtyKind` is `"user"`, `"normalization"`, or `null`.
+
+If the document does not exist, the endpoint returns `exists: false` rather than an error.
+
+### Revisions
+
+```rest
+GET /v1/documents/:id/revisions
+```
+
+Returns the revision id and the available revision list.
+
+### Dialogue nodes
+
+```rest
+GET /v1/documents/:id/nodes
+GET /v1/documents/:id/nodes?include=script
+```
+
+Lists the nodes of a dialogue:
+
+```json
+{
+  "items": [
+    {
+      "id": "node123",
+      "label": "Enter the garden",
+      "nodeType": "script",
+      "scriptId": "script123",
+      "position": { "x": 20, "y": 270 },
+      "route": "/dialogue/dialogue123/node/node123/script/script123",
+      "script": {
+        "id": "script123",
+        "name": "Enter the garden",
+        "editorMode": "text",
+        "content": { "script": "::Narrator:: The garden is quiet..." }
+      }
+    }
+  ]
+}
+```
+
+With `include=script`, each node includes its script document, so you can read a dialogue and its lines in one call. Without it, the response only contains `scriptId`.
+
+Returns `400 not_a_dialogue` for non-dialogue documents. Use the `route` to open the dialogue focused on that node.
+
+### References
+
+```rest
+GET /v1/documents/:id/references?direction=incoming|outgoing|both
+```
+
+Returns structural links to and from a document. This is computed on demand from the current project data; there is no secondary index to get out of sync.
+
+```json
+{
+  "incoming": [
+    {
+      "direction": "incoming",
+      "kind": "dialogue-node-script",
+      "confidence": "structural",
+      "docId": "dialogue123",
+      "docName": "3 - Memory Exploration",
+      "nodeId": "node123",
+      "nodeLabel": "Destiny unfolds",
+      "route": "/dialogue/dialogue123/node/node123/script/script123"
+    }
+  ],
+  "outgoing": [
+    {
+      "direction": "outgoing",
+      "kind": "dialogue-script-folder",
+      "confidence": "structural",
+      "docId": "folder123",
+      "docName": "3 - Memory Exploration",
+      "route": "/folder/folder123"
+    }
+  ]
+}
+```
+
+Currently covered:
+
+- dialogue → script folder, node scripts, related docs
+- script → parent folder, owning dialogue
+- scene → playlist items
+- GDD → `:doc{#id}` links
+- incoming: dialogue node → script, scene → dialogue/script, GDD → document, related docs
+
+Textual mentions (variable/actor names inside scripts) are not included yet.
+
+## Bundles
+
+A bundle is a partial project export in the same `{ rows }` shape used by project backups. It can be imported into another project.
+
+```rest
+GET /v1/documents/:id/bundle
+GET /v1/documents/:id/bundle?dependencies=true
+```
+
+With `dependencies=true`, a Dialogue bundle also includes its script folder and node scripts.
+
+```rest
+GET /v1/documents/export?ids=id1,id2
+GET /v1/documents/export?collection=Dialogue
+```
+
+Use either `ids` or `collection`, not both. Exported documents omit internal fields such as `_rev`, `locked`, and `lockedBy`. Dialogue bundles also omit runtime layout fields (`measured`, `dragging`, `selected`) so they are portable across machines and app versions.
+
+## Search
+
+```rest
+GET /v1/search?q=aria&scope=documents&collection=Actor&type=Actor&limit=20&offset=0
+GET /v1/search?q=garden&scope=nodes
+GET /v1/search?q=garden&scope=all
+```
+
+`scope` is `documents` (default), `nodes`, or `all`. Document results have `kind: "document"`; dialogue node results have `kind: "node"` and their own score and snippet. Node results use `collection: "Dialogue"` and `type: "DialogueNode"`, so `type=Dialogue` filters documents only and `type=DialogueNode` filters nodes.
+
+Document result:
+
+```json
+{
+  "kind": "document",
+  "id": "abc123",
+  "name": "Aria",
+  "collection": "Actor",
+  "type": "Actor",
+  "path": "Characters.Aria",
+  "score": 12.4,
+  "snippet": "..."
+}
+```
+
+Dialogue document results also include matching nodes and a focus target:
+
+```json
+{
+  "kind": "document",
+  "id": "dialogue123",
+  "name": "1 - Opening Scene",
+  "collection": "Dialogue",
+  "type": "Dialogue",
+  "nodeMatches": [
+    { "id": "node123", "label": "Enter the garden", "scriptId": "script123" }
+  ],
+  "focus": {
+    "nodeId": "node123",
+    "label": "Enter the garden",
+    "scriptId": "script123",
+    "route": "/dialogue/dialogue123/node/node123/script/script123"
+  }
+}
+```
+
+Node result (`scope=nodes` or `scope=all`):
+
+```json
+{
+  "kind": "node",
+  "id": "node123",
+  "dialogueId": "dialogue123",
+  "dialogueName": "1 - Opening Scene",
+  "nodeId": "node123",
+  "label": "Enter the garden",
+  "nodeType": "script",
+  "scriptId": "script123",
+  "route": "/dialogue/dialogue123/node/node123/script/script123",
+  "score": 9.8,
+  "snippet": "...",
+  "collection": "Dialogue",
+  "type": "DialogueNode"
+}
+```
+
+The query must be at least 2 characters. `limit` is capped at 100. Node search ignores common stopwords (`the`, `a`, `of`, etc.) so a query does not focus an unrelated node.
+
+## Errors
+
+All v1 endpoints return errors in the same shape:
+
+```json
+{
+  "error": {
+    "code": "not_found",
+    "message": "Document not found: abc123",
+    "reason": null,
+    "details": null
+  }
+}
+```
+
+Common status codes:
+
+| Status | Meaning |
+| --- | --- |
+| `400` | Malformed request or missing parameter |
+| `401` | Missing or invalid read key |
+| `403` | Write API disabled or write key required |
+| `404` | Document or route not found |
+| `409` | Conflict (reserved for write operations) |
+| `423` | Locked (reserved for write operations) |
+| `425` | Project or search index not ready |
+| `500` | Unexpected server error |
+
+## Legacy endpoints
+
+These endpoints remain available for existing integrations.
+
+### Get project info and settings
 
 ```rest
 GET /info
 ```
 
-### Get Game Export
+### Get game export
 
 Gets a game-ready JSON object. Same as clicking "Export Game Content" in the app.
 
@@ -36,94 +392,43 @@ Gets a game-ready JSON object. Same as clicking "Export Game Content" in the app
 GET /game-export
 ```
 
-The exported collections will be as defined in the project settings althought they can be specified for further filtering with a `collections` field with comma separated values:
+The exported collections come from the project settings, and can be filtered with a comma-separated `collections` parameter:
 
-**Accepted Collection Values:**
-
-- `ProjectSettings` - Project configuration and settings
-- `GDD` - Game Design Documents
-- `Scripts` - Script documents with dialogue lines and commands
-- `Dialogues` - Dialogue tree structures with nodes and connections
-- `Actors` - Character definitions with properties and expressions
-- `Quests` - Quest structures with properties and conditions
-- `Items` - Item definitions and properties
-- `Variables` - State definitions with default values (JSON format)
-- `Scenarios` - Variable state diffs (overrides relative to authored defaults)
-- `Scenes` - Sequential playlists of Scripts and Dialogues
-- `Misc` - Miscellaneous custom data structures
-- `Grids` - Spreadsheet data
-- `Kanban` - Kanban board cards and columns
-- `Canvas` - Canvas documents
-- `Maps` - Map documents
-
-**Example Queries:**
+- `ProjectSettings`, `GDD`, `Scripts`, `Dialogues`, `Actors`, `Quests`, `Items`, `Variables`, `Scenarios`, `Scenes`, `Misc`, `Grids`, `Kanban`, `Canvas`, `Maps`
 
 ```rest
-# Export specific collections
-GET /game-export?collections=Scripts,Items,Actors
-
-# Export full game state including variables and scenarios
-GET /game-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
-
-# Export all data structures
-GET /game-export?collections=ProjectSettings,GDD,Scripts,Dialogues,Actors,Quests,Items,Variables,Scenarios,Scenes,Misc,Grids,Kanban,Canvas,Maps
+GET /game-export?collections=Scripts,Dialogues,Variables,Scenarios
 ```
 
-### Get JSON Schema Export
-
-Gets a JSON Schema (Draft 2020-12) for the same payload shape produced by game export.
-
-This endpoint supports the same `collections` query filter as `/game-export`.
+### Get JSON Schema export
 
 ```rest
 GET /schema-export
-GET /schema-export?collections=Scripts,Dialogues,Variables,Scenarios,Scenes
+GET /schema-export?collections=Scripts,Dialogues
 ```
 
-**Response:**
+### Get database dump
 
-- Returns a Draft 2020-12 JSON Schema object.
-- Collections with dedicated schema modules (Maps, Variables, Scenarios) produce typed, rule-driven schemas.
-- Remaining collections fall back to the `BaseDocument` shape with common fields.
-- Variable documents each get their own typed `$defs` entry, with property types inferred from authored default values.
-
-### Get Database Dump
-
-Gets a database dump directly from the PouchDB instance. It accepts any [PouchDB allDocs options](https://pouchdb.com/api.html#batch_fetch).
-Default options are `include_docs: true` and `options.attachments: true`
+Gets a raw PouchDB dump. This is a backup endpoint, not a normal read endpoint. It accepts [PouchDB allDocs options](https://pouchdb.com/api.html#batch_fetch); defaults are `include_docs: true` and `attachments: true`.
 
 ```rest
 GET /db-dump
-GET /db-dump?include_docs=false&attachments=false&descending=true
+GET /db-dump?include_docs=false&attachments=false
 ```
 
-### Navigate to Document
+### Navigate to a document
 
-Navigates Drafft to a specific document route and focuses it in tabs.
-
-This endpoint only supports document navigation. System/virtual routes are not supported.
+Opens a document in the app.
 
 ```rest
 GET /navigate?id=DOCUMENT_ID
 ```
 
-**Required Query Parameters:**
-
-- `id` - Document id (for example `abc123...`)
-
-**Example Query:**
+To focus a specific dialogue node, add `nodeId` (and optionally `scriptId`):
 
 ```rest
-GET /navigate?id=doc_123
+GET /navigate?id=DIALOGUE_ID&nodeId=NODE_ID
+GET /navigate?id=DIALOGUE_ID&nodeId=NODE_ID&scriptId=SCRIPT_ID
 ```
 
-**Response:**
-
-```json
-{
-  "success": true,
-  "id": "doc_123",
-  "collection": "Gdd",
-  "route": "/gdd/doc_123"
-}
-```
+The response includes the resolved `route`. The app opens the dialogue, centers the node, and opens its script subtab when a script is available.
