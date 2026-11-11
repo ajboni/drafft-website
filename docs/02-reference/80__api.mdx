@@ -11,6 +11,10 @@ Drafft includes an optional local REST API for reading a loaded project. It is d
 The API only works while Drafft is running and a project is loaded. The server listens on `127.0.0.1` only.
 :::
 
+:::tip
+If you are an LLM or an agent, start with [Using the API as an Agent](/docs/reference/api-agents). It has the recommended workflows, payload discipline, and `ownedBy` / `linkedBy` semantics.
+:::
+
 ## App Options
 
 - `Enable API`: Starts the local REST API when a project is opened.
@@ -194,22 +198,53 @@ Lists the nodes of a dialogue:
 {
   "items": [
     {
-      "id": "node123",
-      "label": "Enter the garden",
-      "nodeType": "script",
-      "scriptId": "script123",
+      "id": "choice123",
+      "label": "How do you respond?",
+      "nodeType": "choice",
+      "scriptId": null,
       "position": { "x": 20, "y": 270 },
-      "route": "/dialogue/dialogue123/node/node123/script/script123",
-      "script": {
-        "id": "script123",
-        "name": "Enter the garden",
-        "editorMode": "text",
-        "content": { "script": "::Narrator:: The garden is quiet..." }
-      }
+      "route": "/dialogue/dialogue123/node/choice123/script/undefined",
+      "handles": [
+        {
+          "id": "h1",
+          "type": "target",
+          "label": "In",
+          "portScript": null,
+          "isConditionOutput": false,
+          "conditionValue": null,
+          "isSwitchOutput": false,
+          "caseValue": null,
+          "isDefault": false
+        },
+        {
+          "id": "h2",
+          "type": "source",
+          "label": "Show compassion",
+          "portScript": "@set variables.player.path = \"empathy\"",
+          "isConditionOutput": false,
+          "conditionValue": null,
+          "isSwitchOutput": false,
+          "caseValue": null,
+          "isDefault": false
+        }
+      ],
+      "script": null
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "choice123",
+      "sourceHandle": "h2",
+      "target": "response123",
+      "targetHandle": "h3",
+      "label": null
     }
   ]
 }
 ```
+
+`handles` are the node’s ports. A `portScript` runs when that port is followed; the node’s `script` runs when the node is reached. `edges` links `source`/`sourceHandle` to `target`/`targetHandle`, so you can follow a choice to its response node.
 
 With `include=script`, each node includes its script document, so you can read a dialogue and its lines in one call. Without it, the response only contains `scriptId`.
 

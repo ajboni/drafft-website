@@ -1,0 +1,184 @@
+---
+title: Using the API as an Agent
+description: Concise recipes and best practices for agents using the Drafft read API.
+---
+
+# Using the API as an Agent
+
+This page is written as instructions, not reference tables. For fields and schemas, use the [full API reference](/docs/reference/api) and the OpenAPI document at `/v1/openapi.json`.
+
+## Before you start
+
+- The app must be running and a project must be open.
+- Base URL: `http://127.0.0.1:9001`
+- Authentication: send the API key as `x-api-key`, or as `Authorization: Bearer <key>`.
+- Check readiness first:
+
+```rest
+GET /v1/ready
+```
+
+If `dbLoaded` is false, ask the user to open a project. If `searchReady` is false, wait before searching.
+
+## First calls
+
+```rest
+GET /v1/info
+GET /v1/collections
+```
+
+`/v1/info` gives the project name, description, app version, and capabilities. `/v1/collections` gives the document types and counts.
+
+Use the **singular collection names** returned by `/v1/collections` (`Dialogue`, `Script`, `Gdd`, `Actor`, …), not the plural export-section names used by `/game-export`.
+
+## Lists are summaries
+
+Collection lists return a small summary by default. Only request bodies when you need them:
+
+```rest
+GET /v1/collections/Dialogue/documents?limit=20
+GET /v1/collections/Dialogue/documents?limit=20&include=content
+GET /v1/collections/Dialogue/documents?limit=20&fields=*
+```
+
+Use `limit` + `offset` and follow `nextOffset` while `hasMore` is true. Do not request `limit=9999`; the API caps lists at 500.
+
+## Story questions
+
+Read the GDD first. It usually answers “what is the story?” in one call:
+
+```rest
+GET /v1/collections/Gdd/documents?include=content
+```
+
+Then use dialogues, scripts, and actors only to confirm details.
+
+## Scene and dialogue questions
+
+Start with node search, not document search:
+
+```rest
+GET /v1/search?q=forest&scope=nodes&limit=10
+```
+
+Node results include `dialogueId`, `dialogueName`, `nodeId`, `label`, `scriptId`, and `route`.
+
+Then read the dialogue with its scripts:
+
+```rest
+GET /v1/documents/<dialogueId>/nodes?include=script
+```
+
+The response contains:
+
+- `items[].handles` — ports with `label`, `type`, `portScript`, and condition/switch flags
+- `items[].script` — the script document when `include=script` is used
+- `edges` — `source`/`sourceHandle` → `target`/`targetHandle`
+
+Follow `edges` to go from a node to its next node. Do not fetch the whole Script collection to find one dialogue’s scripts.
+
+## Choice questions
+
+A choice node’s options are its **source handles**. Each source handle may have a `portScript` that runs when that port is followed.
+
+1. Read the choice node’s `handles` where `type` is `source`.
+2. Find the edge whose `source` is the choice node and whose `sourceHandle` matches the handle.
+3. Read the `target` node’s `scriptId` (or its `script` when `include=script` is used).
+4. Read the target script to see the actual consequences.
+
+If several handles point to the same target, the consequences are usually branched inside that target script.
+
+## Where is this used?
+
+```rest
+GET /v1/documents/<id>/references?direction=incoming|outgoing|both
+```
+
+This is computed on demand from current project data. There is no secondary index to get out of sync.
+
+Use `kind` to interpret the result:
+
+- `dialogue-owner` — the dialogue that owns a script through its script folder (`ownedBy`)
+- `dialogue-node-script` — nodes that link to a script through `scriptId` (`linkedBy`)
+- `dialogue-script-folder` — a dialogue’s script folder
+- `scene-item` — a scene’s playlist item
+- `gdd-link` — a GDD `:doc{#id}` link
+- `related` — a dialogue node’s related document
+
+A script can be **owned by one dialogue** and **linked by many nodes**. Do not assume a one-to-one parent/child relationship.
+
+## Search scopes
+
+- `scope=documents` — default; document-level results, fuzzy/prefix
+- `scope=nodes` — dialogue nodes only; best for events, labels, and lines
+- `scope=all` — both; useful but can be noisy for short names
+
+Node results use `type: "DialogueNode"` and `collection: "Dialogue"`.
+
+## Do not
+
+- Do not use `/db-dump` for normal reads. It is a backup endpoint and compacts the database.
+- Do not attempt create/update/delete. The write API is not available yet.
+- Do not edit `ProjectSettings`, `User`, or `_local/*` documents.
+- Do not assume `capabilities.write` means write endpoints exist; it reflects the app setting, not the available routes.
+
+## Errors
+
+v1 errors use:
+
+```json
+{
+  "error": {
+    "code": "not_found",
+    "message": "Document not found: abc123",
+    "reason": null,
+    "details": null
+  }
+}
+```
+
+Common statuses:
+
+- `400` — malformed request
+- `401` — missing or invalid read key
+- `403` — write API disabled or write key required
+- `404` — document or route not found
+- `425` — project or search index not ready
+- `500` — unexpected error
+
+Legacy endpoints use the older `{ "error": "..." }` shape.
+
+## Worked examples
+
+### Summarize the story
+
+```bash
+curl -H "x-api-key: $KEY" \
+  "http://127.0.0.1:9001/v1/collections/Gdd/documents?include=content"
+```
+
+### Find a scene and read its scripts
+
+```bash
+curl -H "x-api-key: $KEY" \
+  "http://127.0.0.1:9001/v1/search?q=forest&scope=nodes&limit=10"
+
+curl -H "x-api-key: $KEY" \
+  "http://127.0.0.1:9001/v1/documents/<dialogueId>/nodes?include=script"
+```
+
+### Find where a script is used
+
+```bash
+curl -H "x-api-key: $KEY" \
+  "http://127.0.0.1:9001/v1/documents/<scriptId>/references?direction=both"
+```
+
+### Open a dialogue focused on a node
+
+```bash
+curl -H "x-api-key: $KEY" \
+  "http://127.0.0.1:9001/navigate?id=<dialogueId>&nodeId=<nodeId>"
+```
+
+Add `&scriptId=<scriptId>` to open the node’s script subtab explicitly.
