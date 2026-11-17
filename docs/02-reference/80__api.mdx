@@ -472,6 +472,12 @@ Success returns the updated document and a `nudge`:
 }
 ```
 
+### Runtime state
+
+- **Variable updates** go through the same state-store path as the Variable editor. Successful API updates refresh live variable defaults and migrate live values when `_sid` changes.
+- **Scenario updates** change the stored scenario document only. They do not activate it or replace live state. Applying a scenario remains an explicit action, as it is in the UI.
+- The API does not expose live-scenario activation, reset, or direct live-variable writes.
+
 ## Search
 
 ```rest

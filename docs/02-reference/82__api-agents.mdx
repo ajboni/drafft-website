@@ -91,6 +91,12 @@ For `Item`, `Actor`, `Quest`, and `Misc` documents, `editorLanguage` tells Draff
 
 The API does not convert formats or infer a structure from plain text. If you convert a document, parse the current format yourself, rewrite `content`, then update `editorLanguage` and `content` together. Changing only `editorLanguage` leaves the old text in the new format label.
 
+### Runtime state
+
+- **Variable updates** refresh live variable defaults through the same state-store path as the Variable editor.
+- **Scenario updates** change the stored scenario only. They do not activate it or replace live state. Loading a scenario remains an explicit action.
+- The API has no live-scenario activation/reset endpoint and no direct live-variable write endpoint.
+
 ## Import a bundle
 
 Export the source documents with dependencies:
