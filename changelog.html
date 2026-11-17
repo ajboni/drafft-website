@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://cloud.umami.is">
 <script async defer="defer" src="https://cloud.umami.is/script.js" data-website-id="9b4b4462-208a-4160-bdc3-526c4e320c9c" data-auto-track></script><link rel="stylesheet" href="/assets/css/styles.ae8b6b46.css">
-<script src="/assets/js/runtime~main.8407788c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.35906216.js" defer="defer"></script>
 <script src="/assets/js/main.eb21be10.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -33,6 +33,7 @@
 <li>feat: (preview) Document API lists return compact summaries by default; request <code>include=content</code> or <code>fields=*</code> for full documents. API timestamps are normalized to ISO 8601 and the internal <code>User</code> collection is hidden unless <code>includeInternal=true</code>.</li>
 <li>feat: (preview) Document API search now indexes dialogue node labels, notes, and port labels. <code>scope=documents|nodes|all</code> distinguishes document results from first-class dialogue node results, and <code>GET /v1/documents/:id/nodes</code> plus <code>/navigate?nodeId=...</code> let clients open a dialogue focused on a specific node.</li>
 <li>feat: (preview) Dialogue nodes can include their script content (<code>/v1/documents/:id/nodes?include=script</code>), and <code>/v1/documents/:id/references</code> returns structural incoming/outgoing references on demand.</li>
+<li>feat: (preview) Dialogue node listings now expose ports (<code>handles</code> + <code>portScript</code>) and graph <code>edges</code>, so choice options and their target nodes can be read in one call.</li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="v250---2026-11-07">v2.5.0 - 2026-11-07<a href="#v250---2026-11-07" class="hash-link" aria-label="Direct link to v2.5.0 - 2026-11-07" title="Direct link to v2.5.0 - 2026-11-07">​</a></h2>
 <ul>
