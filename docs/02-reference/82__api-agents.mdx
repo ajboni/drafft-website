@@ -1,6 +1,6 @@
 ---
 title: Using the API as an Agent
-description: Concise recipes and best practices for agents using the Drafft read API.
+description: Concise recipes and best practices for agents using the Drafft API.
 ---
 
 # Using the API as an Agent
@@ -12,13 +12,14 @@ This page is written as instructions, not reference tables. For fields and schem
 - The app must be running and a project must be open.
 - Base URL: `http://127.0.0.1:9001`
 - Authentication: send the API key as `x-api-key`, or as `Authorization: Bearer <key>`.
+- Reads use the read key. Writes need the separate write key, and `Enable Write API` must be on. A read key cannot write.
 - Check readiness first:
 
 ```rest
 GET /v1/ready
 ```
 
-If `dbLoaded` is false, ask the user to open a project. If `searchReady` is false, wait before searching.
+If `dbLoaded` is false, ask the user to open a project. If `searchReady` is false, wait before searching. If `writesReady` is false, wait or ask the user to enable the write API.
 
 ## First calls
 
@@ -42,6 +43,118 @@ GET /v1/collections/Dialogue/documents?limit=20&fields=*
 ```
 
 Use `limit` + `offset` and follow `nextOffset` while `hasMore` is true. Do not request `limit=9999`; the API caps lists at 500.
+
+## Create a document
+
+```rest
+POST /v1/documents
+x-api-key: <write-key>
+content-type: application/json
+
+{
+  "name": "New dialogue",
+  "type": "Dialogue"
+}
+```
+
+- `type` and `name` are required.
+- `collection` defaults to `type`. For a `Folder`, pass the section it belongs to, for example `"collection": "Script"`.
+- `parentId` must be a `Folder` in the same collection.
+- `id` is optional and must match `^[A-Za-z0-9_-]{1,128}$`. Omit it to let Drafft generate one.
+- `content` is merged into the default content; `props` is for type-specific options such as a Kanban template.
+- The response is `201` with the new document, including `_rev` and `path`.
+
+The `POST` endpoint is create-only. Reusing an existing id returns `409 id_exists`. Do not create `ProjectSettings`, `User`, `Attachment`, `DialogueFolder`, or other internal documents.
+
+### Variables are sets
+
+A `Variable` document is a **variable set**, not a scalar. The root variable name is `content.json._sid`; the document name and id are only labels.
+
+Example: a document named `Player` with `_sid: player` and a `style` field:
+
+```json
+{
+  "name": "Player",
+  "type": "Variable",
+  "content": {
+    "variables": "_sid: player\nstyle: A",
+    "json": "{\"_sid\":\"player\",\"style\":\"A\"}"
+  }
+}
+```
+
+Scripts use `variables.player.style`, not the document name or id. Keep `content.variables` and `content.json` consistent, and do not change `_sid` once scripts reference it.
+
+### Document formats are client-side
+
+For `Item`, `Actor`, `Quest`, and `Misc` documents, `editorLanguage` tells Drafft how to interpret the text (`hjson`, `json`, `toml`, `yaml`, or `text`). The API stores that text as-is.
+
+The API does not convert formats or infer a structure from plain text. If you convert a document, parse the current format yourself, rewrite `content`, then update `editorLanguage` and `content` together. Changing only `editorLanguage` leaves the old text in the new format label.
+
+## Import a bundle
+
+Export the source documents with dependencies:
+
+```rest
+GET /v1/documents/<dialogueId>/bundle?dependencies=true
+```
+
+A bundle is `{ "rows": [{ "id", "doc" }] }`. Bundles keep `_rev`; locks, revision history, attachments, and dialogue runtime layout are stripped. Use `stripRev=true` only for templates.
+
+Validate before writing:
+
+```rest
+POST /v1/documents/import?dryRun=true
+content-type: application/json
+
+{ "rows": [ ... ] }
+```
+
+Then run the same request without `dryRun`:
+
+```rest
+POST /v1/documents/import
+```
+
+- `mode=create` adds documents. `mode=update` requires existing documents and matching `_rev`. `mode=upsert` creates missing documents and updates existing ones.
+- `revPolicy=current` lets an existing document without `_rev` use its current revision. A supplied stale `_rev` is still a conflict.
+- `parent` is authoritative. Import recomputes `path` and `children`; do not trust exported paths.
+- Every parent must exist and be a `Folder` in the same collection. A Dialogue’s `dialogueScriptFolderID` must also resolve to a Folder. Missing parents or folders, cycles, duplicate ids, and type/collection mismatches return `400 validation_failed`.
+- Updating a document requires a free document: no unsaved semantic tab edits and no lock. Otherwise the import returns `409 dirty_buffer` or `423 locked`.
+- Existing ids are conflicts in `create` mode. Stale or missing revisions are conflicts in `update`/`upsert`. Dry-run returns `200` with `valid: false`; a real import returns `409 import_conflict`.
+- Dry-run does not write. A real import reports per-document actions and a summary such as `4 updated, 1 created`.
+- Created documents are rolled back best-effort if a write fails. Updates already applied are not rolled back. The import is not a database transaction.
+- Import does not support `_attachments`; use a project backup/restore for binary attachments.
+
+## Edit one document's content
+
+For a targeted edit, use `PATCH` instead of a one-row bundle:
+
+```rest
+GET /v1/documents/<id>
+PATCH /v1/documents/<id>
+x-api-key: <write-key>
+content-type: application/json
+
+{
+  "rev": "<current rev>",
+  "content": { "script": "...full updated script..." }
+}
+```
+
+`PATCH` is content-only and currently supports `Script` (`content.script`) and `Gdd` (`content.gdd`). It replaces the entire content object. It does not rename, reparent, delete, or lock.
+
+Rules:
+
+- Always re-read before editing and send the current `rev`.
+- Missing `rev` → `428 rev_required`.
+- Stale `rev` → `409 stale_rev` with `currentRev`; re-read and reapply.
+- Open tab with unsaved semantic edits → `409 dirty_buffer`; ask the user to save or discard.
+- Locked document → `423 locked`; ask the user to unlock or close it.
+- A clean, unlocked open tab is allowed and refreshed.
+- Use `?dryRun=true` to validate without writing.
+
+Success returns the document and a nudge. Reuse the returned `_rev`; never retry an edit with the old revision.
 
 ## Story questions
 
@@ -118,9 +231,10 @@ Node results use `type: "DialogueNode"` and `collection: "Dialogue"`.
 ## Do not
 
 - Do not use `/db-dump` for normal reads. It is a backup endpoint and compacts the database.
-- Do not attempt create/update/delete. The write API is not available yet.
-- Do not edit `ProjectSettings`, `User`, or `_local/*` documents.
-- Do not assume `capabilities.write` means write endpoints exist; it reflects the app setting, not the available routes.
+- Do not attempt rename, reparent, or delete through the content `PATCH` endpoint. It only changes content.
+- Do not edit a document with unsaved tab changes or a lock; the API will reject it.
+- Do not import `ProjectSettings`, `User`, `_local/*`, `Attachment`, `DialogueFolder`, or other internal documents.
+- Do not assume `capabilities.write` means a write will succeed. Check `writesReady`, use the write key, and prefer `dryRun=true` before importing into a real project.
 
 ## Errors
 
@@ -139,11 +253,14 @@ v1 errors use:
 
 Common statuses:
 
-- `400` — malformed request
+- `400` — malformed request or bundle validation failure
 - `401` — missing or invalid read key
 - `403` — write API disabled or write key required
 - `404` — document or route not found
+- `409` — existing id, stale revision, dirty tab, or import conflict
+- `423` — document is locked
 - `425` — project or search index not ready
+- `428` — required `rev` is missing
 - `500` — unexpected error
 
 Legacy endpoints use the older `{ "error": "..." }` shape.
@@ -182,3 +299,37 @@ curl -H "x-api-key: $KEY" \
 ```
 
 Add `&scriptId=<scriptId>` to open the node’s script subtab explicitly.
+
+### Create a script
+
+```bash
+curl -X POST "http://127.0.0.1:9001/v1/documents" \
+  -H "x-api-key: $WRITE_KEY" \
+  -H "content-type: application/json" \
+  -d '{"name":"Imported scene","type":"Script"}'
+```
+
+### Import a bundle safely
+
+```bash
+curl -X POST "http://127.0.0.1:9001/v1/documents/import?dryRun=true" \
+  -H "x-api-key: $WRITE_KEY" \
+  -H "content-type: application/json" \
+  --data-binary @bundle.json
+
+curl -X POST "http://127.0.0.1:9001/v1/documents/import" \
+  -H "x-api-key: $WRITE_KEY" \
+  -H "content-type: application/json" \
+  --data-binary @bundle.json
+```
+
+### Edit a script
+
+```bash
+curl -X PATCH "http://127.0.0.1:9001/v1/documents/<scriptId>" \
+  -H "x-api-key: $WRITE_KEY" \
+  -H "content-type: application/json" \
+  -d '{"rev":"<current rev>","content":{"script":"::Kenji:: New line.\n"}}'
+```
+
+Re-read the document after the response and use the returned `_rev` for the next edit.

@@ -1,11 +1,11 @@
 ---
 title: API Documentation
-description: Drafft comes with an optional local REST API for reading a loaded project.
+description: Drafft comes with an optional local REST API for reading and creating documents in a loaded project.
 ---
 
 # API Documentation
 
-Drafft includes an optional local REST API for reading a loaded project. It is designed for integrations, tooling, and agents that need document-level access without clicking through the app.
+Drafft includes an optional local REST API for reading and writing a loaded project. It is designed for integrations, tooling, and agents that need document-level access without clicking through the app.
 
 :::tip
 The API only works while Drafft is running and a project is loaded. The server listens on `127.0.0.1` only.
@@ -311,7 +311,166 @@ GET /v1/documents/export?ids=id1,id2
 GET /v1/documents/export?collection=Dialogue
 ```
 
-Use either `ids` or `collection`, not both. Exported documents omit internal fields such as `_rev`, `locked`, and `lockedBy`. Dialogue bundles also omit runtime layout fields (`measured`, `dragging`, `selected`) so they are portable across machines and app versions.
+Use either `ids` or `collection`, not both. Bundles keep the current `_rev` so a later update can use it as a precondition. Locks, revision history (`_revisions`, `_revs_info`), attachments, and runtime dialogue layout fields (`measured`, `dragging`, `selected`) are omitted.
+
+Add `stripRev=true` to omit `_rev`, for example when exporting a template:
+
+```rest
+GET /v1/documents/:id/bundle?stripRev=true
+GET /v1/documents/export?collection=Dialogue&stripRev=true
+```
+
+## Write API
+
+Write endpoints require the write API key and a project whose `writesReady` flag is `true`. A read key cannot write. This preview supports creating documents, importing bundles in `create`/`update`/`upsert` mode, and content-only updates for `Script` and `Gdd` documents. Delete is not available yet.
+
+### Create one document
+
+```rest
+POST /v1/documents
+```
+
+Body:
+
+```json
+{
+  "name": "New dialogue",
+  "type": "Dialogue",
+  "collection": "Dialogue",
+  "parentId": null,
+  "id": "optional-url-safe-id",
+  "content": { "tree": { "nodes": [], "edges": [] } },
+  "props": null
+}
+```
+
+- `name` and `type` are required.
+- `collection` defaults to `type`; it is required for `Folder` and is the folder's section (for example `Script`).
+- `parentId` must reference a `Folder` in the same collection.
+- `id` is optional and must match `^[A-Za-z0-9_-]{1,128}$`.
+- `content` is merged into the type's default content. `props` is used by types such as Kanban.
+- The response is `201` with the created document, including `_rev` and the recomputed `path`.
+
+Creating an existing id returns `409 id_exists`. Internal types (`ProjectSettings`, `User`, `Attachment`, …) cannot be created through this endpoint.
+
+Variable documents are **variable sets**. The root variable name is `content.json._sid`; the document name and id are labels. For example:
+
+```json
+{
+  "name": "Player",
+  "type": "Variable",
+  "content": {
+    "variables": "_sid: player\nstyle: A",
+    "json": "{\"_sid\":\"player\",\"style\":\"A\"}"
+  }
+}
+```
+
+Scripts address it as `variables.player.style`. `content.variables` and `content.json` should agree.
+
+### Document formats are client-side
+
+The API stores text as-is. For documents with an `editorLanguage` field (`Item`, `Actor`, `Quest`, `Misc`), that field only tells Drafft how to interpret, preview, and export the text. Supported values include `hjson`, `json`, `toml`, `yaml`, and `text`.
+
+The API does **not** parse or convert document formats. Changing `editorLanguage` from, for example, `toml` to `hjson` does **not** rewrite the content. If you convert a document:
+
+1. Parse the current format yourself.
+2. Rewrite the content in the target format.
+3. Update both `content` and `editorLanguage` in the same write.
+
+There is no server-side schema inference, especially for `text` documents. A plain-text document stays plain text until the client supplies a structured representation.
+
+### Import a bundle
+
+```rest
+POST /v1/documents/import
+POST /v1/documents/import?dryRun=true
+POST /v1/documents/import?mode=update
+POST /v1/documents/import?mode=upsert
+```
+
+The body is a bundle:
+
+```json
+{
+  "rows": [
+    { "id": "folder1", "doc": { "_id": "folder1", "name": "Folder", "type": "Folder", "collection": "Script", "parent": null } },
+    { "id": "script1", "doc": { "_id": "script1", "name": "Child", "type": "Script", "collection": "Script", "parent": "folder1", "_rev": "1-..." } }
+  ]
+}
+```
+
+Modes:
+
+- `create` (default) adds new documents. Existing ids are conflicts.
+- `update` requires every document to exist and, by default, to include the current `_rev`.
+- `upsert` creates missing documents and updates existing ones.
+- `revPolicy=current` allows an existing document without `_rev` to use its current revision. A supplied but stale `_rev` is still a conflict.
+
+Import:
+
+- strips incoming locks, revision history, attachments, and tree fields;
+- treats `parent` as authoritative and recomputes `path` and `children`;
+- updates parent/name/tree changes for `update`/`upsert`, including descendant paths and Dialogue script-folder names;
+- validates ids, types, collections, parents, Dialogue script folders, and dependency cycles;
+- orders parents and dialogue dependencies before their children;
+- requires a free document for each update: no unsaved semantic tab edits and no lock;
+- is not transactional. Created documents are rolled back (best effort) if a write fails; updates already applied remain.
+
+`dryRun=true` returns the plan without writing. Conflicts return `200` with `valid: false` in dry-run, or `409 import_conflict` for a real import. Validation errors return `400 validation_failed` with per-row errors in `error.details`.
+
+Response shape:
+
+```json
+{
+  "mode": "upsert",
+  "dryRun": false,
+  "valid": true,
+  "summary": { "total": 5, "create": 1, "created": 1, "update": 4, "updated": 4, "conflict": 0, "invalid": 0, "failed": 0 },
+  "actions": [
+    { "id": "script1", "action": "updated", "rev": "2-...", "path": "Folder.Child" },
+    { "id": "script2", "action": "created", "rev": "1-...", "path": "Folder.New Child" }
+  ]
+}
+```
+
+Clients may also wrap the bundle as `{ "bundle": { "rows": [...] } }` and put `mode`, `revPolicy`, or `dryRun` in the body.
+
+### Update one document's content
+
+```rest
+PATCH /v1/documents/:id
+PATCH /v1/documents/:id?dryRun=true
+```
+
+Body:
+
+```json
+{
+  "rev": "2-...",
+  "content": { "script": "...full updated script..." }
+}
+```
+
+This endpoint is content-only. It currently supports `Script` (`content.script`) and `Gdd` (`content.gdd`), and replaces the whole `content` object. It does not rename, reparent, delete, or change locks.
+
+Rules:
+
+- `rev` is required; missing → `428 rev_required`.
+- stale `rev` → `409 stale_rev` with `currentRev`.
+- an open tab with semantic unsaved edits → `409 dirty_buffer`.
+- a locked document → `423 locked`.
+- a clean, unlocked open tab is allowed and refreshed.
+- `dryRun=true` validates without writing.
+
+Success returns the updated document and a `nudge`:
+
+```json
+{
+  "document": { "_id": "script1", "_rev": "3-...", "content": { "script": "..." } },
+  "nudge": "Updated goToLibrary. New rev is 3-...; re-read before the next edit."
+}
+```
 
 ## Search
 
@@ -404,9 +563,10 @@ Common status codes:
 | `401` | Missing or invalid read key |
 | `403` | Write API disabled or write key required |
 | `404` | Document or route not found |
-| `409` | Conflict (reserved for write operations) |
-| `423` | Locked (reserved for write operations) |
+| `409` | Conflict, such as an existing id, stale revision, or dirty tab |
+| `423` | Document is locked |
 | `425` | Project or search index not ready |
+| `428` | A required `rev` is missing |
 | `500` | Unexpected server error |
 
 ## Legacy endpoints

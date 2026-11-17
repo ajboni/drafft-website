@@ -523,7 +523,25 @@ Example:
 
 #### Multi-Way Branching
 
-For 3+ options, use nested `@if` blocks:
+For mutually exclusive values, prefer flat root-level `@if` blocks. They are easier to read and diff:
+
+```uaf
+@if variables.player.style == "A"
+::Aries:: Let’s start with the quiet aisles.
+@endif
+
+@if variables.player.style == "B"
+::Aries:: There’s something I want to show you.
+@endif
+
+@if variables.player.style == "C"
+::Aries:: You really love it here, don’t you?
+@endif
+```
+
+Only one block runs because `player.style` has one value. If the value is missing or unexpected, none run.
+
+Use nested `@else` when you need a guaranteed fallback:
 
 ```uaf
 @if variables.player.courage > 7
@@ -536,6 +554,8 @@ For 3+ options, use nested `@if` blocks:
   @endif
 @endif
 ```
+
+Deep nesting is a known limitation of the current scripting syntax. A future `@else if` or `@switch` form would remove the pyramid; until then, flat blocks are the clearer pattern for exact-value branches.
 
 ---
 

@@ -24,6 +24,52 @@ Variables are the authored default state for your project. Scripts and dialogue 
 
 See [State & Simulation Lifecycle](/docs/reference/state-and-simulation-lifecycle) for the deeper mental model.
 
+## Variable Documents Are Sets
+
+A Variable document is a **variable set**, not a single scalar value. The document is the container; its fields become properties under the root variable name.
+
+The root name comes from `content.json._sid`. The document name and document id are labels and may differ from the variable path.
+
+Example: a document named `Player` with `_sid: player`:
+
+```json
+{
+  "_sid": "player",
+  "style": "A"
+}
+```
+
+is read in scripts as:
+
+```uaf
+variables.player.style
+```
+
+The matching HJSON editor content is:
+
+```hjson
+_sid: player
+style: A
+```
+
+`content.variables` (HJSON) and `content.json` (JSON) describe the same set and should agree. Keep the `_sid` stable once scripts reference it.
+
+To change the value:
+
+```uaf
+@set variables.player.style = "B"
+```
+
+To branch:
+
+```uaf
+@if variables.player.style == "A"
+::Aries:: ...
+@endif
+```
+
+Do not derive the script path from the document name or document id. Always use `_sid` as the root variable name.
+
 ## Script Integration
 
 Variables can be modified during simulation with `@set`:
