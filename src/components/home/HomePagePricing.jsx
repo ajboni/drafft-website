@@ -139,11 +139,14 @@ export default function Example() {
             })}
           </div>
 
-          {/* No time-limited trial right now: Classic is the free look. */}
+          {/* Trial + Classic: the trial is in-app, Classic is the free look. */}
           <div className="mt-12 text-center">
-            <h3 className="text-2xl font-semibold text-white">Want to look around first?</h3>
+            <h3 className="text-2xl font-semibold text-white">Try it before you buy</h3>
             <p className="mt-2 text-lg text-gray-400">
-              Drafft Classic is free on{" "}
+              Start a 7-day free trial from the app — full features, no credit card. One trial per installation.
+            </p>
+            <p className="mt-3 text-base text-gray-500">
+              Prefer a free look first? Drafft Classic is also free on{" "}
               <a
                 href="https://baj.itch.io/drafft"
                 target="_blank"
@@ -152,8 +155,8 @@ export default function Example() {
                 className="text-primary-color-lightest hover:underline"
               >
                 itch.io
-              </a>{" "}
-              if you want to explore the workflow before buying.
+              </a>
+              .
             </p>
           </div>
         </motion.div>
