@@ -236,8 +236,8 @@ const config = {
                 href: "https://discord.gg/t7GJXTTqmg",
               },
               {
-                label: "Affiliate Program",
-                href: "https://store.drafft.dev/affiliates",
+                label: "itch.io",
+                href: "https://baj.itch.io/drafft-2",
               },
               {
                 label: "Support",

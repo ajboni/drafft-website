@@ -1,3 +1,7 @@
+// Purchases are handled by itch.io, which acts as Merchant of Record:
+// it collects payment, handles VAT, and processes refunds.
+export const STORE_URL = "https://baj.itch.io/drafft-2";
+
 const tiers = [
   {
     name: "Drafft",
@@ -6,11 +10,12 @@ const tiers = [
     price: {
       once: {
         price: "$39.90",
-        lemonCheckoutHref: "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867",
-        discountedPrice: "$29.90",
-        discountedNote: "Launch sale — $10 off, ends Nov 21",
-        discountedCheckoutHref:
-          "https://store.drafft.dev/buy/0f9facf6-decf-4dbe-bb39-796e2bfbd183?enabled=718867&checkout[discount_code]=LAUNCH10",
+        checkoutHref: STORE_URL,
+        // Optional sale display. Nothing needs editing when the sale ends:
+        // past `saleEndsAt` the pricing card falls back to `price`.
+        discountedPrice: "$29.92",
+        discountedNote: "Launch sale on itch.io — 25% off",
+        saleEndsAt: "2026-11-22T00:00:00-03:00",
       },
     },
     description: "One payment. Yours forever.",
