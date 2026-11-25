@@ -29,6 +29,8 @@ Defaults are the values you author in Drafft documents:
 - Actor properties
 - Items, flags, and other design data
 
+Quest, Item, and Actor properties participate in the same defaults/live model. A document with a valid top-level `_sid` is addressable as `q.<sid>`, `i.<sid>`, or `a.<sid>`. `@set` writes a live override without modifying the authored document; scenarios capture those overrides alongside Variable diffs. Documents without `_sid` remain valid and exportable, but are not addressable from scripts.
+
 Defaults represent **authorial intent**.
 
 They are:

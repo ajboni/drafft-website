@@ -41,6 +41,14 @@ GET /v1/openapi.json
 
 `GET /` returns the app version, API version, and whether the write API is enabled. `GET /v1/openapi.json` returns the full OpenAPI description.
 
+The OpenAPI document includes request examples for Item, Actor, Quest, and Scenario creation, plus structured content schemas:
+
+- `ItemContent` — `item` text and canonical `json`
+- `ActorContent` — `properties`, `bio`, `expressions`, and canonical `json`
+- `QuestContent` — `properties`, `conditions`, `json`, and `conditionsJson`
+- `ScenarioContent` — legacy `scenario`/`json` plus collection-keyed `collections`
+- `EditorLanguage` — `hjson`, `json`, `toml`, `yaml`, or `text`
+
 ### Readiness
 
 ```rest
@@ -322,7 +330,7 @@ GET /v1/documents/export?collection=Dialogue&stripRev=true
 
 ## Write API
 
-Write endpoints require the write API key and a project whose `writesReady` flag is `true`. A read key cannot write. This preview supports creating documents, importing bundles in `create`/`update`/`upsert` mode, and content-only updates for `Script` and `Gdd` documents. Delete is not available yet.
+Write endpoints require the write API key and a project whose `writesReady` flag is `true`. A read key cannot write. This preview supports creating documents, importing bundles in `create`/`update`/`upsert` mode, and content-only updates for `Script`, `Gdd`, `Item`, `Actor`, and `Quest` documents. Delete is not available yet.
 
 ### Create one document
 
@@ -349,6 +357,7 @@ Body:
 - `parentId` must reference a `Folder` in the same collection.
 - `id` is optional and must match `^[A-Za-z0-9_-]{1,128}$`.
 - `content` is merged into the type's default content. `props` is used by types such as Kanban.
+- `editorLanguage` is optional for `Item`, `Actor`, and `Quest`. New structured documents default to `hjson`.
 - The response is `201` with the created document, including `_rev` and the recomputed `path`.
 
 Creating an existing id returns `409 id_exists`. Internal types (`ProjectSettings`, `User`, `Attachment`, …) cannot be created through this endpoint.
@@ -368,9 +377,21 @@ Variable documents are **variable sets**. The root variable name is `content.jso
 
 Scripts address it as `variables.player.style`. `content.variables` and `content.json` should agree.
 
+### Structured documents and `_sid`
+
+`Item`, `Actor`, and `Quest` documents keep editable text plus a canonical JSON payload:
+
+- `Item`: `content.item` → `content.json`
+- `Actor`: `content.properties` → `content.json`
+- `Quest`: `content.properties` → `content.json`, `content.conditions` → `content.conditionsJson`
+
+Add a top-level `_sid` to the payload to make the document addressable from scripts (`${q.questA.title}`, `${i.sword.damage}`, `${a.kenji.age}`). A missing `_sid` is allowed and makes the document legacy/unaddressable; it is not a validation error.
+
+When both text and canonical JSON are supplied, they must agree. The API never regenerates editable text from JSON.
+
 ### Document formats are client-side
 
-The API stores text as-is. For documents with an `editorLanguage` field (`Item`, `Actor`, `Quest`, `Misc`), that field only tells Drafft how to interpret, preview, and export the text. Supported values include `hjson`, `json`, `toml`, `yaml`, and `text`.
+The API stores text as-is. For `Item`, `Actor`, and `Quest` documents, `editorLanguage` tells Drafft how to interpret the text and how to build the canonical JSON payload. Supported values include `hjson`, `json`, `toml`, `yaml`, and `text`. (Legacy `Misc` documents still store editor text, but are outside the structured state model.)
 
 The API does **not** parse or convert document formats. Changing `editorLanguage` from, for example, `toml` to `hjson` does **not** rewrite the content. If you convert a document:
 
@@ -452,7 +473,7 @@ Body:
 }
 ```
 
-This endpoint is content-only. It currently supports `Script` (`content.script`) and `Gdd` (`content.gdd`), and replaces the whole `content` object. It does not rename, reparent, delete, or change locks.
+This endpoint is content-only. It supports `Script` (`content.script`), `Gdd` (`content.gdd`), `Item` (`content.item`), `Actor` (`content.properties`), and `Quest` (`content.properties` plus `content.conditions`). It replaces the whole `content` object. It does not rename, reparent, delete, or change locks.
 
 Rules:
 
@@ -461,7 +482,8 @@ Rules:
 - an open tab with semantic unsaved edits → `409 dirty_buffer`.
 - a locked document → `423 locked`.
 - a clean, unlocked open tab is allowed and refreshed.
-- `dryRun=true` validates without writing.
+- `dryRun=true` validates without writing, including structured-content parsing and `_sid` uniqueness.
+- `editorLanguage` may be supplied for structured documents and is applied atomically with `content`.
 
 Success returns the updated document and a `nudge`:
 

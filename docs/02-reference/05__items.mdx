@@ -78,6 +78,22 @@ cost: 10
 }
 ```
 
+## Script Addressability (`_sid`)
+
+Add a top-level `_sid` to the item payload to reference it from scripts:
+
+```yaml
+_sid: sword
+name: Mighty Sword
+damage: 10
+```
+
+```uaf
+${i.sword.damage}
+```
+
+`_sid` is optional. Items without one still open, save, and export, but are not addressable from scripts. `content.json` stores the canonical JSON payload derived from the editable text; Drafft keeps it in sync on save.
+
 ## When to Use the Items Editor
 
 - When you need **flexible data input** without rigid row/column constraints.

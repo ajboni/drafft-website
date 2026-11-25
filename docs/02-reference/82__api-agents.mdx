@@ -5,7 +5,7 @@ description: Concise recipes and best practices for agents using the Drafft API.
 
 # Using the API as an Agent
 
-This page is written as instructions, not reference tables. For fields and schemas, use the [full API reference](/docs/reference/api) and the OpenAPI document at `/v1/openapi.json`.
+This page is written as instructions, not reference tables. For fields and schemas, use the [full API reference](/docs/reference/api) and the OpenAPI document at `/v1/openapi.json`. The OpenAPI document includes `ItemContent`, `ActorContent`, `QuestContent`, `ScenarioContent`, and `EditorLanguage` schemas, plus create/patch examples.
 
 ## Before you start
 
@@ -87,9 +87,11 @@ Scripts use `variables.player.style`, not the document name or id. Keep `content
 
 ### Document formats are client-side
 
-For `Item`, `Actor`, `Quest`, and `Misc` documents, `editorLanguage` tells Drafft how to interpret the text (`hjson`, `json`, `toml`, `yaml`, or `text`). The API stores that text as-is.
+For `Item`, `Actor`, and `Quest` documents, `editorLanguage` tells Drafft how to interpret the text (`hjson`, `json`, `toml`, `yaml`, or `text`). The API stores that text as-is and keeps a canonical JSON payload (`content.json`, plus `content.conditionsJson` for Quest) in sync.
 
-The API does not convert formats or infer a structure from plain text. If you convert a document, parse the current format yourself, rewrite `content`, then update `editorLanguage` and `content` together. Changing only `editorLanguage` leaves the old text in the new format label.
+Add a top-level `_sid` to make a structured document addressable from scripts (`${q.questA.title}`). Missing `_sid` is allowed but the document is not addressable.
+
+The API does not convert formats or infer a structure from plain text. If you convert a document, parse the current format yourself, rewrite `content`, then send `editorLanguage` and `content` together. The API validates the new text under the new language and recomputes canonical JSON.
 
 ### Runtime state
 
@@ -148,7 +150,7 @@ content-type: application/json
 }
 ```
 
-`PATCH` is content-only and currently supports `Script` (`content.script`) and `Gdd` (`content.gdd`). It replaces the entire content object. It does not rename, reparent, delete, or lock.
+`PATCH` is content-only and supports `Script` (`content.script`), `Gdd` (`content.gdd`), `Item` (`content.item`), `Actor` (`content.properties`), and `Quest` (`content.properties` plus `content.conditions`). It replaces the entire content object. It does not rename, reparent, delete, or lock. Pass `editorLanguage` with `content` to convert a structured document atomically.
 
 Rules:
 

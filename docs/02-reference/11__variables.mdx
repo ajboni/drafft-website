@@ -70,6 +70,12 @@ To branch:
 
 Do not derive the script path from the document name or document id. Always use `_sid` as the root variable name.
 
+## Shared Structured Document Model
+
+Variables are the mutable runtime namespace. Quest, Item, and Actor documents use the same parser/validator and canonical JSON pattern, but their authored values are read-only defaults unless a live override is created during simulation. See the scripting syntax reference for `q`, `i`, and `a` aliases.
+
+Variables remain HJSON-authored in this version; the per-document format selector applies to Quest, Item, and Actor documents.
+
 ## Script Integration
 
 Variables can be modified during simulation with `@set`:

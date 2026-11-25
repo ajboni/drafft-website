@@ -22,6 +22,22 @@ To keep your Actor suggestions focused, you can hide an actor from autocomplete 
 
 Actor tooling includes actor-specific script views such as tagged/speech-focused content to help with writing and voice workflows.
 
+## Script Addressability (`_sid`)
+
+Add `_sid` to the actor properties to reference structured actor data from scripts:
+
+```hjson
+_sid: kenji
+name: Kenji
+age: 45
+```
+
+```uaf
+${a.kenji.age}
+```
+
+The biography and expressions are not part of the structured properties payload. Actors without `_sid` still open, save, and export, but are not addressable from scripts.
+
 ## Notes
 
 - Expression matching is case-insensitive

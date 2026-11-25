@@ -468,17 +468,15 @@ Common roots include:
 
 - `defaults` (or `d`) — authored default values
 - `variables` (or `v`) — variables properties
-- `quest` (or `q`) — quest properties and state (available in future versions)
-- `items` (or `i`) — item properties (available in future versions)
-- `actors` (or `a`) — actor properties (available in future versions)
+- `quest` (or `q`) — quest properties and state
+- `items` (or `i`) — item properties
+- `actors` (or `a`) — actor properties
 
 Examples:
 
 ```uaf
 variables.player.courage
 quest.forestTrial.courage
-
-Examples below will be available in future versions.
 
 items.healthPotion.count
 actors.Aries.mood
@@ -675,7 +673,7 @@ ${ expression }
 Expressions inside `${}` follow the same resolution rules as control flow and assignments.
 
 :::tip
-Currently `variables` collection is supported for interpolation, but support for `quest`, `items`, and `actors` is planned for future versions.
+Inline interpolation supports authored Variables plus Quest, Item, and Actor properties. Use the short aliases `v`, `q`, `i`, and `a`, or the full names `variables`, `quest`, `item`, and `actor`.
 :::
 
 ---
@@ -748,8 +746,8 @@ Inline interpolation does **not** affect whether a line is included or excluded.
 Control flow is handled exclusively by `@if`, `@else`, and `@endif`.
 
 ```uaf
-@if quest.libraryVisit.courage > 2
-  ::Aries:: I feel confident (${quest.libraryVisit.courage}).
+@if q.libraryVisit.courage > 2
+  ::Aries:: I feel confident (${q.libraryVisit.courage}).
 @endif
 ```
 
@@ -759,6 +757,20 @@ In this example:
 - `${}` only affects what is displayed
 
 ---
+
+## Addressable Documents (`_sid`)
+
+Quest, Item, and Actor documents participate in interpolation through a stable `_sid`:
+
+```hjson
+_sid: libraryVisit
+title: The Library Visit
+courage: 3
+```
+
+The `_sid` lives in the document's editable properties (`content.properties` for Quest/Actor, `content.item` for Item). A document without a valid `_sid` still opens, saves, and exports, but cannot be referenced from scripts.
+
+`@set q.libraryVisit.courage = 4` writes a runtime override. The authored document is never modified. Use `defaults.q.libraryVisit.courage` to read the authored value.
 
 ## Data Resolution: State vs Defaults
 
@@ -780,8 +792,10 @@ ${defaults.variables.player.courage}
 | ------------------------ | ------------------------------------------ |
 | `variables.x.y`          | Runtime variable state                     |
 | `defaults.variables.x.y` | Authored variable default                  |
-| `quest.x.y`              | Runtime quest state (not available yet)    |
-| `defaults.quest.x.y`     | Authored quest default (not available yet) |
+| `q.x.y` / `quest.x.y`    | Quest state (live override, then authored) |
+| `i.x.y` / `item.x.y`     | Item state (live override, then authored)  |
+| `a.x.y` / `actor.x.y`    | Actor state (live override, then authored) |
+| `defaults.q.x.y`         | Authored quest default                     |
 
 ---
 
