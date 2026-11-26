@@ -391,9 +391,11 @@ When both text and canonical JSON are supplied, they must agree. The API never r
 
 ### Document formats are client-side
 
-The API stores text as-is. For `Item`, `Actor`, and `Quest` documents, `editorLanguage` tells Drafft how to interpret the text and how to build the canonical JSON payload. Supported values include `hjson`, `json`, `toml`, `yaml`, and `text`. (Legacy `Misc` documents still store editor text, but are outside the structured state model.)
+The API stores the editable text as-is and never rewrites it from JSON. For `Item`, `Actor`, and `Quest` documents, `editorLanguage` tells Drafft how to interpret the text. Supported values include `hjson`, `json`, `toml`, `yaml`, and `text`. (Legacy `Misc` documents still store editor text, but are outside the structured state model.)
 
-The API does **not** parse or convert document formats. Changing `editorLanguage` from, for example, `toml` to `hjson` does **not** rewrite the content. If you convert a document:
+If `editorLanguage` is omitted and the content already has a canonical JSON payload, Drafft treats the text as `hjson` so the canonical payload is not discarded; the inferred language is stored on the next write. Documents without a canonical payload keep the plain-text behavior.
+
+Writes parse the text to validate it and rebuild the canonical JSON payload (`content.json`, or `content.conditionsJson` for Quest conditions); invalid text is rejected. Changing `editorLanguage` from, for example, `toml` to `hjson` does **not** convert the text — the existing text is reinterpreted under the new language and the write fails if it does not parse. If you convert a document:
 
 1. Parse the current format yourself.
 2. Rewrite the content in the target format.
