@@ -56,6 +56,8 @@ Scenarios can now override authored Quest, Item, and Actor values in addition to
 
 The legacy `scenario` and `json` fields remain as a Variable-only mirror for older clients. Existing scenarios are mapped in memory when opened and are written in the new shape on their next save.
 
+In the app, a scenario opens in a read-only overview that lists every collection's overrides at once. Use the Variables, Quests, Items, and Actors tabs to edit values.
+
 `@set q.questA.status = "complete"` creates an override that appears here. Loading the scenario reapplies it. Quest/Item/Actor overrides for unknown `_sid`s are ignored with a warning; Variable overrides remain dynamic.
 
 When exported, scenarios keep the legacy flat Variable diff at `content` and expose other collection diffs under `content.$collections`.

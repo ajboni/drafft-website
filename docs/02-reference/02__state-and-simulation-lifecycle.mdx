@@ -225,7 +225,7 @@ When you load this scenario, it overwrites only the `status` field while preserv
 
 ### Current Scope
 
-Scenarios currently save **Variable** state only. Support for additional collections (Actors, Quests, Items, etc.) is planned for future releases.
+Scenarios save overrides for **Variables**, **Quests**, **Items**, and **Actors** in one collection-keyed document. See [Scenarios](/docs/reference/scenarios) for the stored shape and how to edit each collection.
 
 ### Use Cases
 
@@ -358,7 +358,7 @@ Examples:
 variables.player.courage
 variables.player.inventory[0].name
 
-// other collections will be implemented in future updates, but the same resolution applies:
+// Quest, Item, and Actor overrides resolve the same way:
 actors.Aries.mood
 quest.forestTrial.completed
 ```
