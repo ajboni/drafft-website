@@ -1,4 +1,5 @@
 import FAQ from "!!raw-loader!@site/shared/FAQ.mdx";
+import useBrokenLinks from "@docusaurus/useBrokenLinks";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { AnimatePresence, easeOut, motion } from "framer-motion";
@@ -6,6 +7,9 @@ import { Fragment } from "react";
 import Markdown from "react-markdown";
 
 function HomePageFAQ() {
+  // Register the `id="faqs"` anchor so Docusaurus's broken-anchor check can
+  // see it when other pages link to /#faqs.
+  useBrokenLinks().collectAnchor("faqs");
   const regex = /## (.*?)\n([\s\S]*?)(?=\n##|\n*$)/g;
   const faqs = [];
 

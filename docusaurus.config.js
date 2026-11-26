@@ -168,7 +168,7 @@ const config = {
         },
         items: [
           // { to: "/features", label: "Features", position: "left" },
-          { to: "/#pricing", label: "Pricing", position: "left", activeBaseRegex: "/#pricing" },
+          { to: "/pricing", label: "Pricing", position: "left" },
           { to: "/gallery", label: "Gallery", position: "left" },
 
           {
