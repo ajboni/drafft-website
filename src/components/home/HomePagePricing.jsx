@@ -63,10 +63,13 @@ export default function Example() {
           <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8">
             {tiers.map((tier) => {
               const priceObj = tier.price.once;
-              // Sale display expires on its own so the site never advertises a stale price.
-              const saleActive = priceObj?.saleEndsAt
-                ? new Date(priceObj.saleEndsAt).getTime() > Date.now()
-                : Boolean(priceObj?.discountedPrice);
+              // Sale display follows the itch.io sale window at render time, so
+              // the card matches the store without editing prices by hand.
+              const now = Date.now();
+              const saleActive =
+                Boolean(priceObj?.discountedPrice) &&
+                (!priceObj.saleStartsAt || new Date(priceObj.saleStartsAt).getTime() <= now) &&
+                (!priceObj.saleEndsAt || new Date(priceObj.saleEndsAt).getTime() > now);
               const checkoutHref = priceObj?.checkoutHref || STORE_URL;
 
               return (

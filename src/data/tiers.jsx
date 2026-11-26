@@ -11,11 +11,11 @@ const tiers = [
       once: {
         price: "$39.90",
         checkoutHref: STORE_URL,
-        // Optional sale display. Nothing needs editing when the sale ends:
-        // past `saleEndsAt` the pricing card falls back to `price`.
+        // Optional sale display. Outside the sale window the card shows `price`.
         discountedPrice: "$29.92",
-        discountedNote: "Launch sale on itch.io — 25% off",
-        saleEndsAt: "2026-11-22T00:00:00-03:00",
+        discountedNote: "Creator Day & Black Friday on itch.io — 25% off",
+        saleStartsAt: "2026-11-27T08:00:00Z",
+        saleEndsAt: "2026-12-02T23:59:59Z",
       },
     },
     description: "One payment. Yours forever.",
