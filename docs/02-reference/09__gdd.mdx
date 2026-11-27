@@ -12,9 +12,21 @@ Drafft's GDD Editor provides a centralized location to write, organize, and main
 ## How It Works
 
 - **Markdown Foundation:** Write naturally with full Markdown support while maintaining clean, portable files
-- **Smart Document Linking:** Easily reference actors, scripts, and dialogues with `[[wiki-style links]]`
+- **Smart Document Linking:** Easily reference actors, scripts, and dialogues with standalone `:doc{#id}` document pills
 - **Tree Structure Organization:** Navigate your game design like a file system with drag-and-drop sorting
 - **Media Management:** Embed images, videos, and audio files directly in your documents
+
+## Linking documents
+
+Use a standalone document token to link to another document:
+
+```md
+Open :doc{#abc123} and play it.
+```
+
+The token renders as an inline document pill and opens the linked document in-app. The pill label comes from the linked document's name.
+
+Do not wrap the token in Markdown link syntax. `[Open the scene](:doc{#abc123})` is treated as an external link, not a document pill.
 
 ## Why You'll Love It
 

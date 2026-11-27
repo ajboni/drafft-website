@@ -164,6 +164,24 @@ Rules:
 
 Success returns the document and a nudge. Reuse the returned `_rev`; never retry an edit with the old revision.
 
+### GDD document links
+
+GDD document references use a standalone directive token, not a Markdown link:
+
+```md
+Open :doc{#abc123} and play it.
+```
+
+The token renders as an inline document pill and opens the linked document in-app. The pill label is the linked document's name; add prose around the token when you need a sentence.
+
+Do not write:
+
+```md
+[Open the scene](:doc{#abc123})
+```
+
+Markdown-link syntax is treated as an external URL and triggers the external-link prompt. References are extracted from `:doc{#id}` tokens in the GDD text, so keep the correct document ID even when the token is inside a sentence.
+
 ## Story questions
 
 Read the GDD first. It usually answers “what is the story?” in one call:
