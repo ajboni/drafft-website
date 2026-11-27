@@ -182,6 +182,48 @@ Do not write:
 
 Markdown-link syntax is treated as an external URL and triggers the external-link prompt. References are extracted from `:doc{#id}` tokens in the GDD text, so keep the correct document ID even when the token is inside a sentence.
 
+## Attachments
+
+Attachments are `Attachment` documents with one stored binary. Create them through the attachment endpoint, never through document creation or bundle import.
+
+```rest
+POST /v1/attachments
+x-api-key: <write-key>
+content-type: application/json
+
+{
+  "name": "cover.png",
+  "mimeType": "image/png",
+  "data": "<base64>"
+}
+```
+
+Or upload multipart:
+
+```bash
+curl -X POST "http://127.0.0.1:9001/v1/attachments" \
+  -H "x-api-key: $WRITE_KEY" \
+  -F "file=@cover.png"
+```
+
+Read the bytes with `GET /v1/attachments/<id>`, or metadata with `?meta=1`. Send the returned `ETag` back as `If-None-Match` for `304`. Delete with the current rev:
+
+```bash
+curl -X DELETE "http://127.0.0.1:9001/v1/attachments/<id>?rev=<rev>" \
+  -H "x-api-key: $WRITE_KEY"
+```
+
+Rules:
+
+- The decoded file is limited to 25 MiB. Base64 and multipart are both accepted.
+- Base64 must be standard (`A–Z`, `a–z`, `0–9`, `+`, `/`); padding is required when the byte length is not divisible by three. A `data:` prefix is accepted, but URL-safe input is rejected.
+- `name` and `mimeType` are metadata; the stored blob is always named `blob` internally.
+- Existing ids return `409 id_exists`; deleted ids cannot be reused.
+- Delete requires a free document and the current `rev` (`428`/`409`/`423` otherwise).
+- Deletion is a PouchDB tombstone; bytes are reclaimed on compaction, and PouchDB’s local store deduplicates identical blobs by digest.
+- The read endpoint returns the latest revision and has no Range support. Use the in-app `drafft://` permalink for streaming media.
+- List attachments with `GET /v1/collections/Attachment/documents`; the summary omits `_attachments`, so use `?meta=1` when you need size or digest.
+
 ## Story questions
 
 Read the GDD first. It usually answers “what is the story?” in one call:
@@ -257,7 +299,10 @@ Node results use `type: "DialogueNode"` and `collection: "Dialogue"`.
 ## Do not
 
 - Do not use `/db-dump` for normal reads. It is a backup endpoint and compacts the database.
-- Do not attempt rename, reparent, or delete through the content `PATCH` endpoint. It only changes content.
+- Do not attempt rename, reparent, or delete through the content `PATCH` endpoint. It only changes content. Attachments are deleted with `DELETE /v1/attachments/:id`.
+- Do not create `Attachment` documents through `POST /v1/documents` or bundle import. Use `POST /v1/attachments`.
+- Attachment stubs are always returned by document reads. Do not rely on `include=attachments` for bytes; use `GET /v1/attachments/:id`.
+- Do not expect partial reads or Range support through the API; it returns the whole file.
 - Do not edit a document with unsaved tab changes or a lock; the API will reject it.
 - Do not import `ProjectSettings`, `User`, `_local/*`, `Attachment`, `DialogueFolder`, or other internal documents.
 - Do not assume `capabilities.write` means a write will succeed. Check `writesReady`, use the write key, and prefer `dryRun=true` before importing into a real project.
@@ -284,6 +329,7 @@ Common statuses:
 - `403` — write API disabled or write key required
 - `404` — document or route not found
 - `409` — existing id, stale revision, dirty tab, or import conflict
+- `413` — attachment or request body exceeds the size limit
 - `423` — document is locked
 - `425` — project or search index not ready
 - `428` — required `rev` is missing

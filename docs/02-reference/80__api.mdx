@@ -48,6 +48,7 @@ The OpenAPI document includes request examples for Item, Actor, Quest, and Scena
 - `QuestContent` — `properties`, `conditions`, `json`, and `conditionsJson`
 - `ScenarioContent` — legacy `scenario`/`json` plus collection-keyed `collections`
 - `EditorLanguage` — `hjson`, `json`, `toml`, `yaml`, or `text`
+- `CreateAttachmentRequest` and `AttachmentMetadata` — attachment uploads and metadata
 
 ### Readiness
 
@@ -89,7 +90,7 @@ GET /v1/documents/:id
 Returns the raw database document, including `_rev`. Optional query parameters:
 
 - `fields` - comma-separated top-level fields to return, for example `_id,name,type,collection,parent,path`.
-- `include` - `content`, `revs`, or `attachments`.
+- `include` - `content` or `revs`. Attachment stubs (`content_type`, `length`, `digest`) are always returned by `GET /v1/documents/:id`; `attachments` is accepted for compatibility. Use `GET /v1/attachments/:id` for the binary.
 
 ```rest
 GET /v1/documents/abc123?fields=_id,name,type,collection,parent,path
@@ -303,6 +304,92 @@ Currently covered:
 
 Textual mentions (variable/actor names inside scripts) are not included yet.
 
+## Attachments
+
+Attachments are `Attachment` documents with one stored `blob`. The API creates, reads, and deletes them. Bundle import never carries `_attachments`; use these endpoints instead.
+
+### Create an attachment
+
+```rest
+POST /v1/attachments
+x-api-key: <write-key>
+content-type: application/json
+
+{
+  "name": "cover.png",
+  "mimeType": "image/png",
+  "data": "<base64>",
+  "id": "optional-url-safe-id"
+}
+```
+
+`data` must be standard base64 (`A–Z`, `a–z`, `0–9`, `+`, `/`). Padding (`=`) is required when the input byte length is not divisible by three. Whitespace and a `data:<mime>;base64,...` prefix are ignored; URL-safe (`-`, `_`) input is rejected. `mimeType` is inferred from `name` when omitted. `id` is optional and follows the same `^[A-Za-z0-9_-]{1,128}$` rule as documents. The decoded file is limited to 25 MiB.
+
+The response is `201` with metadata; the binary is never echoed:
+
+```json
+{
+  "_id": "abc123",
+  "_rev": "1-...",
+  "name": "cover.png",
+  "mimeType": "image/png",
+  "size": 18234,
+  "digest": "md5-...",
+  "permalink": "drafft://image/abc123"
+}
+```
+
+Multipart uploads use the same route:
+
+```bash
+curl -X POST "http://127.0.0.1:9001/v1/attachments" \
+  -H "x-api-key: $WRITE_KEY" \
+  -F "file=@cover.png" \
+  -F "name=cover.png"
+```
+
+The file part can be named anything; the first file part is used. `name` and `mimeType` form fields override the part filename and type. Existing ids return `409 id_exists`. Deleted ids cannot be reused because PouchDB keeps a tombstone.
+
+### Read an attachment
+
+```rest
+GET /v1/attachments/:id
+GET /v1/attachments/:id?meta=1
+HEAD /v1/attachments/:id
+```
+
+The default response is the raw file with `Content-Type`, `Content-Length`, `Content-Disposition: attachment`, `ETag`, and `X-Content-Type-Options: nosniff`. Use `?meta=1` for the JSON metadata shown above. `HEAD` returns the same headers without reading the blob.
+
+`ETag` is the PouchDB revision. Send it back as `If-None-Match` to get `304 Not Modified`.
+
+The API always returns the latest revision and does not support HTTP Range requests. Large media should use the in-app `drafft://` permalink or download the whole file.
+
+### Delete an attachment
+
+```rest
+DELETE /v1/attachments/:id?rev=<current-rev>
+x-api-key: <write-key>
+```
+
+The current `_rev` is required (`428 rev_required` when missing, `409 stale_rev` when it changed). `If-Match: "<rev>"` is accepted instead of the query parameter. Only `Attachment` documents can be deleted through this route.
+
+```json
+{ "deleted": true, "id": "abc123", "rev": "2-..." }
+```
+
+Deletion writes a PouchDB tombstone. PouchDB's local attachment store deduplicates identical blobs by digest and keeps a blob while any stored revision references it, so deleting one attachment does not remove shared bytes. The old revision and its bytes remain until the database is compacted. If the project syncs to CouchDB, the tombstone replicates and the remote server applies its own limits and compaction policy.
+
+### List attachments
+
+Use the existing collection listing:
+
+```rest
+GET /v1/collections/Attachment/documents?limit=50
+GET /v1/collections/Attachment/documents?limit=50&include=content
+```
+
+The default summary omits `_attachments`; use `GET /v1/attachments/:id?meta=1` for size and digest.
+
 ## Bundles
 
 A bundle is a partial project export in the same `{ rows }` shape used by project backups. It can be imported into another project.
@@ -330,7 +417,7 @@ GET /v1/documents/export?collection=Dialogue&stripRev=true
 
 ## Write API
 
-Write endpoints require the write API key and a project whose `writesReady` flag is `true`. A read key cannot write. This preview supports creating documents, importing bundles in `create`/`update`/`upsert` mode, and content-only updates for `Script`, `Gdd`, `Item`, `Actor`, and `Quest` documents. Delete is not available yet.
+Write endpoints require the write API key and a project whose `writesReady` flag is `true`. A read key cannot write. This preview supports creating documents, importing bundles in `create`/`update`/`upsert` mode, content-only updates for `Script`, `Gdd`, `Item`, `Actor`, and `Quest` documents, and creating/reading/deleting attachments. Document delete is not available yet.
 
 ### Create one document
 
@@ -594,6 +681,7 @@ Common status codes:
 | `403` | Write API disabled or write key required |
 | `404` | Document or route not found |
 | `409` | Conflict, such as an existing id, stale revision, or dirty tab |
+| `413` | Attachment or request body exceeds the size limit |
 | `423` | Document is locked |
 | `425` | Project or search index not ready |
 | `428` | A required `rev` is missing |

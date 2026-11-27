@@ -30,3 +30,15 @@ Attachments support mixed file uploads, including:
 - Audio references for voice or mood
 - PDF briefs and design notes
 - Shared binary resources for team workflows
+
+## API access
+
+The optional local API can create and delete attachments when the write API is enabled. Reads use the read key and work whenever the API is enabled:
+
+```rest
+POST /v1/attachments
+GET /v1/attachments/:id
+DELETE /v1/attachments/:id?rev=<current-rev>
+```
+
+Uploads accept base64 JSON or multipart, reads return the raw file, and deletes require the current revision. See [API Documentation](/docs/reference/api#attachments) for request and response details.
